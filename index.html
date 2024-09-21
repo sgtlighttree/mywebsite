@@ -65,6 +65,9 @@
             .indented {
                 padding-left: 2em;
             }
+            .extra-margin {
+                margin-bottom: 15em; /* Adjust as needed */
+            }
         </style> 
     </head>
     <body>
@@ -73,7 +76,7 @@
                 Matthew Oyan
             </h1>
             <p>Multidisciplinary creative specializing in post-production and motion design, based in Quezon City, Philippines.</p>
-            <a href="#contact">Get in touch.</a>
+            <h3><a href="#contact" id="get-in-touch">Get in touch.</a></h3>
             <h2>WORK</h2>
             <div>
                 <h3><a href="https://www.youtube.com/watch?v=Xe876u9Q91s">Board of Investments "Make it Happen in the Philippines" Campaign (2023)</a></h3>
@@ -84,8 +87,12 @@
                 </div>
             </div>
             <div>
-                <h3>PDIC Stakeholder's Appreciation Night (2024)</h3>
-                <p class="indented"><i>Art direction, motion graphics, and editing.</i></p>
+                <h3>PDIC Stakeholders' Appreciation Night (2024)</h3>
+                <div class="indented">
+                    <p>Event held to celebrate the Philippine Deposit Insurance Corporation's partners and stakeholders in its 60th anniversary.</p>
+                    <p><i>Art & branding direction, 3D & 2D motion graphics, event technical direction, and editing.</i></p>
+                    <iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/pgkp7ubQM6k?si=wVWzSnR4eummeHA9" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                </div>
             </div>
             <div>
                 <h3><a href="https://www.youtube.com/playlist?list=PLEU-B_4w9FJNsTz6mfDLs7KpcySRE-ysP">Usapang Wika (2022)</a></h3>
@@ -107,20 +114,35 @@
                 <h3><a href="https://www.youtube.com/playlist?list=PLCYavaouBBAQFy1zoABUZ0XvP_pm3jfqr">Our Fragile Earth: Protected Areas of the Philippines Season 3 (2021)</a></h3>
                 <div class="indented">
                     <p>A documentary series about the Protected Areas of the Philippines. Produced by the Philippine Department of Environment and Natural Resources and then-congresswoman Loren Legarda.</p>
-                    <p><i>Post-production assitance and motion graphics.</i></p>    
+                    <p><i>Post-production assistance and motion graphics.</i></p>    
                     <iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/l-XOXnr-83Y?si=oC3r8HylkANb_0Dp&amp;start=53" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
                 </div>    
             </div>
-           <h2 id="contact">CONTACT</h2>
-            <p>
-                <span class="material-symbols-outlined">
-                    mail
-                </span>
-                <a href="mailto:matthew.oyan@protonmail.com">matthew.oyan@protonmail.com</a>
-            </p>
-            <p><span class="material-symbols-outlined">call</span> +63 947 229 0659</p>
-            <br>
-            <small>Background photo of Katibawasan Falls taken by me with a Nokia 7 plus, in 2019.</small>
+            <div class="contact-info">
+                <h2 id="contact"> CONTACT</h2>
+                <p>
+                    <span class="material-symbols-outlined">
+                        mail
+                    </span>
+                    <a href="mailto:matthew.oyan@protonmail.com">matthew.oyan@protonmail.com</a>
+                </p>
+                <p><span class="material-symbols-outlined">call</span> +63 947 229 0659</p>
+                <small>Background photo of Katibawasan Falls taken by me with a Nokia 7 plus, in 2019.</small>
+            </div>
         </div>
+        <script>
+            document.getElementById("get-in-touch").addEventListener("click", function(event) {
+                event.preventDefault(); // Prevent the default anchor link behavior
+        
+                // Add the margin to the correct div
+                document.querySelector(".contact-info").classList.add("extra-margin");
+        
+                // Scroll to the contact section using scrollIntoView
+                document.getElementById("contact").scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            });
+        </script>        
     </body>
 </html>
