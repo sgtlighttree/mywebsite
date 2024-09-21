@@ -5,24 +5,29 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Matthew Oyan </title>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
         <style>
             @import url('https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&display=swap');
             body {
                 font-family: "Gowun Batang";
-                color: lightgoldenrodyellow;
+                color: hsl(60, 40%, 84%);
+                text-align: left;
+                position: relative;
+                margin: 0;
+                height: 100vh;
                 display: flex;
                 justify-content: center;
                 align-items: center;
-                height: 100vh;
-                margin: 0;
-                text-align: center;
-                flex-direction: column;
                 background: url('IMG_20190426_081744.avif') no-repeat center center fixed;
                 background-size: cover;
+            }
+            .container {
+                width: 70%;
+                margin: 0 auto;
                 position: relative;
             }
             a {
-                color: lightgoldenrodyellow;
+                color: hsl(60, 40%, 84%);
             }
             body::before {
                 content: "";
@@ -38,24 +43,55 @@
                 position: relative;
                 z-index: 2;
             }
+            .material-symbols-outlined {
+              font-variation-settings:
+              'FILL' 0,
+              'wght' 400,
+              'GRAD' 0,
+              'opsz' 24;
+              vertical-align: middle;
+            }
+            .contact {
+                display: flex;
+                align-items: center;
+                margin-bottom: 10px; /* Add some space between lines if needed */
+            }
+            .indented {
+                padding-left: 2em;
+            }
         </style> 
     </head>
     <body>
-        <h1>
-            Matthew Oyan
-        </h1>
-        <h2>Multidisciplinary creative specializing in <br> post-production and motion design.</h2>
-        <h2>WORK</h2>
-        <p><a href="https://www.youtube.com/watch?v=Xe876u9Q91s">Board of Investments "Make it Happen in the Philippines" Campaign (2023)</a></p>
-        <p>PDIC Stakeholder's Appreciation Night (2024)</p>
-        <p>AYDA Awards (2021-2023)</p>
-        <p><a href="https://www.youtube.com/playlist?list=PLEU-B_4w9FJNsTz6mfDLs7KpcySRE-ysP">Usapang Wika (2022)</a></p>
-        <p>Our Fragile Earth: Protected Areas of the Philippines Season 3 (2021)</p>
-        <h2>CONTACT</h2>
-        <p>
-            Email: 
-            <a href="mailto:matthew.oyan@protonmail.com">matthew.oyan@protonmail.com</a>.
-        </p>
-        <p>Phone: +63 947 229 0659</p>
+        <div class="container">
+            <h1>
+                Matthew Oyan
+            </h1>
+            <p>Multidisciplinary creative specializing in post-production and motion design.</p>
+            <h2>WORK</h2>
+            <h3><a href="https://www.youtube.com/watch?v=Xe876u9Q91s">Board of Investments "Make it Happen in the Philippines" Campaign (2023)</a></h3>
+                <p class="indented">A series of videos showcasing the Philippine Board of Investments’s Foreign Direct Investments campaign.</p>
+                <p class="indented"><i>Post-production direction, motion graphics, and editing.</i></p>
+            <h3>PDIC Stakeholder's Appreciation Night (2024)</h3>
+                <p class="indented"><i>Art direction, motion graphics, and editing.</i></p>
+            <h3>AYDA Awards (2021-2023)</h3>
+                <p class="indented">An architecture and interior design competition for university students in Asia, organized by Nippon Paint. Formerly known as Asia Young Designer Awards.</p>
+                <p class="indented"><i>Live stream director (remote and live), motion graphics.</i></p>
+            <h3><a href="https://www.youtube.com/playlist?list=PLEU-B_4w9FJNsTz6mfDLs7KpcySRE-ysP">Usapang Wika (2022)</a></h3>
+                <p class="indented">A pandemic-era documentary series about eight of the major languages the Philippines. Produced by the Philippine National Commision for Culture and the Arts and then-congresswoman, currently Senator Loren Legarda.</p>
+                <p class="indented"><i>Editing and motion graphics.</i></p>
+            <h3><a href="https://www.youtube.com/playlist?list=PLCYavaouBBAQFy1zoABUZ0XvP_pm3jfqr">Our Fragile Earth: Protected Areas of the Philippines Season 3 (2021)</a></h3>
+                <p class="indented">A documentary series about the Protected Areas of the Philippines. Produced by the Philippine Department of Environment and Natural Resources and then-congresswoman Loren Legarda.</p>
+                <p class="indented"><i>Post-production assitance and motion graphics.</i></p>
+            <h2>CONTACT</h2>
+            <p>
+                <span class="material-symbols-outlined">
+                    mail
+                </span>
+                <a href="mailto:matthew.oyan@protonmail.com">matthew.oyan@protonmail.com</a>
+            </p>
+            <p><span class="material-symbols-outlined">call</span> +63 947 229 0659</p>
+            <br>
+            <small>Background photo of Katibawasan Falls taken by me with a Nokia 7 plus, in 2019.</small>
+        </div>
     </body>
 </html>
