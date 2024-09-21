@@ -8,16 +8,21 @@
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
         <style>
             @import url('https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&display=swap');
+            h1 {
+                margin-top: 3em; /* Adjust the value as needed */
+            }
+            h2 {
+                margin-top: 2em;
+            }
             body {
                 font-family: "Gowun Batang";
                 color: hsl(60, 40%, 84%);
                 text-align: left;
                 position: relative;
                 margin: 0;
-                height: 100vh;
+                min-height: 100vh; /* Updated to allow content to expand */
                 display: flex;
-                justify-content: center;
-                align-items: center;
+                flex-direction: column; /* Allows for content to expand vertically */
                 background: url('IMG_20190426_081744.avif') no-repeat center center fixed;
                 background-size: cover;
             }
@@ -25,6 +30,7 @@
                 width: 70%;
                 margin: 0 auto;
                 position: relative;
+                padding-bottom: 10em; /* Adjust the value as needed */
             }
             a {
                 color: hsl(60, 40%, 84%);
@@ -35,7 +41,7 @@
                 top: 0;
                 left: 0;
                 width: 100%;
-                height: 100%;
+                min-height: 100%;
                 background-color: rgba(0, 0, 0, 0.8);
                 z-index: 1;
             }
@@ -66,23 +72,46 @@
             <h1>
                 Matthew Oyan
             </h1>
-            <p>Multidisciplinary creative specializing in post-production and motion design.</p>
+            <p>Multidisciplinary creative specializing in post-production and motion design, based in Quezon City, Philippines.</p>
+            <a href="#contact">Get in touch.</a>
             <h2>WORK</h2>
-            <h3><a href="https://www.youtube.com/watch?v=Xe876u9Q91s">Board of Investments "Make it Happen in the Philippines" Campaign (2023)</a></h3>
-                <p class="indented">A series of videos showcasing the Philippine Board of Investments’s Foreign Direct Investments campaign.</p>
-                <p class="indented"><i>Post-production direction, motion graphics, and editing.</i></p>
-            <h3>PDIC Stakeholder's Appreciation Night (2024)</h3>
+            <div>
+                <h3><a href="https://www.youtube.com/watch?v=Xe876u9Q91s">Board of Investments "Make it Happen in the Philippines" Campaign (2023)</a></h3>
+                <div class="indented">
+                <p>A series of videos showcasing the Philippine Board of Investments’s Foreign Direct Investments campaign.</p>
+                <p><i>Post-production direction, motion graphics, and editing.</i></p>
+                <iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/Xe876u9Q91s?si=yl0ov_aDU8DGw1eo" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                </div>
+            </div>
+            <div>
+                <h3>PDIC Stakeholder's Appreciation Night (2024)</h3>
                 <p class="indented"><i>Art direction, motion graphics, and editing.</i></p>
-            <h3>AYDA Awards (2021-2023)</h3>
-                <p class="indented">An architecture and interior design competition for university students in Asia, organized by Nippon Paint. Formerly known as Asia Young Designer Awards.</p>
-                <p class="indented"><i>Live stream director (remote and live), motion graphics.</i></p>
-            <h3><a href="https://www.youtube.com/playlist?list=PLEU-B_4w9FJNsTz6mfDLs7KpcySRE-ysP">Usapang Wika (2022)</a></h3>
-                <p class="indented">A pandemic-era documentary series about eight of the major languages the Philippines. Produced by the Philippine National Commision for Culture and the Arts and then-congresswoman, currently Senator Loren Legarda.</p>
-                <p class="indented"><i>Editing and motion graphics.</i></p>
-            <h3><a href="https://www.youtube.com/playlist?list=PLCYavaouBBAQFy1zoABUZ0XvP_pm3jfqr">Our Fragile Earth: Protected Areas of the Philippines Season 3 (2021)</a></h3>
-                <p class="indented">A documentary series about the Protected Areas of the Philippines. Produced by the Philippine Department of Environment and Natural Resources and then-congresswoman Loren Legarda.</p>
-                <p class="indented"><i>Post-production assitance and motion graphics.</i></p>
-            <h2>CONTACT</h2>
+            </div>
+            <div>
+                <h3><a href="https://www.youtube.com/playlist?list=PLEU-B_4w9FJNsTz6mfDLs7KpcySRE-ysP">Usapang Wika (2022)</a></h3>
+                    <div class="indented">
+                        <p>A pandemic-era documentary series about eight of the major languages the Philippines. Produced by the Philippine National Commision for Culture and the Arts and then-congresswoman, currently Senator Loren Legarda.</p>
+                        <p><i>Editing and motion graphics.</i></p>
+                        <iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/GM9OFCqA9lM?si=iEs2zSgnhIj4PN4-&amp;start=70" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>    
+                    </div>
+                </div>
+            <div>
+                <h3>AYDA Awards (2021-2023)</h3>
+                <div class="indented">
+                    <p>An architecture and interior design competition for university students in Asia, organized by Nippon Paint. Formerly known as Asia Young Designer Awards.</p>
+                    <p><i>Live stream director (remote and live), motion graphics.</i></p>
+                    <p><a href="https://www.facebook.com/share/v/yqk3LYbFeTwCAFUf/">Facebook Link: AYDA Awards 2023 Awarding Ceremony</a></p>
+                </div>
+            </div>
+            <div>
+                <h3><a href="https://www.youtube.com/playlist?list=PLCYavaouBBAQFy1zoABUZ0XvP_pm3jfqr">Our Fragile Earth: Protected Areas of the Philippines Season 3 (2021)</a></h3>
+                <div class="indented">
+                    <p>A documentary series about the Protected Areas of the Philippines. Produced by the Philippine Department of Environment and Natural Resources and then-congresswoman Loren Legarda.</p>
+                    <p><i>Post-production assitance and motion graphics.</i></p>    
+                    <iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/l-XOXnr-83Y?si=oC3r8HylkANb_0Dp&amp;start=53" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                </div>    
+            </div>
+           <h2 id="contact">CONTACT</h2>
             <p>
                 <span class="material-symbols-outlined">
                     mail
