@@ -100,10 +100,17 @@ body > * {
     padding: 1em 0; /* Adds padding around the header */
 }
 
+/* Title styling */
+.header h1 {
+    margin: 0; /* Remove any default margin */
+    font-size: 2em; /* You can adjust this to your desired size */
+}
+
 /* Styling for the buttons */
 .nav-buttons {
     display: inline-flex;
     gap: 1em; /* Adds space between buttons */
+    flex-wrap: wrap; /* Ensures the buttons wrap on small screens */
 }
 
 /* Base button styles */
@@ -127,4 +134,25 @@ body > * {
 .nav-buttons .btn:active {
     background-color: rgba(255, 255, 255, 0.6); /* Flash when clicked */
     box-shadow: 0 0 15px rgba(255, 255, 255, 0.7);
+}
+
+/* Mobile layout: stack the header and buttons vertically */
+@media only screen and (max-width: 768px) {
+    .header {
+        flex-direction: column; /* Stack header and buttons vertically */
+        align-items: flex-start; /* Align content to the left */
+    }
+
+    /* Adjust the spacing of the buttons */
+    .nav-buttons {
+        margin-top: 1em; /* Adds spacing between title and buttons */
+        gap: 0.5em; /* Reduces gap for mobile */
+        width: 100%; /* Ensures buttons use full width */
+        justify-content: flex-start; /* Align buttons to the left on mobile */
+    }
+
+    .nav-buttons .btn {
+        flex-grow: 1; /* Makes the buttons fill available space */
+        text-align: center; /* Center the text inside buttons */
+    }
 }
