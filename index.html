@@ -5,6 +5,7 @@
 - Varying margins for platforms: 50% on web, ~80% on mobile
 - Add a "click to view" to photo information, all page content fades out to reveal image, and tap or click anywhere to fade back.
 - Animate/scale the contact to be bigger upon clicking
+(someday) each work should be on a grid, and pressing on it directly leads to a page or a video instead of relying on embeds 
 -->
 
 <!DOCTYPE html>
@@ -35,11 +36,19 @@
                 background: url('IMG_20190426_081744.avif') no-repeat center center fixed;
                 background-size: cover;
             }
+            /* Default for desktop */
             .container {
                 width: 70%;
                 margin: 0 auto;
                 position: relative;
                 padding-bottom: 10em; /* Adjust the value as needed */
+            }
+            /* For mobile devices (up to 768px wide) */
+            @media only screen and (max-width: 768px) {
+                .container {
+                    width: 90%; /* Adjust this value as needed for a more spacious look */
+                    padding: 0 1em; /* Optional: adds padding inside the container */
+                }
             }
             a {
                 color: hsl(60, 40%, 84%);
@@ -77,6 +86,30 @@
             .extra-margin {
                 margin-bottom: 15em; /* Adjust as needed */
             }
+            /* Wrapper for responsive YouTube embeds */
+            .embed-container {
+                position: relative;
+                padding-bottom: 56.25%; /* 16:9 aspect ratio */
+                height: 0;
+                overflow: hidden;
+                max-width: 100%;
+                background: #000; /* Optional, shows a background before loading the video */
+            }
+
+            .embed-container iframe {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+            }
+
+            /* Adjust sizes for larger screens */
+            @media only screen and (min-width: 1024px) {
+                .embed-container {
+                    max-width: 75%; /* For example, embed scales up more on desktop */
+                }
+            }
         </style> 
     </head>
     <body>
@@ -92,7 +125,9 @@
                 <div class="indented">
                 <p>A series of videos showcasing the Philippine Board of Investments’s Foreign Direct Investments campaign.</p>
                 <p><i>Post-production direction, motion graphics, and editing.</i></p>
-                <iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/Xe876u9Q91s?si=yl0ov_aDU8DGw1eo" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                    <div class="embed-container">
+                                        <iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/Xe876u9Q91s?si=yl0ov_aDU8DGw1eo" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                    </div>
                 </div>
             </div>
             <div>
@@ -100,7 +135,9 @@
                 <div class="indented">
                     <p>Event held to celebrate the Philippine Deposit Insurance Corporation's partners and stakeholders in its 60th anniversary.</p>
                     <p><i>Art & branding direction, 3D & 2D motion graphics, event technical direction, and editing.</i></p>
-                    <iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/pgkp7ubQM6k?si=wVWzSnR4eummeHA9" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                    <div class="embed-container">
+                        <iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/pgkp7ubQM6k?si=wVWzSnR4eummeHA9" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                    </div>
                 </div>
             </div>
             <div>
@@ -108,7 +145,9 @@
                     <div class="indented">
                         <p>A pandemic-era documentary series about eight of the major languages the Philippines. Produced by the Philippine National Commision for Culture and the Arts and then-congresswoman, currently Senator Loren Legarda.</p>
                         <p><i>Editing and motion graphics.</i></p>
-                        <iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/GM9OFCqA9lM?si=iEs2zSgnhIj4PN4-&amp;start=70" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>    
+                        <div class="embed-container">
+                            <iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/GM9OFCqA9lM?si=iEs2zSgnhIj4PN4-&amp;start=70" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>    
+                        </div>
                     </div>
                 </div>
             <div>
@@ -123,8 +162,10 @@
                 <h3><a href="https://www.youtube.com/playlist?list=PLCYavaouBBAQFy1zoABUZ0XvP_pm3jfqr">Our Fragile Earth: Protected Areas of the Philippines Season 3 (2021)</a></h3>
                 <div class="indented">
                     <p>A documentary series about the Protected Areas of the Philippines. Produced by the Philippine Department of Environment and Natural Resources and then-congresswoman Loren Legarda.</p>
-                    <p><i>Post-production assistance and motion graphics.</i></p>    
-                    <iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/l-XOXnr-83Y?si=oC3r8HylkANb_0Dp&amp;start=53" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                    <p><i>Post-production assistance and motion graphics.</i></p>
+                    <div class="embed-container">
+                        <iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/l-XOXnr-83Y?si=oC3r8HylkANb_0Dp&amp;start=53" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                    </div>    
                 </div>    
             </div>
             <div class="contact-info">
