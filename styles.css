@@ -26,12 +26,14 @@ body {
     margin: 0 auto;
     position: relative;
     padding-bottom: 10em; /* Adjust the value as needed */
+    margin-top: 5em; /* Add space equivalent to the height of the fixed header */
 }
 /* For mobile devices (up to 768px wide) */
 @media only screen and (max-width: 768px) {
     .container {
         width: 90%; /* Adjust this value as needed for a more spacious look */
-        padding: 0 1em; /* Optional: adds padding inside the container */
+        padding: 4em 1em; /* Optional: adds padding inside the container */
+        margin-top: 4em; /* Add space equivalent to the height of the fixed header */
     }
 }
 body::before {
@@ -41,7 +43,7 @@ body::before {
     left: 0;
     width: 100%;
     min-height: 100%;
-    background-color: rgba(0, 0, 0, 0.9);
+    background-color: rgba(0, 0, 0, 0.8);
     z-index: 1;
 }
 body > * {
@@ -93,11 +95,21 @@ body > * {
 }
 
 /* Container for h1 and buttons */
+/* Header fixed at the top */
 .header {
+    position: fixed; /* Fixes the header to the top */
+    top: 0; /* Sticks to the top of the page */
+    left: 0;
+    right: 0;
+    z-index: 1000; /* Ensures it's above other content */
+    background-color: rgba(0, 0, 0, 0.5); /* Add a slight background for readability */
+    padding: 1em; /* Adjust padding to make space between text and edges */
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 1em 0; /* Adds padding around the header */
+    backdrop-filter: blur(3px); /* Add blur effect to background */
+    -webkit-backdrop-filter: blur(3px); /* For Safari */
+    border-bottom: 1px solid  hsla(60, 41%, 84%, 0.2);; /* Optional: subtle border at the bottom */
 }
 
 /* Title styling */
@@ -108,7 +120,7 @@ body > * {
 
 /* Styling for the buttons */
 .nav-buttons {
-    display: inline-flex;
+    display: flex;
     gap: 1em; /* Adds space between buttons */
     flex-wrap: wrap; /* Ensures the buttons wrap on small screens */
 }
