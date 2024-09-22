@@ -102,7 +102,7 @@ body > * {
 
 /* Styling for the buttons */
 .nav-buttons {
-    display: flex;
+    display: inline-flex;
     gap: 1em; /* Adds space between buttons */
 }
 

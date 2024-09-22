@@ -1,1 +1,1 @@
-Hello world
+Repository for the Github Pages website of Matthew Oyan, an experienced, multidisciplinary creative specializing in video post-production and motion design, based in Quezon City, Philippines.
