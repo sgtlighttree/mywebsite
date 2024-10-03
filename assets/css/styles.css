@@ -17,7 +17,7 @@ body {
     min-height: 100vh; /* Updated to allow content to expand */
     display: flex;
     flex-direction: column; /* Allows for content to expand vertically */
-    background: url('IMG_20190426_081744.avif') no-repeat center center fixed;
+    background: url('/assets/media/IMG_20190426_081744.avif') no-repeat center center fixed;
     background-size: cover;
 }
 /* Default for desktop */
