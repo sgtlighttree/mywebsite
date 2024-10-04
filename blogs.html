@@ -1,0 +1,16 @@
+---
+layout: page
+title: Blog
+permalink: /blog/
+---
+
+<div class="home">
+  {% for blog in site.blogs %}
+    <article class="post">
+        <p class="post-meta">{{ blog.date | date: "%b %-d, %Y" }}</p>
+    <h4 class="post-title">
+        <a href="{{ blog.url }}">{{ blog.title }}</a>
+    </h4>
+    </article>
+  {% endfor %}
+</div>

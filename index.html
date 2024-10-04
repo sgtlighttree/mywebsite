@@ -1,0 +1,13 @@
+---
+layout: home
+---
+
+<h1>Creative Work</h1>
+<ul>
+  {% for creative in site.creative %}
+    <li>
+      <a href="{{ creative.url }}">{{ creative.title }}</a>
+      <span>{{ creative.date | date: "%B %d, %Y" }}</span>
+    </li>
+  {% endfor %}
+</ul>

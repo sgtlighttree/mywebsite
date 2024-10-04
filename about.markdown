@@ -4,7 +4,11 @@ title: About
 permalink: /about/
 ---
 
-This is the base Jekyll theme. You can find out more info about customizing your Jekyll theme, as well as basic Jekyll usage documentation at [jekyllrb.com](https://jekyllrb.com/)
+#### **Matthew Oyan is a multidisciplinary creative specializing in video post-production and motion design with many years of experience, based in Quezon City, Philippines.**
+
+#### **He posseses a Diploma in Media Arts acquired from the Eugenio Lopez Jr. Center for Media Arts.**
+
+This website uses the base Jekyll theme. You can find out more info about customizing your Jekyll theme, as well as basic Jekyll usage documentation at [jekyllrb.com](https://jekyllrb.com/)
 
 You can find the source code for Minima at GitHub:
 [jekyll][jekyll-organization] /
