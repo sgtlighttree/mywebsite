@@ -1,0 +1,22 @@
+---
+layout: default
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{ page.title }}</title>
+  <link rel="stylesheet" href="{{ '/assets/main.css' | relative_url }}">
+  <link rel="stylesheet" href="{{ '/assets/custom_styles.css' | relative_url }}">
+</head>
+<body>
+  <div class="post-content">
+    <header>
+      <h1>{{ page.title }}</h1>
+      <p class="post-meta">{{ page.date | date: "%B %d, %Y" }}</p>
+    </header>
+    {{ content }}
+  </div>
+</body>
+</html>

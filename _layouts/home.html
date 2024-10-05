@@ -2,15 +2,36 @@
 layout: default
 ---
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{ site.title }} - Home</title>
+  <link rel="stylesheet" href="{{ '/assets/main.css' | relative_url }}">
+  <link rel="stylesheet" href="{{ '/assets/custom_styles.css' | relative_url }}">
+</head>
+<body>
 <div class="home">
   {%- if page.title -%}
     <h1 class="page-heading">{{ page.title }}</h1>
-  {%- endif -%}
+    {%- endif -%}
+
+  <!-- Media Box with Conditional Content -->
+    <div class="media-box">
+    {% if page.media_type == "video" %}
+        <video width="100%" autoplay loop muted>
+        <source src="{{ page.media_path }}" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+    {% elsif page.media_type == "image" %}
+      <img src="{{ page.media_path }}" alt="Featured Image" width="100%">
+    {% endif %}
+    </div>
 
   {{ content }}
 
   {%- if site.posts.size > 0 -%}
-  {% comment %} <h2 class="post-list-heading">{{ page.list_title | default: "Posts" }}</h2> {% endcomment %}
     <ul class="post-list">
       {%- for post in site.posts -%}
       <li>
@@ -27,8 +48,8 @@ layout: default
       </li>
       {%- endfor -%}
     </ul>
-
-    {% comment %} <p class="rss-subscribe">subscribe <a href="{{ "/feed.xml" | relative_url }}">via RSS</a></p> {% endcomment %}
   {%- endif -%}
 
 </div>
+</body>
+</html>

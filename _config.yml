@@ -63,3 +63,5 @@ header_pages:
   - about.markdown
   - blogs.html  # Add your new page here
   - contact.markdown
+
+include: ["assets"]
