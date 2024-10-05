@@ -1,0 +1,24 @@
+---
+layout: post
+title: "MAGNUS PC"
+date: 2024-08-21 
+categories: work
+media_type: video
+media_path: /assets/videos/MAGNUSPC_MotionLogo-Looping_v01_av1.mp4
+---
+
+A tech/retail startup built with my friends, creating quality gaming PCs at an affordable cost to Filipinos. **Branding & logo creation. Currently serving as Marketing Director.**
+
+Website: magnuspc.com
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. In sit amet elit ac risus feugiat pulvinar. Donec vel ipsum lacus. Maecenas vitae malesuada tortor. Praesent vel diam eros. Nulla euismod sapien malesuada sapien vestibulum elementum vitae ac lectus. Sed consectetur tempor neque, in laoreet lectus fermentum a. Vivamus placerat dignissim ante, et ullamcorper tellus ornare sit amet. Sed porttitor dictum lacus, euismod euismod turpis maximus semper.
+
+<video autoplay loop muted>
+    <source src="/assets/videos/MAGNUSPC_MotionLogo-Looping_v01_av1.mp4" type="video/mp4">
+    <source src="/assets/videos/MAGNUSPC_MotionLogo-Looping_v01_vp9.webm" type="video/webm">
+    Your browser does not support the video tag.
+</video>
+
+Donec semper sapien eu lorem dignissim, vitae sollicitudin justo suscipit. Maecenas congue lobortis mollis. Praesent vehicula diam id nulla aliquet, quis accumsan eros lacinia. Vivamus dapibus tincidunt ex eu imperdiet. Proin pulvinar, felis et efficitur scelerisque, velit eros suscipit tortor, ultrices congue orci ante eu ligula. Nullam laoreet erat lectus, quis blandit mi laoreet nec. Aenean sit amet massa maximus, rutrum eros eget, rhoncus ex. Phasellus ut malesuada sem. Duis hendrerit odio pretium consectetur dignissim. Nulla egestas commodo nisi ac gravida. Nulla accumsan efficitur diam, vitae dapibus sapien suscipit a. Quisque lorem sem, tincidunt sit amet mi non, viverra suscipit tortor. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Mauris consequat purus in ipsum tincidunt interdum. Sed in tellus nec nisl laoreet pellentesque sollicitudin non dui.
+
+

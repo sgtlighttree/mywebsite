@@ -16,7 +16,7 @@ layout: default
       <h1>{{ page.title }}</h1>
       <p class="post-meta">{{ page.date | date: "%B %d, %Y" }}</p>
     </header>
-    {{ content }} <!-- This ensures your post content, including media, appears -->
+    {{ content }} <!-- Ensure this is only present once -->
   </div>
 </body>
 </html>

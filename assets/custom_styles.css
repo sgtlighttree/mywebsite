@@ -4,9 +4,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400;1,700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Afacad+Flux:wght@100..1000&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap');
 
 body {
-    font-family: 'Manrope';
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    /* background-color: rgb(255, 247, 230); */
 }
 
 .post-title { /* This is for blogs */
@@ -18,18 +21,30 @@ video {
     width: 100% !important;
 }
 
-.media-box {
-    width: 100%;
-    max-width: 1200px; /* Adjust this value */
-    height: 200px; /* Set desired height */
-    overflow: hidden;
-    margin: 20px auto;
-    border-radius: 10px; /* Optional: rounded corners */
-  }
+.media-box video,
+.media-box img {
+  max-height: 500px; /* Adjust this value to your preference */
+  display: block;
+  margin: 0 auto;
+  object-fit: cover; /* Maintain aspect ratio and center image */
+  width: 100%;
+  object-fit: cover; /* Ensures media covers the area */
+  transition: transform 0.3s ease-in-out; /* Smooth transition for hover */
+}
+
+.media-box video:hover,
+.media-box img:hover {
+  transform: scale(1.05); /* Scale on hover */
+  cursor: pointer; /* Show pointer cursor */
+}
+
+.media-box video:active,
+.media-box img:active {
+  transform: scale(0.95); /* Scale slightly when clicking */
+}
+
+.home article a {
+  display: block; /* or inline-block if you prefer */
+  margin: 10px 0 20px; /* Margin specific to readable spacing */
+}
   
-  .media-box img,
-  .media-box video {
-    width: 100%;
-    height: 100%;
-    object-fit: cover; /* Ensures media fits within the box dimensions */
-  }

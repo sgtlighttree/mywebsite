@@ -15,41 +15,20 @@ layout: default
 <div class="home">
   {%- if page.title -%}
     <h1 class="page-heading">{{ page.title }}</h1>
-    {%- endif -%}
-
-  <!-- Media Box with Conditional Content -->
-    <div class="media-box">
-    {% if page.media_type == "video" %}
-        <video width="100%" autoplay loop muted>
-        <source src="{{ page.media_path }}" type="video/mp4">
-          Your browser does not support the video tag.
-        </video>
-    {% elsif page.media_type == "image" %}
-      <img src="{{ page.media_path }}" alt="Featured Image" width="100%">
-    {% endif %}
-    </div>
-
-  {{ content }}
-
-  {%- if site.posts.size > 0 -%}
-    <ul class="post-list">
-      {%- for post in site.posts -%}
-      <li>
-        {%- assign date_format = site.minima.date_format | default: "%b %-d, %Y" -%}
-        <span class="post-meta">{{ post.date | date: date_format }}</span>
-        <h3>
-          <a class="post-link" href="{{ post.url | relative_url }}">
-            {{ post.title | escape }}
-          </a>
-        </h3>
-        {%- if site.show_excerpts -%}
-          {{ post.excerpt }}
-        {%- endif -%}
-      </li>
-      {%- endfor -%}
-    </ul>
   {%- endif -%}
 
+  {% for post in site.posts %}
+  <article>
+    <h2><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h2>
+    <p class="post-meta">{{ post.date | date: "%B %d, %Y" }}</p>
+
+    <!-- Include the media for each post -->
+    {% include media.html type=post.media_type path=post.media_path post_url=post.url %}
+
+    <p>{{ post.excerpt }}</p>
+    <a href="{{ post.url | relative_url }}">Read more</a>
+  </article>
+  {% endfor %}
 </div>
 </body>
 </html>

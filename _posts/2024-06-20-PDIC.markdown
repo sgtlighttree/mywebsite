@@ -1,0 +1,12 @@
+---
+layout: post
+title: "PDIC Stakeholders Appreciation Night 2024"
+date: 2024-06-20
+categories: work
+media_type: image
+media_path: /assets/images/IMG_20190426_081744.avif
+---
+
+PDIC
+
+![Alt text](/assets/images/IMG_20190426_081744.avif)
