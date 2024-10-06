@@ -61,7 +61,7 @@ collections:
 header_pages:
   - index.markdown
   - about.markdown
-  - blogs.html  # Add your new page here
+  - blogs.html
   - contact.markdown
 
 include: ["assets"]

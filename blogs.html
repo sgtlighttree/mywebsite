@@ -1,7 +1,7 @@
 ---
 layout: page
 title: Blog
-permalink: /blog/
+permalink: /blogs/
 ---
 
 <div class="home">
@@ -9,7 +9,7 @@ permalink: /blog/
     <article class="post">
         <p class="post-meta">{{ blog.date | date: "%b %-d, %Y" }}</p>
     <p class="post-title">
-        <a href="{{ blog.url }}">{{ blog.title }}</a>
+      <a href="{{ blog.url | relative_url }}">{{ blog.title }}</a>
     </p>
     </article>
   {% endfor %}
