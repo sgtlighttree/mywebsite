@@ -4,13 +4,13 @@
 {% if include.type == "video" %}
     <a href="{{ include.post_url | relative_url }}">
       <video width="100%" autoplay loop muted>
-    <source src="{{ include.path }}" type="video/mp4">
+        <source src="{{ include.path | relative_url }}" type="video/mp4">
     Your browser does not support the video tag.
   </video>
     </a>
 {% elsif include.type == "image" %}
     <a href="{{ include.post_url | relative_url }}">
-    <img src="{{ include.path }}" alt="Featured Image">
+      <img src="{{ include.path | relative_url }}" alt="Featured Image">
     </a>
 {% else %}
   <p>No media available.</p>

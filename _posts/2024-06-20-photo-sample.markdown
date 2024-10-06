@@ -1,12 +1,12 @@
 ---
 layout: post
-title: "PDIC Stakeholders Appreciation Night 2024"
+title: "Photo Sample"
 date: 2024-06-20
 categories: work
 media_type: image
 media_path: /assets/images/IMG_20190426_081744.avif
 ---
 
-PDIC
+Photo
 
-![Alt text](/assets/images/IMG_20190426_081744.avif)
+![Alt text]({{ "/assets/images/IMG_20190426_081744.avif" | relative_url }})
