@@ -14,11 +14,9 @@ Website: magnuspc.com
 Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
 
 <video autoplay loop muted>
-    <source src="/assets/videos/MAGNUSPC_MotionLogo-Looping_v01_av1.mp4" type="video/mp4">
-    <source src="/assets/videos/MAGNUSPC_MotionLogo-Looping_v01_vp9.webm" type="video/webm">
+    <source src="{{ '/assets/videos/MAGNUSPC_MotionLogo-Looping_v01_av1.mp4' | relative_url }}" type="video/mp4">
+    <source src="{{ '/assets/videos/MAGNUSPC_MotionLogo-Looping_v01_vp9.webm' | relative_url }}" type="video/webm">
     Your browser does not support the video tag.
 </video>
-
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
 
 

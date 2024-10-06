@@ -15,7 +15,7 @@ body {
 .post-title { /* This is for blogs */
     font-size: 24px; /* Adjust the size as needed */
     /* font-weight: bold; Optional: add this if you want bold text */
-}  
+}
 
 video {
     width: 100% !important;
@@ -48,3 +48,19 @@ video {
   margin: 10px 0 20px; /* Margin specific to readable spacing */
 }
   
+.video-container {
+  position: relative;
+  width: 100%;
+  padding-bottom: 56.25%; /* 16:9 aspect ratio (9/16 = 0.5625) */
+  height: 0;
+  overflow: hidden;
+}
+
+.video-container iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
