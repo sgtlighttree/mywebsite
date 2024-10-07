@@ -1,15 +1,13 @@
 ---
 layout: post
-title: "Photo & Embed Sample"
-date: 2024-06-20
+title: "Board of Investments 'Make it Happen in the Philippines' Campaign (2023)"
+date: 2024-06-21
 categories: work
 media_type: image
 media_path: /assets/images/IMG_20190426_081744.avif
 ---
 
-Photo
-
-![Alt text]({{ "/assets/images/IMG_20190426_081744.avif" | relative_url }})
+A series of videos showcasing the Philippine Board of Investments’s Foreign Direct Investments campaign. **Post-production supervision, motion graphics, and editing.**
 
 <!-- Embed YouTube Video -->
 <div class="video-container">
@@ -20,5 +18,3 @@ Photo
           referrerpolicy="strict-origin-when-cross-origin" 
           allowfullscreen></iframe>
 </div>
-
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
