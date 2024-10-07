@@ -4,7 +4,7 @@ title: "MAGNUS PC"
 date: 2024-08-21 
 categories: work
 media_type: video
-media_path: /assets/videos/MAGNUSPC_MotionLogo-Looping_v01_av1.mp4
+media_path: /assets/videos/MAGNUSPC_MotionLogo-Looping_v01_h264.mp4
 ---
 
 A tech/retail startup built with my friends, creating quality gaming PCs at an affordable cost to Filipinos. **Branding & logo creation. Currently serving as Marketing Director.**
@@ -14,8 +14,7 @@ Website: magnuspc.com
 Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
 
 <video autoplay loop muted>
-    <source src="{{ '/assets/videos/MAGNUSPC_MotionLogo-Looping_v01_av1.mp4' | relative_url }}" type="video/mp4">
-    <source src="{{ '/assets/videos/MAGNUSPC_MotionLogo-Looping_v01_vp9.webm' | relative_url }}" type="video/webm">
+    <source src="{{ '/assets/videos/MAGNUSPC_MotionLogo-Looping_v01_h264.mp4' | relative_url }}" type="video/mp4">
     Your browser does not support the video tag.
 </video>
 
