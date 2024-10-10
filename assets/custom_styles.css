@@ -147,6 +147,23 @@ img {
   vertical-align: middle;
 }
 
+.site-header {
+  position: relative;
+  border-top: none; /* Remove the existing border */
+  padding-top: 5px; /* Ensure padding matches the pseudo-element height to maintain spacing */
+}
+
+.site-header::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 5px; /* Thickness of the gradient border */
+  background: linear-gradient(to right, pink, red, orange, yellow, green, blue, indigo, violet);
+  z-index: 1; /* Ensure it displays above other background elements */
+}
+
 /* mobile settings */
 
 @media (max-width: 768px) {
