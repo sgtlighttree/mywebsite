@@ -10,6 +10,25 @@ layout: default
   <title>{{ site.title }} - Home</title>
   <link rel="stylesheet" href="{{ '/assets/main.css' | relative_url }}">
   <link rel="stylesheet" href="{{ '/assets/custom_styles.css' | relative_url }}">
+  <script>
+    // Ensure the script runs after the DOM is ready
+    document.addEventListener('DOMContentLoaded', function() {
+      var overlayContainers = document.querySelectorAll('.overlay-container');
+    
+      overlayContainers.forEach(function(container) {
+        container.addEventListener('touchstart', function() {
+          container.classList.add('active');
+        });
+    
+        container.addEventListener('touchend', function() {
+          // Delay removing the active class to maintain the effect while scrolling
+          setTimeout(function() {
+            container.classList.remove('active');
+          }, 500); // Adjust the delay as needed
+        });
+      });
+    });
+    </script>    
 </head>
 <body>
 <div class="home">
@@ -18,15 +37,22 @@ layout: default
   {%- endif -%}
 
   {% for post in site.posts %}
-  <article>
-    <h2><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h2>
-    <p class="post-meta">{{ post.date | date: "%B %d, %Y" }}</p>
-
-    <!-- Include the media for each post -->
-    {% include media.html type=post.media_type path=post.media_path post_url=post.url %}
-
-    <p>{{ post.excerpt }}</p>
-    <a href="{{ post.url | relative_url }}">Read more</a>
+  <article class="post">
+    <div class="overlay-container">
+      <!-- Wrap the whole block in a link -->
+      <a href="{{ post.url | relative_url }}" class="link-block">
+        {% include media.html type=post.media_type path=post.media_path post_url=post.url %}
+        <div class="overlay">
+          <div class="text">
+            <h2>{{ post.title }}</h2>
+            <p class="post-date">{{ post.date | date: "%Y" }}</p>
+            <p>{{ post.excerpt }}</p>
+          </div>
+        </div>
+      </a>
+    </div>
+    <!-- <p>{{ post.excerpt }}</p> -->
+    <!-- <a href="{{ post.url | relative_url }}">Read more</a> -->
   </article>
   {% endfor %}
 </div>

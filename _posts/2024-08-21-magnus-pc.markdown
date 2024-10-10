@@ -11,8 +11,6 @@ A tech/retail startup built with my friends, creating quality gaming PCs at an a
 
 Website: magnuspc.com
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
-
 <video autoplay loop muted>
     <source src="{{ '/assets/videos/MAGNUSPC_MotionLogo-Looping_v01_h264.mp4' | relative_url }}" type="video/mp4">
     Your browser does not support the video tag.
