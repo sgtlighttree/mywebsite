@@ -164,7 +164,13 @@ img {
   z-index: 1; /* Ensure it displays above other background elements */
 }
 
+
+
 /* mobile settings */
+
+.site-nav {
+  z-index: 1; /* Ensure it displays above other background elements */
+}
 
 @media (max-width: 768px) {
   /* Example breakpoint for tablets and below, adjust as needed */
