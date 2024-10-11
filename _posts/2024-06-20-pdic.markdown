@@ -1,0 +1,23 @@
+---
+layout: post
+title: "PDIC Stakeholders' Appreciation Night (2024)"
+date: 2024-06-20
+categories: work
+media_type: image
+media_path: /assets/images/PDIC_SilentVideo_FINAL-0001.png
+---
+
+Event held to celebrate the Philippine Deposit Insurance Corporation's partners and stakeholders in its 60th anniversary. **Art & branding direction, 3D & 2D motion graphics, event technical direction, and editing.**
+
+<div id="overlay"></div> <!-- Overlay added here -->
+
+<div class="video-container">
+  <iframe src="https://www.youtube-nocookie.com/embed/pgkp7ubQM6k?si=wVWzSnR4eummeHA9" 
+          title="YouTube video player" 
+          frameborder="0" 
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+          referrerpolicy="strict-origin-when-cross-origin" 
+          allowfullscreen>
+  </iframe>
+</div>
+<br>

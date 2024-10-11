@@ -1,15 +1,39 @@
-@import url('https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400;1,700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Afacad+Flux:wght@100..1000&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap');
 
 body {
     font-family: 'Plus Jakarta Sans', sans-serif;
     /* background-color: rgb(255, 247, 230); */
+}
+
+body {
+  opacity: 1;
+}
+
+.fade-in {
+  opacity: 0;
+  animation: fadeInAnimation 500ms forwards;
+}
+
+@keyframes fadeInAnimation {
+  to {
+    opacity: 1;
+  }
+}
+
+.fade-out {
+  opacity: 1;
+  transition: opacity 500ms;
+  opacity: 0;
+}
+
+.home article {
+  margin: 20px 0; /* Add vertical spacing between posts */
+  overflow: hidden; /* To ensure no extra flow */
+}
+
+/* Optional for additional styling/specificity */
+.post {
+  margin-bottom: 20px; /* Space beneath each individual post */
 }
 
 .post-title { /* This is for blogs */
@@ -19,28 +43,6 @@ body {
 
 video {
     width: 100% !important;
-}
-
-.media-box video,
-.media-box img {
-  max-height: 500px; /* Adjust this value to your preference */
-  display: block;
-  margin: 0 auto;
-  object-fit: cover; /* Maintain aspect ratio and center image */
-  width: 100%;
-  object-fit: cover; /* Ensures media covers the area */
-  transition: transform 0.3s ease-in-out; /* Smooth transition for hover */
-}
-
-.media-box video:hover,
-.media-box img:hover {
-  transform: scale(1.05); /* Scale on hover */
-  cursor: pointer; /* Show pointer cursor */
-}
-
-.media-box video:active,
-.media-box img:active {
-  transform: scale(0.95); /* Scale slightly when clicking */
 }
 
 .home article a {
@@ -63,4 +65,155 @@ video {
   width: 100%;
   height: 100%;
 }
+
+.overlay-container {
+  position: relative;
+  display: block;
+  overflow: hidden;
+  margin: 0; /* Ensure no container margin */
+  padding: 0; /* Ensure no inner padding */
+}
+
+.link-block {
+  display: block;
+  position: relative;
+  color: inherit;
+  text-decoration: none;
+}
+
+.link-block img,
+img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.link-block {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+}
+
+.home article a {
+  display: block;
+  text-decoration: none;
+  margin: 0; /* Relocate excess margin */
+}
+
+img {
+  width: 100%;
+  height: auto;
+  display: block;
+  pointer-events: none; /* Ensure clicks are not blocked by the image */
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none; /* Keep events flowing to the link */
+}
+
+.overlay-container:hover .overlay {
+  opacity: 1;
+}
+
+.text {
+  color: white;
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  right: 20px;
+  bottom: 20px;
+  text-align: left;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.overlay-container:hover .text {
+  opacity: 1;
+}
+
+.text h2,
+.text .post-date,
+.text p {
+  margin: 0; /* Remove default margins */
+  padding: 0; /* Ensure no padding contributes to spacing */
+  margin-bottom: 10px; /* Add specific margins as needed */
+}
+
+.text h2 {
+  font-size: 2rem; /* Adjust this size as needed */
+  margin: 0; /* Ensure no extra margin is causing inconsistent spacing */
+}
+
+.link-block h2 {
+  font-size: 2rem; /* If this selector is present, ensure consistency */
+}
+
+.material-symbols-outlined {
+  font-variation-settings:
+  'FILL' 0,
+  'wght' 400,
+  'GRAD' 0,
+  'opsz' 24;
+  vertical-align: middle;
+}
+
+.site-header {
+  position: relative;
+  border-top: none; /* Remove the existing border */
+  padding-top: 5px; /* Ensure padding matches the pseudo-element height to maintain spacing */
+}
+
+.site-header::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 5px; /* Thickness of the gradient border */
+  background: linear-gradient(to right, pink, red, orange, yellow, green, blue, indigo, violet);
+  z-index: 1; /* Ensure it displays above other background elements */
+}
+
+/* version with distinct color blocks 
+.site-header::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 5px; 
+  background: repeating-linear-gradient(
+    to right,
+    pink 0%,
+    pink 12.5%,
+    red 12.5%,
+    red 25%,
+    orange 25%,
+    orange 37.5%,
+    yellow 37.5%,
+    yellow 50%,
+    green 50%,
+    green 62.5%,
+    blue 62.5%,
+    blue 75%,
+    indigo 75%,
+    indigo 87.5%,
+    violet 87.5%,
+    violet 100%
+  );
+  z-index: 1; 
+}
+*/
+
 
