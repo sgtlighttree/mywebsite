@@ -163,3 +163,34 @@ img {
   background: linear-gradient(to right, pink, red, orange, yellow, green, blue, indigo, violet);
   z-index: 1; /* Ensure it displays above other background elements */
 }
+
+/* version with distinct color blocks 
+.site-header::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 5px; 
+  background: repeating-linear-gradient(
+    to right,
+    pink 0%,
+    pink 12.5%,
+    red 12.5%,
+    red 25%,
+    orange 25%,
+    orange 37.5%,
+    yellow 37.5%,
+    yellow 50%,
+    green 50%,
+    green 62.5%,
+    blue 62.5%,
+    blue 75%,
+    indigo 75%,
+    indigo 87.5%,
+    violet 87.5%,
+    violet 100%
+  );
+  z-index: 1; 
+}
+*/
