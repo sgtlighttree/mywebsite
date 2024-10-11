@@ -5,6 +5,26 @@ body {
     /* background-color: rgb(255, 247, 230); */
 }
 
+/* Ensure the body is initially visible to prevent unintended opacity effects */
+body {
+  will-change: opacity;
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
+  background-color: white;
+}
+
+
+body.is-visible {
+  opacity: 1; /* Fully visible */
+}
+
+body.fade-out {
+  opacity: 0; /* Fade out effect */
+}
+
+
+
+
 .home article {
   margin: 20px 0; /* Add vertical spacing between posts */
   overflow: hidden; /* To ensure no extra flow */
@@ -194,3 +214,5 @@ img {
   z-index: 1; 
 }
 */
+
+
