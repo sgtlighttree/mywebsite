@@ -52,27 +52,7 @@ layout: default
       opacity: 1;
       transition: opacity 0.3s ease; /* Smooth transition */
     }
-    
-  </style>
-  <script>
-    // Ensure the script runs after the DOM is ready
-    document.addEventListener('DOMContentLoaded', function() {
-      var overlayContainers = document.querySelectorAll('.overlay-container');
-    
-      overlayContainers.forEach(function(container) {
-        container.addEventListener('touchstart', function() {
-          container.classList.add('active');
-        });
-    
-        container.addEventListener('touchend', function() {
-          // Delay removing the active class to maintain the effect while scrolling
-          setTimeout(function() {
-            container.classList.remove('active');
-          }, 500); // Adjust the delay as needed
-        });
-      });
-    });
-    </script>    
+  </style>   
 </head>
 <body>
 <div class="home">
@@ -100,6 +80,5 @@ layout: default
   </article>
   {% endfor %}
 </div>
-<script src="{{ '/assets/page-transitions.js' | relative_url }}"></script>
 </body>
 </html>

@@ -20,5 +20,3 @@ You can find the source code for Jekyll at GitHub:
 
 
 [jekyll-organization]: https://github.com/jekyll
-
-  <script src="{{ '/assets/page-transitions.js' | relative_url }}"></script>
