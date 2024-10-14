@@ -1,0 +1,33 @@
+<!-- _includes/horizontal-gallery.html -->
+
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet"/>
+
+<div class="horizontal-gallery-container">
+  <button class="scroll-arrow left">
+      <span class="material-symbols-outlined">arrow_back_ios</span>
+  </button>
+  
+  <div class="horizontal-gallery">
+    {% for media in page.media %}
+      <div class="media-box">
+        {% if media.type == "video" %}
+          <video width="100%" autoplay loop muted>
+            <source src="{{ media.path | relative_url }}" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
+        {% elsif media.type == "image" %}
+          <img src="{{ media.path | relative_url }}" alt="Media Image">
+        {% else %}
+          <p>No media available.</p>
+        {% endif %}
+      </div>
+    {% endfor %}
+  </div>
+
+  <button class="scroll-arrow right">
+      <span class="material-symbols-outlined">arrow_forward_ios</span>
+  </button>
+</div>
+
+  
+  
