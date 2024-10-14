@@ -1,0 +1,17 @@
+---
+layout: post
+title: "AYDA Awards (2021-2023)"
+date: 2023-03-10
+categories: work
+media_type: image
+media_path: /assets/images/AYDA22_Event-Screen_v01-0001.webp
+---
+
+An architecture and interior design competition for university students in Philippines (and Asia), organized by Nippon Paint. Formerly known as Asia Young Designer Awards. **Live stream director (remote and live), motion graphics.**
+
+![Alt text]({{ "/assets/images/AYDA22_Event-Screen_v01-0001.webp" | relative_url }})
+
+[Facebook Link: AYDA Awards 2021-2022 Virtual Awarding Ceremony](https://fb.watch/vcTvWwKBFO/), a fully virtual event.
+
+[Facebook Link: AYDA Awards 2022-2023 Awarding Ceremony](https://fb.watch/vcTqE5HhM0/), live from Seda Hotel, Quezon City.
+
