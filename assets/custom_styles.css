@@ -216,4 +216,72 @@ img {
 }
 */
 
+/* horizontal media scrolling */
+
+.horizontal-gallery .media-box {
+  flex: 0 0 auto;
+  height: 500px; /* Change this to control the total height of gallery items */
+  margin-right: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden; /* Ensure content stays within box bounds */
+}
+
+.horizontal-gallery img, 
+.horizontal-gallery video {
+  max-height: 100%;
+  width: auto;
+  height: auto; /* Keep height to auto to allow aspect ratio maintenance */
+  display: block;
+}
+
+.horizontal-gallery::-webkit-scrollbar {
+  display: none;  /* Hide default scrollbar for Webkit browsers */
+}
+
+.horizontal-gallery-container {
+  position: relative; /* Use this wrapper to position buttons */
+}
+
+.horizontal-gallery {
+  display: flex;
+  overflow-x: auto;
+  overflow-y: hidden;
+  white-space: nowrap;
+  scroll-behavior: smooth;
+}
+
+.scroll-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: rgba(255, 255, 255, 0.7);
+  border: none;
+  cursor: pointer;
+  padding: 10px;
+  z-index: 10;
+  border-radius: 50%;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.scroll-arrow.left {
+  left: 10px;
+}
+
+.scroll-arrow.right {
+  right: 10px;
+}
+
+@keyframes bumpRight {
+  0% { transform: translate(0, -50%); }
+  40% { transform: translate(5px, -50%); } /* Adjust for bump size */
+  80% { transform: translate(0, -50%); }
+}
+
+@keyframes bumpLeft {
+  0% { transform: translate(0, -50%); }
+  40% { transform: translate(-5px, -50%); } /* Adjust for bump size */
+  80% { transform: translate(0, -50%); }
+}
 
