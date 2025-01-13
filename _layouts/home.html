@@ -34,24 +34,6 @@ layout: default
         display: block; /* Revert display to block to ensure visibility */
       }
     }
-
-    .overlay-container:hover .overlay,
-    .overlay-container:focus .overlay,
-    .overlay-container:active .overlay {
-      opacity: 1;
-    }
-
-    .overlay-container:hover .text,
-    .overlay-container:focus .text,
-    .overlay-container:active .text {
-      opacity: 1;
-    }
-
-    .overlay-container.active .overlay,
-    .overlay-container.active .text {
-      opacity: 1;
-      transition: opacity 0.3s ease; /* Smooth transition */
-    }
   </style>   
 </head>
 <body>
@@ -62,7 +44,7 @@ layout: default
 
   {% for post in site.posts %}
   <article class="post">
-    <div class="overlay-container">
+    <div>
       <!-- Wrap the whole block in a link -->
       <a href="{{ post.url | relative_url }}" class="link-block">
         {% include media.html type=post.media_type path=post.media_path post_url=post.url %}

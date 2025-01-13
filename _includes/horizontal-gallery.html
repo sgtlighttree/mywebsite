@@ -2,13 +2,15 @@
 
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet"/>
 
+{% assign gallery_data = site.data.galleries[include.gallery_id] %}
+
 <div class="horizontal-gallery-container">
   <button class="scroll-arrow left">
       <span class="material-symbols-outlined">arrow_back_ios</span>
   </button>
   
   <div class="horizontal-gallery">
-    {% for media in page.media %}
+    {% for media in gallery_data %}
       <div class="media-box">
         {% if media.type == "video" %}
           <video width="100%" autoplay loop muted>
@@ -28,6 +30,3 @@
       <span class="material-symbols-outlined">arrow_forward_ios</span>
   </button>
 </div>
-
-  
-  
