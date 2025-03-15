@@ -10,31 +10,6 @@ layout: default
   <title>{{ site.title }} - Home</title>
   <link rel="stylesheet" href="{{ '/assets/main.css' | relative_url }}">
   <link rel="stylesheet" href="{{ '/assets/custom_styles.css' | relative_url }}">
-  <style>
-    /* mobile settings for home */
-
-    .site-nav {
-      z-index: 1; /* Ensure it displays above other background elements */
-    }
-
-    @media (max-width: 768px) {
-      /* Example breakpoint for tablets and below, adjust as needed */
-      .text h2 {
-        font-size: 1.5rem; /* Adjust to a smaller size for mobile */
-      }
-    }
-
-    @media (max-width: 768px) {
-      .home article p {
-        display: none; /* This would hide paragraphs, check selectors in your code */
-      }
-      
-      /* Ensure this selector doesn't hide the year if it's a specific element */
-      .post-date {
-        display: block; /* Revert display to block to ensure visibility */
-      }
-    }
-  </style>   
 </head>
 <body>
 <div class="home">
@@ -44,21 +19,22 @@ layout: default
 
   {% for post in site.posts %}
   <article class="post">
-    <div>
+    <div class="overlay-container">
       <!-- Wrap the whole block in a link -->
       <a href="{{ post.url | relative_url }}" class="link-block">
-        {% include media.html type=post.media_type path=post.media_path post_url=post.url %}
+        <!-- Use the new home-media-box class -->
+        <div class="home-media-box">
+          {% include media.html type=post.media_type path=post.media_path post_url=post.url %}
+        </div>
         <div class="overlay">
           <div class="text">
             <h2>{{ post.title }}</h2>
             <p class="post-date">{{ post.date | date: "%Y" }}</p>
-            <p>{{ post.excerpt }}</p>
+            <!-- <p>{{ post.excerpt }}</p> -->
           </div>
         </div>
       </a>
     </div>
-    <!-- <p>{{ post.excerpt }}</p> -->
-    <!-- <a href="{{ post.url | relative_url }}">Read more</a> -->
   </article>
   {% endfor %}
 </div>

@@ -1,85 +1,117 @@
-# Matthew Oyan's Portfolio and Blog
+# Matthew Oyan Website: Developer Documentation
 
-This website is my personal portfolio and blog, built with Jekyll and hosted on GitHub Pages. It showcases my work as a multimedia generalist and writer.
+This document provides a technical overview of the website's structure and instructions for building it using the command line.
 
-## Website Structure
+## I. Project Structure
 
-### Content Sections
+The website is built using Jekyll, a static site generator. The project directory contains the following key components:
 
-*   **Portfolio/Work:** Displays my past projects, organized chronologically. Each project is a Markdown file in the `_posts` directory.
-*   **Blog:** Contains blog posts on various topics. Posts are Markdown files in the `_blogs` directory. (Currently not linked in the main navigation).
-*   **Skybound Saga:** A dedicated section for my science-fantasy creative writing project. Content is organized in Markdown files within the `_skybound` directory.
-*   **About:**  A page with information about me. Content is in `about.markdown`.
-*   **Contact:** My contact information. Content is in `contact.markdown`.
+* **`_config.yml`:**  The Jekyll configuration file. This file specifies the site's title, description, base URL, theme, plugins, and collections.  Key settings to note:
 
-### Directory Structure
+    * `title`:  Sets the website title.
+    * `baseurl`:  Specifies the base URL path if the site isn't at the root of a domain.  Currently set to `/mywebsite`.  **Important:**  Change this if your deployment path changes.
+    * `collections`: Defines custom collections for blog posts (`blogs`) and Skybound Saga stories (`skybound`), each with specified permalinks.
+    * `plugins`: Lists any Jekyll plugins used; currently, only `jekyll-feed` is used for generating an RSS feed.
+    * `header_pages`: Lists the pages included in the main navigation.
 
-The website's repository (`mywebsite`) has the following directory structure:
+* **`_data`:** This directory contains YAML data files used to generate dynamic content. Currently, `galleries.yml` defines the images and videos for your galleries.
 
-```
-.
-├── 404.html                    # Custom 404 error page
-├── Gemfile                     # Defines Ruby gem dependencies
-├── Gemfile.lock                # Records exact gem versions
-├── README.md                   # Repository description
-├── _archived_posts/            # Archived blog posts (not actively displayed)
-├── _blogs/                     # Blog posts (currently not displayed)
-├── _config.yml                 # Jekyll configuration file
-├── _includes/                  # Reusable HTML snippets (e.g., media player, gallery)
-├── _layouts/                   # HTML templates for different page types
-├── _notes.txt                  # Personal notes (not part of the website)
-├── _posts/                     # Portfolio project posts
-├── _site/                      # Generated website files (do not edit directly)
-├── _skybound/                  # Creative writing content (lore and short stories)
-├── about.markdown              # Content for the "About" page
-├── assets/                     # Static assets (images, CSS, JavaScript, videos)
-├── blogs.html                  # Lists blog posts
-├── contact.markdown            # Content for the "Contact" page
-├── index.markdown              # Content for the home page
-└── skybound.html               # Lists stories in the "Skybound" section
-```
+* **`_includes`:** This directory contains reusable HTML snippets (partials).  Key includes:
+    * `horizontal-gallery.html`:  Renders horizontal galleries of images and videos using data from `_data/galleries.yml`.
+    * `media.html`: A reusable component for displaying individual media (images or videos) associated with blog posts or Skybound stories.
 
-### Key Files and Directories
+* **`_layouts`:** This directory contains layout templates for different page types:
+    * `default.html`: Base template for all pages.  This includes linking to CSS and Javascript files.
+    * `home.html`:  Layout for the homepage, displaying recent blog posts with media.
+    * `page.html`: Layout for standard pages (like the about page).
+    * `post.html`: Layout for blog posts and Skybound stories, including metadata display and media integration.
 
-*   **`_posts/`:** Portfolio project pages (Markdown). Filenames: `YYYY-MM-DD-project-title.markdown`.
-*   **`_blogs/`:** Blog posts (Markdown). Filenames: `YYYY-MM-DD-post-title.markdown`. (Currently not linked on the main site.)
-*   **`_skybound/`:** Creative writing content (Markdown).
-*   **`_layouts/`:** HTML templates for page structure.
-*   **`_includes/`:** Reusable HTML components.
-*   **`assets/`:** Images, videos, CSS, JavaScript.
-*   **`_config.yml`:** Main Jekyll configuration file.
-*   **`Gemfile`, `Gemfile.lock`:** Ruby gem dependencies.
-*   **`_site/`:** Generated website (do not edit directly).
+* **`_posts`:** This directory contains your blog posts, written in Markdown and following a specific naming convention (`YYYY-MM-DD-title.markdown`). The front matter (YAML section at the top) of each post specifies layout, title, date, categories, and media information.
 
-## Development
+* **`_skybound`:**  This directory contains Markdown files for the Skybound Saga stories.
 
-**Prerequisites:**
+* **`assets`:** This directory holds your website's static assets:
+    * `custom_styles.css`: Your custom stylesheet.
+    * `main.css`: Your primary stylesheet.
+    * `gallery.js`: Javascript for handling gallery functionality (likely for image and video scrolling).
+    * `images`: Folder containing all images.
+    * `videos`: Folder containing all videos.
 
-*   Ruby (installed via Homebrew)
-*   Bundler
+* **Markdown files:** Several Markdown files, like `about.markdown`, `contact.markdown`, `index.markdown`, and the individual story files in `_skybound`, and `blogs` provide the main website content.
 
-**Local Setup:**
+* **HTML files:** Contains several HTML files, including `blogs.html` and `skybound.html` which act as landing pages for their respective content.
 
-1. Install Ruby (if not already installed): `brew install ruby`
-2. Install Bundler: `/opt/homebrew/opt/ruby/bin/gem install bundler -v 2.5.23` (or use the newer version 2.6.2 if confirmed to be working).
-3. Navigate to the `mywebsite` directory in your terminal.
-4. Install dependencies: `/opt/homebrew/opt/ruby/bin/bundle install`
-5. Run Jekyll: `/opt/homebrew/opt/ruby/bin/bundle exec jekyll serve --host 0.0.0.0`
-6. Access the site in your browser at `http://localhost:4000`.
+* **`_site`:** (Generated directory) This directory contains the compiled HTML output of the website.  **Do not edit these files directly.**
 
-**Important Notes:**
+## II. Building the Website
 
-*   Ensure your `PATH` is set up to prioritize Homebrew's Ruby, as configured in `~/.zshrc`.
-*   If you encounter issues with `bundle` not being found or using the wrong version, refer to the detailed troubleshooting steps in our previous conversation. The symbolic link in `/usr/local/bin` should now correctly point to the Homebrew-installed Bundler.
+These instructions assume you have Ruby, Bundler, and Jekyll installed.
 
-## Troubleshooting
+1. **Navigate to the project directory:**
+   ```
+   cd /Users/matthewoyan/mywebsite
+   ```
 
-*   If `which bundle` returns `/usr/bin/bundle` instead of `/usr/local/bin/bundle`, there is an issue with your `PATH` environment variable. Review your `~/.zshrc` and make sure the Homebrew paths are prioritized correctly.
+2. **Install dependencies:**
+    ```
+    bundle install
+    ```
+3. **Build the site:**
+    ```
+    bundle exec jekyll serve
+    ```
+This command starts a local server and builds the website. You can view the website in your browser at `http://127.0.0.1:4000/`.
 
-## Future Improvements
+4. **Build the site, and serve over LAN:**
+    ```
+    bundle exec jekyll serve --host 0.0.0.0
+    ```
+This command starts a local server and builds the website. You can view the website in your browser at `http://127.0.0.1:4000/`, or `hostip:4000`.
 
-*   Add a navigation menu.
-*   Activate or remove the blog section.
-*   Add more content.
-*   Customize the website's design.
+5. **To build the site without running the server:**
+    ```
+    bundle exec jekyll build
+    ```
+This will generate the static HTML files in the _site directory. You can then deploy this _site directory to your hosting provider.
 
+## III. Adding New Content
+
+### A. Blog Posts
+
+1. Create a new Markdown file in the `_posts` directory, following the `YYYY-MM-DD-title.markdown` naming convention.
+2. Add front matter:
+    ```
+    ---
+    layout: post
+    title: "Your Post Title"
+    date: 2024-10-27
+    categories: [category1, category2] # Optional categories
+    media_type: image # Or "video"
+    media_path: /assets/images/your-image.jpg # Or path to your video
+    ---
+    ```
+3. Write your post content in Markdown below the front matter.
+
+### B. Skybound Saga Stories
+
+1. Create a new Markdown file in the `_skybound` directory.
+2. Add front matter (similar to blog posts, adapt as needed):
+    ```
+    ---
+    layout: page
+    title: "Your Story Title"
+    category: Chapter 1 # example category
+    ---
+    ```
+3. Write your story content in Markdown.
+
+### C. Adding Media to Galleries
+1. Add your images or videos to the `assets/images` or `assets/videos` folder respectively.
+2. Update the `_data/galleries.yml` file, adding entries to the relevant gallery with the correct path.
+
+## IV. Deployment
+
+This section will need to be customized based on your chosen hosting provider (e.g., GitHub Pages, Netlify, etc.). Generally, you'll need to:
+
+Build the site using `bundle exec jekyll build`.
+Upload the contents of the `_site` directory to your hosting provider's server.

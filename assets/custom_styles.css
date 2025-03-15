@@ -216,72 +216,187 @@ img {
 }
 */
 
-/* horizontal media scrolling */
-
-.horizontal-gallery .media-box {
-  flex: 0 0 auto;
-  height: 500px; /* Change this to control the total height of gallery items */
-  margin-right: 10px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden; /* Ensure content stays within box bounds */
-}
-
-.horizontal-gallery img, 
-.horizontal-gallery video {
-  max-height: 100%;
-  width: auto;
-  height: auto; /* Keep height to auto to allow aspect ratio maintenance */
-  display: block;
-}
-
-.horizontal-gallery::-webkit-scrollbar {
-  display: none;  /* Hide default scrollbar for Webkit browsers */
-}
+/* --- Horizontal Gallery Styles --- */
 
 .horizontal-gallery-container {
-  position: relative; /* Use this wrapper to position buttons */
+  position: relative; /* For absolute positioning of arrows */
+  width: 100%;
+  overflow: hidden; /* Hide the native scrollbar */
 }
 
 .horizontal-gallery {
   display: flex;
-  overflow-x: auto;
-  overflow-y: hidden;
-  white-space: nowrap;
-  scroll-behavior: smooth;
+  scroll-snap-type: none; /* For smooth scrolling */
+  overflow-x: auto; /* Enable horizontal scrolling */
+  -ms-overflow-style: none; /* For IE and Edge */
+  scrollbar-width: none; /* For Firefox */
+}
+
+.horizontal-gallery::-webkit-scrollbar {
+  display: none;
+}
+
+.horizontal-gallery > * {
+  scroll-snap-align: none; /* Snap to the start of each item */
+  flex-shrink: 0; /* Prevent items from shrinking */
+  margin-right: 10px; /* Add spacing between items */
 }
 
 .scroll-arrow {
   position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  background-color: rgba(255, 255, 255, 0.7);
+  top: 38%;
+  padding: 0;
+  background-color: transparent;
   border: none;
   cursor: pointer;
-  padding: 10px;
   z-index: 10;
-  border-radius: 50%;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  color: white;
+  text-shadow: 0px 0px 30px rgba(0, 0, 0, 1);
+  background-color: rgba(0, 0, 0, 0);
+  transition: background-color 0.3s ease, transform 0.1s ease;
+  /* animation: subtle-move 3s ease infinite; */
+}
+
+.scroll-arrow:active {
+  transform: translateX(-5px); /* Adjust amount as needed */
+}
+
+.scroll-arrow.right:active {
+  transform: translateX(5px); /* Adjust amount as needed */
+}
+
+/* @keyframes subtle-move {
+  0% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(8px);
+  }
+  100% {
+    transform: translateX(0);
+  }
+} 
+*/
+
+.scroll-arrow .material-symbols-outlined {
+  font-size: 4rem; /* Adjust size as needed */
+}
+
+.scroll-arrow:hover {
+  background-color: rgba(0, 0, 0, 0.1); /* Subtle hover effect */
+  
 }
 
 .scroll-arrow.left {
-  left: 10px;
+  left: 00px; /* Position the left arrow on the left */
 }
 
 .scroll-arrow.right {
-  right: 10px;
+  right: 00px; /* Position the right arrow on the right */
 }
 
-@keyframes bumpRight {
-  0% { transform: translate(0, -50%); }
-  40% { transform: translate(5px, -50%); } /* Adjust for bump size */
-  80% { transform: translate(0, -50%); }
+.gallery-media-box {
+  max-height: 100%; /* Set the desired maximum height */
+  overflow: hidden; /* Hide any overflow */
 }
 
-@keyframes bumpLeft {
-  0% { transform: translate(0, -50%); }
-  40% { transform: translate(-5px, -50%); } /* Adjust for bump size */
-  80% { transform: translate(0, -50%); }
+.gallery-media-box img {
+  width: auto;  /* Let the width adjust to maintain aspect ratio */
+  height: 100%;  /* Ensure the image takes up the full available height */
+  object-fit: contain; /* Show the entire image */
+  display: block; /* Remove extra space below the image */
 }
 
+.gallery-media-box video {
+  object-fit: contain; /* Prevents distortion */
+  display: block; /* Remove extra space */
+}
+
+
+/* --- Home Page Media Styles --- */
+
+/* Add a class to your home page media containers */
+.home-media-box {
+  /* Your original height/width or other styles for home page media */
+  /*  Example, if you want to use the inherent aspect ratio: */
+  width: 100%; /* Example */
+  height: auto; /* Let the height adjust based on the width */
+    margin: 0; /* Remove margin */
+}
+
+.home-media-box img,
+.home-media-box video {
+  width: 100%; /* Example */
+  height: auto;
+  object-fit: contain; /* Use contain here */
+  display: block;
+}
+
+/* --- OVERLAY STYLES (home.html, adjusted) --- */
+.overlay-container {
+  position: relative; /* Make sure this is set */
+  display: inline-block; /* Or block, depending on your layout */
+  width: 100%; /* Or a specific width */
+  /* height: auto;  Remove any fixed height here */
+}
+
+/*
+  Ensure the link block fills the container
+  position absolute on an inline element is usually a bad idea
+*/
+.link-block {
+  display: block;
+  width: 100%;
+  height: 100%; /* Make the link fill the container */
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black */
+  opacity: 0; /* Initially hidden */
+  transition: opacity 0.3s;
+  display: flex;
+  align-items: center; /* Center vertically */
+  justify-content: center; /* Center horizontally */
+  pointer-events: none; /* Allows clicking through the overlay */
+}
+
+.overlay-container:hover .overlay {
+  opacity: 0.7;
+}
+
+.overlay-container:hover .text {
+    opacity: 1;
+}
+
+.home article a {
+  text-decoration: none;
+  color: inherit; /* Or any color you prefer */
+}
+
+.home article img {
+  width: 100%; /* Make images responsive */
+  height: auto; /* Maintain aspect ratio */
+  display: block; /* Remove extra space below inline images */
+  pointer-events: none; /* Pass clicks through on initial state */
+}
+
+.text h2 {
+    margin: 0.6rem 0;
+    font-size: 2.2rem;
+}
+
+.text .post-date {
+  margin: 0.6rem 0;
+}
+
+.text p {
+  margin: 0.6rem 0;
+}
+
+/* Add any other styles from the original home.html inline styles here */
+/* --- End of Home Page Media Styles --- */

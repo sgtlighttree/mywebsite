@@ -8,4 +8,12 @@ gallery2:
   - type: image
     path: /assets/images/IMG_20190426_081744.avif
   - type: image
+    path: /assets/images/IMG_20190426_081744.avif
+  - type: image
+    path: /assets/images/OmnibusAVP.webp
+
+gallery3:
+  - type: image
+    path: /assets/images/OmnibusAVP.webp
+  - type: image
     path: /assets/images/OmnibusAVP.webp
