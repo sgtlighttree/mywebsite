@@ -2,32 +2,27 @@
 
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet"/>
 
+{% assign gallery_data = site.data.galleries[include.gallery_id] %}
+
 <div class="horizontal-gallery-container">
   <button class="scroll-arrow left">
-      <span class="material-symbols-outlined">arrow_back_ios</span>
+    <span class="material-symbols-outlined">chevron_left</span>
   </button>
-  
-  <div class="horizontal-gallery">
-    {% for media in page.media %}
-      <div class="media-box">
-        {% if media.type == "video" %}
+  <div class="horizontal-gallery" tabindex="0">
+    {% for item in site.data.galleries[include.gallery_name] %}
+      <div class="gallery-media-box">
+        {% if item.type == "video" %}
           <video width="100%" autoplay loop muted>
-            <source src="{{ media.path | relative_url }}" type="video/mp4">
+            <source src="{{ item.path | relative_url }}" type="video/mp4">
             Your browser does not support the video tag.
           </video>
-        {% elsif media.type == "image" %}
-          <img src="{{ media.path | relative_url }}" alt="Media Image">
-        {% else %}
-          <p>No media available.</p>
+        {% elsif item.type == "image" %}
+          <img src="{{ item.path | relative_url }}" alt="Gallery Image">
         {% endif %}
       </div>
     {% endfor %}
   </div>
-
   <button class="scroll-arrow right">
-      <span class="material-symbols-outlined">arrow_forward_ios</span>
+    <span class="material-symbols-outlined">chevron_right</span>
   </button>
 </div>
-
-  
-  

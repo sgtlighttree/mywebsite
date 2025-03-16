@@ -1,0 +1,19 @@
+gallery1:
+  - type: image
+    path: /assets/images/CorporateAVP.webp
+  - type: video
+    path: /assets/videos/MAGNUSPC_MotionLogo-Looping_v01_h264.mp4
+
+gallery2:
+  - type: image
+    path: /assets/images/IMG_20190426_081744.avif
+  - type: image
+    path: /assets/images/IMG_20190426_081744.avif
+  - type: image
+    path: /assets/images/OmnibusAVP.webp
+
+gallery3:
+  - type: image
+    path: /assets/images/OmnibusAVP.webp
+  - type: image
+    path: /assets/images/OmnibusAVP.webp

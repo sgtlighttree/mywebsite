@@ -1,287 +1,250 @@
-@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200..800&display=swap');
 
+/* General Styles */
 body {
     font-family: 'Plus Jakarta Sans', sans-serif;
-    /* background-color: rgb(255, 247, 230); */
-}
-
-body {
-  opacity: 1;
-}
-
-.fade-in {
-  opacity: 0;
-  animation: fadeInAnimation 500ms forwards;
-}
-
-@keyframes fadeInAnimation {
-  to {
+    background-color: hsl(20, 30%, 98%);
     opacity: 1;
+}
+
+.wrapper {
+    max-width: calc(900px - 60px);
+    margin: 0 auto;
+    padding: 0 30px;
+}
+
+@media screen and (max-width: 800px) {
+    .wrapper {
+        max-width: calc(800px - 30px);
+        padding: 0 20px;
+    }
+}
+
+/* Article Styling */
+.home article {
+    margin: 0px 00px 25px 00px;
+    overflow: hidden;
+}
+
+@media (min-width: 800px) {
+    .home article {
+      margin: 35px 00px 50px 00px;
+    }
+}
+
+/* Post Styling */
+.post {
+    margin-bottom: 20px;
+    box-shadow: 0px 20px 20px 1px rgba(0, 0, 0, 0.25);
+}
+
+@media (min-width: 800px) {
+  .home article {
+    box-shadow: 0px 30px 60px 1px rgba(0, 0, 0, 0.45);
   }
 }
 
-.fade-out {
-  opacity: 1;
-  transition: opacity 500ms;
-  opacity: 0;
+.post-title {
+    font-size: 24px;
 }
 
-.home article {
-  margin: 20px 0; /* Add vertical spacing between posts */
-  overflow: hidden; /* To ensure no extra flow */
-}
-
-/* Optional for additional styling/specificity */
-.post {
-  margin-bottom: 20px; /* Space beneath each individual post */
-}
-
-.post-title { /* This is for blogs */
-    font-size: 24px; /* Adjust the size as needed */
-    /* font-weight: bold; Optional: add this if you want bold text */
-}
-
+/* Video Styling */
 video {
     width: 100% !important;
 }
 
-.home article a {
-  display: block; /* or inline-block if you prefer */
-  margin: 10px 0 20px; /* Margin specific to readable spacing */
-}
-  
 .video-container {
-  position: relative;
-  width: 100%;
-  padding-bottom: 56.25%; /* 16:9 aspect ratio (9/16 = 0.5625) */
-  height: 0;
-  overflow: hidden;
+    position: relative;
+    width: 100%;
+    padding-bottom: 56.25%;
+    height: 0;
+    overflow: hidden;
 }
 
 .video-container iframe {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
 }
 
+/* Image & Link Styling */
+img {
+    width: 100%;
+    height: auto;
+    display: block;
+    pointer-events: none;
+}
+
+.link-block {
+    display: block;
+    position: relative;
+    color: inherit;
+    text-decoration: none;
+}
+
+/* Post Overlay Styling */
 .overlay-container {
-  position: relative;
-  display: block;
-  overflow: hidden;
-  margin: 0; /* Ensure no container margin */
-  padding: 0; /* Ensure no inner padding */
-}
-
-.link-block {
-  display: block;
-  position: relative;
-  color: inherit;
-  text-decoration: none;
-}
-
-.link-block img,
-img {
-  display: block;
-  width: 100%;
-  height: auto;
-}
-
-.link-block {
-  display: block;
-  text-decoration: none;
-  color: inherit;
-}
-
-.home article a {
-  display: block;
-  text-decoration: none;
-  margin: 0; /* Relocate excess margin */
-}
-
-img {
-  width: 100%;
-  height: auto;
-  display: block;
-  pointer-events: none; /* Ensure clicks are not blocked by the image */
+    position: relative;
+    display: block;
 }
 
 .overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
-  opacity: 0;
-  transition: opacity 0.3s ease;
-  pointer-events: none; /* Keep events flowing to the link */
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
 }
 
-.overlay-container:hover .overlay {
-  opacity: 1;
+.overlay-container:hover .overlay,
+.overlay-container:hover .text {
+    opacity: 1;
 }
 
 .text {
-  color: white;
-  position: absolute;
-  top: 20px;
-  left: 20px;
-  right: 20px;
-  bottom: 20px;
-  text-align: left;
-  opacity: 0;
-  transition: opacity 0.3s ease;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-}
-
-.overlay-container:hover .text {
-  opacity: 1;
-}
-
-.text h2,
-.text .post-date,
-.text p {
-  margin: 0; /* Remove default margins */
-  padding: 0; /* Ensure no padding contributes to spacing */
-  margin-bottom: 10px; /* Add specific margins as needed */
+    color: white;
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    right: 20px;
+    bottom: 20px;
+    text-align: left;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
 }
 
 .text h2 {
-  font-size: 2rem; /* Adjust this size as needed */
-  margin: 0; /* Ensure no extra margin is causing inconsistent spacing */
+    font-size: 2rem;
+    margin: 0;
 }
 
-.link-block h2 {
-  font-size: 2rem; /* If this selector is present, ensure consistency */
+@media (max-width: 600px) {
+  .text h2 {
+    font-size: 1.5rem !important;
+  }
 }
 
-.material-symbols-outlined {
-  font-variation-settings:
-  'FILL' 0,
-  'wght' 400,
-  'GRAD' 0,
-  'opsz' 24;
-  vertical-align: middle;
+.text .post-date,
+.text p {
+    margin-bottom: 10px;
 }
 
+/* Header & Navigation */
 .site-header {
-  position: relative;
-  border-top: none; /* Remove the existing border */
-  padding-top: 5px; /* Ensure padding matches the pseudo-element height to maintain spacing */
+    position: relative;
+    padding-top: 5px;
+    border-top: none;
 }
 
 .site-header::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 5px; /* Thickness of the gradient border */
-  background: linear-gradient(to right, pink, red, orange, yellow, green, blue, indigo, violet);
-  z-index: 1; /* Ensure it displays above other background elements */
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 5px;
+    background: linear-gradient(to right, pink, red, orange, yellow, green, blue, indigo, violet);
+    z-index: 1;
 }
 
-/* version with distinct color blocks 
-.site-header::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 5px; 
-  background: repeating-linear-gradient(
-    to right,
-    pink 0%,
-    pink 12.5%,
-    red 12.5%,
-    red 25%,
-    orange 25%,
-    orange 37.5%,
-    yellow 37.5%,
-    yellow 50%,
-    green 50%,
-    green 62.5%,
-    blue 62.5%,
-    blue 75%,
-    indigo 75%,
-    indigo 87.5%,
-    violet 87.5%,
-    violet 100%
-  );
-  z-index: 1; 
-}
-*/
-
-/* horizontal media scrolling */
-
-.horizontal-gallery .media-box {
-  flex: 0 0 auto;
-  height: 500px; /* Change this to control the total height of gallery items */
-  margin-right: 10px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden; /* Ensure content stays within box bounds */
+.site-nav {
+    z-index: 1;
+    opacity: 1;
+    border-radius: 0;
 }
 
-.horizontal-gallery img, 
-.horizontal-gallery video {
-  max-height: 100%;
-  width: auto;
-  height: auto; /* Keep height to auto to allow aspect ratio maintenance */
-  display: block;
-}
-
-.horizontal-gallery::-webkit-scrollbar {
-  display: none;  /* Hide default scrollbar for Webkit browsers */
-}
-
+/* Horizontal Gallery */
 .horizontal-gallery-container {
-  position: relative; /* Use this wrapper to position buttons */
+    position: relative;
+    width: 100%;
+    overflow: hidden;
 }
 
 .horizontal-gallery {
-  display: flex;
-  overflow-x: auto;
-  overflow-y: hidden;
-  white-space: nowrap;
-  scroll-behavior: smooth;
+    display: flex;
+    overflow-x: auto;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+.horizontal-gallery::-webkit-scrollbar {
+    display: none;
+}
+
+.horizontal-gallery > * {
+    flex-shrink: 0;
+    margin-right: 10px;
 }
 
 .scroll-arrow {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  background-color: rgba(255, 255, 255, 0.7);
-  border: none;
-  cursor: pointer;
-  padding: 10px;
-  z-index: 10;
-  border-radius: 50%;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    position: absolute;
+    top: 38%;
+    padding: 0;
+    background: none;
+    border: none;
+    cursor: pointer;
+    z-index: 10;
+    color: white;
+    text-shadow: 0px 0px 30px rgba(0, 0, 0, 1);
+    transition: background-color 0.3s ease, transform 0.1s ease;
+}
+
+.scroll-arrow:active {
+    transform: translateX(-5px);
+}
+
+.scroll-arrow.right:active {
+    transform: translateX(5px);
+}
+
+.scroll-arrow .material-symbols-outlined {
+    font-size: 4rem;
+}
+
+.scroll-arrow:hover {
+    background-color: rgba(0, 0, 0, 0.1);
 }
 
 .scroll-arrow.left {
-  left: 10px;
+    left: 0;
 }
 
 .scroll-arrow.right {
-  right: 10px;
+    right: 0;
 }
 
-@keyframes bumpRight {
-  0% { transform: translate(0, -50%); }
-  40% { transform: translate(5px, -50%); } /* Adjust for bump size */
-  80% { transform: translate(0, -50%); }
+/* Media Box */
+.gallery-media-box {
+    max-height: 100%;
+    overflow: hidden;
 }
 
-@keyframes bumpLeft {
-  0% { transform: translate(0, -50%); }
-  40% { transform: translate(-5px, -50%); } /* Adjust for bump size */
-  80% { transform: translate(0, -50%); }
+.gallery-media-box img,
+.gallery-media-box video {
+    object-fit: contain;
+    display: block;
 }
 
+/* Home Page Media */
+.home-media-box {
+    width: 100%;
+    height: auto;
+    margin: 0;
+}
+
+.home-media-box img,
+.home-media-box video {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+    display: block;
+}
