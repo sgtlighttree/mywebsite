@@ -10,6 +10,31 @@ layout: default
   <title>{{ site.title }} - Home</title>
   <link rel="stylesheet" href="{{ '/assets/main.css' | relative_url }}">
   <link rel="stylesheet" href="{{ '/assets/custom_styles.css' | relative_url }}">
+  <style>
+    /* Article Styling */
+    .home article {
+    margin: 0px 00px 25px 00px;
+    overflow: hidden;
+    }
+
+    @media (min-width: 800px) {
+        .home article {
+          margin: 35px 00px 50px 00px;
+        }
+    }
+
+    /* Post Styling */
+    .post {
+        margin-bottom: 20px;
+        box-shadow: 0px 20px 20px 1px rgba(0, 0, 0, 0.25);
+    }
+
+    @media (min-width: 800px) {
+      .home article {
+        box-shadow: 0px 30px 60px 1px rgba(0, 0, 0, 0.45);
+      }
+    }
+  </style>
 </head>
 <body>
 <div class="home">
@@ -38,6 +63,5 @@ layout: default
   </article>
   {% endfor %}
 </div>
-<script src="{{ '/assets/gallery.js' | relative_url }}"></script>
 </body>
 </html>

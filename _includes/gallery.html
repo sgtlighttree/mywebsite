@@ -1,0 +1,19 @@
+<div class="gallery 
+  {% if include.height %}gallery-{{ include.height }}{% endif %}
+  {% if include.mobile_height %}gallery-mobile-{{ include.mobile_height }}{% endif %}">
+  {% for image in include.images %}
+    <a 
+      href="{{ image.url | relative_url }}" 
+      data-pswp-width="{{ image.width }}" 
+      data-pswp-height="{{ image.height }}"
+      {% if image.caption %}data-pswp-caption="{{ image.caption }}"{% endif %}
+      class="{% if image.mobile_height %}gallery-mobile-{{ image.mobile_height }}-item{% endif %}"
+    >
+      <img 
+        src="{{ image.thumbnail | default: image.url | relative_url }}" 
+        alt="{{ image.caption | default: 'Gallery image' }}"
+        loading="lazy"
+      />
+    </a>
+  {% endfor %}
+</div>

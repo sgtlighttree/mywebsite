@@ -21,28 +21,7 @@ body {
 }
 
 /* Article Styling */
-.home article {
-    margin: 0px 00px 25px 00px;
-    overflow: hidden;
-}
 
-@media (min-width: 800px) {
-    .home article {
-      margin: 35px 00px 50px 00px;
-    }
-}
-
-/* Post Styling */
-.post {
-    margin-bottom: 20px;
-    box-shadow: 0px 20px 20px 1px rgba(0, 0, 0, 0.25);
-}
-
-@media (min-width: 800px) {
-  .home article {
-    box-shadow: 0px 30px 60px 1px rgba(0, 0, 0, 0.45);
-  }
-}
 
 .post-title {
     font-size: 24px;
@@ -162,89 +141,101 @@ img {
     border-radius: 0;
 }
 
-/* Horizontal Gallery */
-.horizontal-gallery-container {
-    position: relative;
-    width: 100%;
-    overflow: hidden;
-}
 
-.horizontal-gallery {
-    display: flex;
-    overflow-x: auto;
-    -ms-overflow-style: none;
-    scrollbar-width: none;
-}
-
-.horizontal-gallery::-webkit-scrollbar {
-    display: none;
-}
-
-.horizontal-gallery > * {
-    flex-shrink: 0;
-    margin-right: 10px;
-}
-
-.scroll-arrow {
-    position: absolute;
-    top: 38%;
-    padding: 0;
-    background: none;
-    border: none;
-    cursor: pointer;
-    z-index: 10;
-    color: white;
-    text-shadow: 0px 0px 30px rgba(0, 0, 0, 1);
-    transition: background-color 0.3s ease, transform 0.1s ease;
-}
-
-.scroll-arrow:active {
-    transform: translateX(-5px);
-}
-
-.scroll-arrow.right:active {
-    transform: translateX(5px);
-}
-
-.scroll-arrow .material-symbols-outlined {
-    font-size: 4rem;
-}
-
-.scroll-arrow:hover {
-    background-color: rgba(0, 0, 0, 0.1);
-}
-
-.scroll-arrow.left {
-    left: 0;
-}
-
-.scroll-arrow.right {
-    right: 0;
-}
-
-/* Media Box */
-.gallery-media-box {
-    max-height: 100%;
-    overflow: hidden;
-}
-
-.gallery-media-box img,
-.gallery-media-box video {
-    object-fit: contain;
+/* Gallery styling */
+.gallery {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 10px;
+    margin: 20px 0;
+  }
+  
+  .gallery a {
     display: block;
-}
-
-/* Home Page Media */
-.home-media-box {
+    line-height: 0;
+    overflow: hidden;
+  }
+  
+  /* Default heights for desktop */
+  .gallery img {
     width: 100%;
-    height: auto;
-    margin: 0;
-}
-
-.home-media-box img,
-.home-media-box video {
-    width: 100%;
-    height: auto;
-    object-fit: contain;
-    display: block;
-}
+    height: 300px;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+  }
+  
+  /* Custom gallery row heights for desktop */
+  .gallery-short img {
+    height: 200px;
+  }
+  
+  .gallery-tall img {
+    height: 400px;
+  }
+  
+  .gallery-extra-tall img {
+    height: 500px;
+  }
+  
+  /* Mobile view with responsive heights */
+  @media (max-width: 600px) {
+    .gallery {
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    }
+    
+    /* Default height for mobile */
+    .gallery img {
+      height: 200px;
+    }
+    
+    /* Custom gallery row heights for mobile */
+    .gallery-mobile-short img {
+      height: 150px;
+    }
+    
+    .gallery-mobile-default img {
+      height: 200px;
+    }
+    
+    .gallery-mobile-tall img {
+      height: 300px;
+    }
+    
+    .gallery-mobile-extra-tall img {
+      height: 400px;
+    }
+    
+    /* Individual item mobile heights */
+    .gallery-mobile-short-item img {
+      height: 150px !important;
+    }
+    
+    .gallery-mobile-default-item img {
+      height: 200px !important;
+    }
+    
+    .gallery-mobile-tall-item img {
+      height: 300px !important;
+    }
+    
+    .gallery-mobile-extra-tall-item img {
+      height: 400px !important;
+    }
+    
+    /* If only desktop class is specified, use proportional heights on mobile */
+    .gallery-short:not([class*="gallery-mobile"]) img:not([class*="gallery-mobile"]) {
+      height: 150px;
+    }
+    
+    .gallery-tall:not([class*="gallery-mobile"]) img:not([class*="gallery-mobile"]) {
+      height: 300px;
+    }
+    
+    .gallery-extra-tall:not([class*="gallery-mobile"]) img:not([class*="gallery-mobile"]) {
+      height: 350px;
+    }
+  }
+  
+  .gallery a:hover img {
+    transform: scale(1.05);
+  }
