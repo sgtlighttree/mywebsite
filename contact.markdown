@@ -16,7 +16,7 @@ permalink: /contact/
 
   <p>
       <span class="material-symbols-outlined">call</span>
-      (Philippines/SMART) <a href="tel:+639472290659">+63 947 229 0659</a>
+      (Philippines/SMART)&nbsp;&nbsp;<a href="tel:+639472290659">+63 947 229 0659</a>
   </p>
 </div>
 
@@ -31,22 +31,18 @@ permalink: /contact/
     </p>
     <div class="form-group">
       <label for="name">Name</label>
-      <br>
       <input type="text" name="name" id="name" required>
     </div>
     <div class="form-group">
       <label for="email">Email</label>
-      <br>
       <input type="email" name="email" id="email" required>
     </div>
     <div class="form-group">
       <label for="topic">Subject</label>
-      <br>
       <input type="text" name="topic" id="topic" required onchange="updateSubject()">
     </div>
     <div class="form-group">
       <label for="message">Message</label>
-      <br>
       <textarea name="message" id="message" rows="5" required></textarea>
     </div>
     <button type="submit">Send</button>
