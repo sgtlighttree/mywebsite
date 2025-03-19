@@ -38,9 +38,9 @@ permalink: /contact/
       <input type="email" name="email" id="email" required>
     </div>
     <div class="form-group">
-      <label for="subject">Subject</label>
+      <label for="topic">Subject</label>
       <br>
-      <input type="text" name="subject" id="subject" required>
+      <input type="text" name="topic" id="topic" required>
     </div>
     <div class="form-group">
       <label for="message">Message</label>
