@@ -23,7 +23,11 @@ email: matthew.oyan@protonmail.com
 description: >- # this means to ignore newlines until "baseurl:"
   Matthew Oyan is a multidisciplinary creative specializing in video post-production 
   and motion design, based in Quezon City, Philippines.
-baseurl: "/mywebsite" # the subpath of your site, e.g. /blog
+# For GitHub Pages
+# baseurl: "/mywebsite"
+
+# For Netlify (uncomment when ready to switch)
+baseurl: ""
 url: "" # the base hostname & protocol for your site, e.g. http://example.com
 instagram_username: sgtlighttree
 github_username:  sgtlighttree
