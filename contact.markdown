@@ -22,11 +22,12 @@ permalink: /contact/
 
 <div class="contact-form">
   <h2>Get In Touch</h2>
-  <form name="Portfolio Contact Form" method="POST" data-netlify="true" netlify-honeypot="bot-field" action="{{ '/success/' | relative_url }}">
-    <input type="hidden" name="form-name" value="New message from %{formName} (%{submissionId})" />
-        <p class="hidden">
-            <label>Don't fill this out if you're human: <input name="bot-field" /></label>
-        </p>
+  <form name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field" action="{{ '/success/' | relative_url }}">
+    <input type="hidden" name="form-name" value="contact" />
+    <input type="hidden" name="subject" value="New message from %{formName} (%{submissionId})" />
+    <p class="hidden">
+        <label>Don't fill this out if you're human: <input name="bot-field" /></label>
+    </p>
     <div class="form-group">
       <label for="name">Name</label>
       <br>
