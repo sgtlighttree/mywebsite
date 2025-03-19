@@ -1,8 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200..800&display=swap');
+@import url("https://use.typekit.net/rwk4ccm.css");
 
 /* General Styles */
 body {
-    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-family: "mundial-narrow-variable", sans-serif;
+    font-family: "Plus Jakarta Sans", sans-serif;
     background-color: hsl(20, 30%, 98%);
     opacity: 1;
 }
