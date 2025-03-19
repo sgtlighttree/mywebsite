@@ -24,6 +24,8 @@ permalink: /contact/
   <h2>Get In Touch</h2>
   <form name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field" action="{{ '/success/' | relative_url }}">
     <input type="hidden" name="form-name" value="contact" />
+    <!-- Create a combined subject field that Netlify will use -->
+    <input type="hidden" id="form-subject" name="subject">
     <p class="hidden">
         <label>Don't fill this out if you're human: <input name="bot-field" /></label>
     </p>
@@ -40,7 +42,7 @@ permalink: /contact/
     <div class="form-group">
       <label for="topic">Subject</label>
       <br>
-      <input type="text" name="topic" id="topic" required>
+      <input type="text" name="topic" id="topic" required onchange="updateSubject()">
     </div>
     <div class="form-group">
       <label for="message">Message</label>
@@ -50,3 +52,16 @@ permalink: /contact/
     <button type="submit">Send</button>
   </form>
 </div>
+
+<script>
+function updateSubject() {
+  const name = document.getElementById('name').value || '(unnamed)';
+  const topic = document.getElementById('topic').value || 'Website Contact';
+  document.getElementById('form-subject').value = `[${topic}] - Message from ${name}`;
+}
+
+// Update when name changes too
+document.getElementById('name').addEventListener('change', updateSubject);
+// Update on form submission
+document.querySelector('form[name="contact"]').addEventListener('submit', updateSubject);
+</script>
