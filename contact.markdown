@@ -24,7 +24,6 @@ permalink: /contact/
   <h2>Get In Touch</h2>
   <form name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field" action="{{ '/success/' | relative_url }}">
     <input type="hidden" name="form-name" value="contact" />
-    <input type="hidden" name="subject" value="[%{subject}] Message from %{name}" />
     <p class="hidden">
         <label>Don't fill this out if you're human: <input name="bot-field" /></label>
     </p>
