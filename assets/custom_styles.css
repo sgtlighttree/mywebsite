@@ -241,3 +241,8 @@ img {
   .gallery a:hover img {
     transform: scale(1.05);
   }
+
+/* Hide honeypot field for Netlify forms */
+  .hidden {
+    display: none !important;
+  }

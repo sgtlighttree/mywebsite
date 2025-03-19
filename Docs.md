@@ -171,3 +171,128 @@ This section will need to be customized based on your chosen hosting provider (e
 
 Build the site using `bundle exec jekyll build`.
 Upload the contents of the `_site` directory to your hosting provider's server.
+
+## V. Dual Deployment
+
+### Solution: Environment-Based Configuration
+
+Jekyll allows for environment-specific configuration. You can use this to set different `baseurl` values depending on where you're deploying.
+
+#### 1. Create Environment-Specific Config Files
+
+````yaml path=_config.yml mode=EDIT
+# Common settings for all environments
+title: Matthew Oyan
+email: matthew.oyan@protonmail.com
+description: >-
+  Matthew Oyan is a multidisciplinary creative specializing in video post-production 
+  and motion design, based in Quezon City, Philippines.
+url: "" 
+instagram_username: sgtlighttree
+github_username: sgtlighttree
+
+# Build settings
+theme: minima
+plugins:
+  - jekyll-feed
+
+collections:
+  blogs:
+    output: true
+    permalink: /blogs/:name
+  skybound:
+    output: true
+    permalink: /skybound/:name/
+
+header_pages:
+  - index.markdown
+  - about.markdown
+  - blogs.html
+  - contact.markdown
+  - skybound.html
+  
+include: ["assets"]
+
+# Default to empty baseurl (for Netlify)
+baseurl: ""
+````
+
+````yaml path=_config_github.yml mode=EDIT
+# GitHub Pages specific settings
+baseurl: "/mywebsite"
+````
+
+#### 2. Update Build Commands
+
+##### For GitHub Pages:
+In your GitHub workflow file (or manually):
+
+````yaml path=.github/workflows/github-pages.yml mode=EDIT
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      # ... other steps
+      - name: Build site
+        run: bundle exec jekyll build --config _config.yml,_config_github.yml
+````
+
+##### For Netlify:
+Create a `netlify.toml` file:
+
+````toml path=netlify.toml mode=EDIT
+[build]
+  command = "bundle exec jekyll build"
+  publish = "_site"
+
+[build.environment]
+  JEKYLL_ENV = "production"
+  RUBY_VERSION = "3.2.2"
+````
+
+#### 3. For Local Development
+
+When developing locally, choose which environment you want to test:
+
+```bash
+# For Netlify version (empty baseurl)
+bundle exec jekyll serve
+
+# For GitHub Pages version (with /mywebsite baseurl)
+bundle exec jekyll serve --config _config.yml,_config_github.yml
+```
+
+#### 4. URL Handling in Templates
+
+For absolute URLs in your templates, always use the `relative_url` filter:
+
+```liquid
+<a href="{{ '/about/' | relative_url }}">About</a>
+```
+
+This will automatically prepend the `baseurl` when needed.
+
+For assets:
+```liquid
+<img src="{{ '/assets/images/logo.png' | relative_url }}">
+```
+
+#### 5. Canonical URLs
+
+To help search engines understand you have two versions of the same site, add canonical URLs:
+
+````html path=_includes/head.html mode=EDIT
+<link rel="canonical" href="{{ page.url | replace:'index.html','' | absolute_url }}">
+````
+
+### Alternative: Branch-Based Approach
+
+Another approach is to maintain two branches:
+- `main` - configured for Netlify (empty baseurl)
+- `github-pages` - configured for GitHub Pages (with /mywebsite baseurl)
+
+This keeps the configurations separate but requires you to merge changes between branches.
+
+### Recommendation
+
+The environment-specific config approach is cleaner and easier to maintain. It allows you to deploy the same codebase to both platforms without manual changes to your configuration files.
