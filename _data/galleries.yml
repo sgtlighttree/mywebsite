@@ -1,19 +1,24 @@
-gallery1:
-  - type: image
-    path: /assets/images/CorporateAVP.webp
-  - type: video
-    path: /assets/videos/MAGNUSPC_MotionLogo-Looping_v01_h264.mp4
-
-gallery2:
-  - type: image
-    path: /assets/images/IMG_20190426_081744.avif
-  - type: image
-    path: /assets/images/IMG_20190426_081744.avif
-  - type: image
-    path: /assets/images/OmnibusAVP.webp
-
-gallery3:
-  - type: image
-    path: /assets/images/OmnibusAVP.webp
-  - type: image
-    path: /assets/images/OmnibusAVP.webp
+example_gallery:
+  - url: /assets/images/IMG_20190426_081744.avif
+    width: 2740
+    height: 3657
+    thumbnail: /assets/images/IMG_20190426_081744.avif
+    caption: Katibawasan Photo
+    mobile_height: extra-tall
+  - url: /assets/images/AYDA22_Event-Screen_v01-0001.webp
+    width: 1920
+    height: 1080
+    thumbnail: /assets/images/AYDA22_Event-Screen_v01-0001.webp
+    caption: AYDA Event
+  - url: /assets/images/PDIC_SilentVideo_FINAL-0001.png
+    width: 1920
+    height: 1080
+    thumbnail: /assets/images/PDIC_SilentVideo_FINAL-0001.png
+    caption: PDIC Event
+  - url: /assets/images/UsapangWika.avif
+    width: 1920
+    height: 1080
+    thumbnail: /assets/images/UsapangWika.avif
+    caption: Usapang Wika
+  
+  # Add more images as needed
