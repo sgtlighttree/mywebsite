@@ -1,0 +1,12 @@
+To launch with LAN capability:
+bundle exec jekyll serve --host 0.0.0.0
+
+To do:
+- (done) edit header top bar to be a rainbow, exactly six gradient points, same as the rainbow flag
+    - make it animate seamlessly
+- maybe add categories pages for blog entries and Skybound entries
+- make the hamburger menu full screen
+- fix issue where year is not showing on mobile
+- add fading to background color white while transitioning between pages
+- horizontal photo gallery mode for posts
+

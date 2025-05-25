@@ -1,0 +1,19 @@
+---
+layout: post
+title: "Gallery Test"
+date: 1970-01-01
+categories: work
+media_type: image
+media_path: /assets/images/IMG_20190426_081744.avif
+media:
+  - type: "image"
+    path: "/assets/images/IMG_20190426_081744.avif"
+  - type: "image"
+    path: "/assets/images/AYDA22_Event-Screen_v01-0001.webp"
+  - type: "video"
+    path: "/assets/videos/MAGNUSPC_MotionLogo-Looping_v01_h264.mp4"
+---
+
+testing
+
+{% include horizontal-gallery.html %}
