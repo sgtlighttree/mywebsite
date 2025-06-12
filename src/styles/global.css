@@ -1,16 +1,42 @@
 @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200..800&display=swap');
 
 html {
-  background-color: #f1f5f9;
+  background-color: hsl(20, 30%, 98%);
   font-family: "Plus Jakarta Sans", sans-serif;
 }
 
 body {
   margin: 0 auto;
   width: 100%;
-  max-width: 80ch;
+  max-width: 90ch;
   padding: 1rem;
   line-height: 1.5;
+
+}
+
+body::before {
+  content: "";
+  position: absolute;
+  top: -1em;
+  left: 0;
+  right: 0;
+  height: 1.25em;
+  background: linear-gradient(
+    to right,
+    rgba(255,192,203,1) 0%,
+    rgba(255,0,0,1) 10%,
+    rgba(255,165,0,1) 22%,
+    rgba(255,255,0,1) 36%,
+    rgba(0,128,0,1) 53%,
+    rgba(0,0,255,1) 68%,
+    rgba(75,0,130,1) 82%,
+    rgba(238,130,238,1) 100%,
+    rgba(255,255,255,0) 100%
+  );
+  filter: blur(15px);
+  opacity: 1;
+  z-index: 1;
+  pointer-events: none;
 }
 
 * {
@@ -48,14 +74,14 @@ h1 {
 .nav-links a {
   display: block;
   text-align: center;
-  padding: 5px 0;
+  padding: 5px;
   text-decoration: none;
   font-size: 1.2rem;
   font-weight: bold;
   text-transform: uppercase;
   border-radius: 1em;
   transition: 0.3s;
-  margin: 0em 2em 0em 2em;
+  margin: 0em 1.5em 0em 1.5em;
 }
 
 .nav-links a:hover, a:focus {
