@@ -1,5 +1,13 @@
 @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200..800&display=swap');
 
+header {
+  position: sticky;
+  top: 0;
+  top: 1em;
+  z-index: 1000;
+  /* Optional: Add border/shadow for better "floating" feel */
+}
+
 html {
   background-color: hsl(20, 30%, 98%);
   font-family: "Plus Jakarta Sans", sans-serif;
@@ -8,7 +16,7 @@ html {
 body {
   margin: 0 auto;
   width: 100%;
-  max-width: 90ch;
+  max-width: 80ch;
   padding: 1rem;
   line-height: 1.5;
 
@@ -16,7 +24,7 @@ body {
 
 body::before {
   content: "";
-  position: absolute;
+  position: fixed;
   top: -1em;
   left: 0;
   right: 0;
@@ -106,6 +114,7 @@ h1 {
     width: auto;
     background: none;
     padding: .3em;
+    background: hsl(20, 30%, 98%); /* same as html bg */
     border: 1px solid rgb(224, 224, 224);
     border-radius: 1em;
     box-shadow: 0px 11px 28px 0px rgba(0,0,0,0.10);
@@ -119,4 +128,96 @@ h1 {
   .hamburger {
     display: none;
   }
+}
+
+/* Contact Form Styling */
+.contact-form {
+  max-width: 100%;
+  margin: 2rem 0;
+}
+
+.contact-form button {
+  width: 100%;
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+  color: #333;
+}
+
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  background-color: #fff;
+  font-family: inherit;
+  font-size: 1rem;
+  transition: border-color 0.3s, box-shadow 0.3s;
+  box-sizing: border-box; /* This ensures padding doesn't add to width */
+}
+
+/* Responsive form adjustments */
+@media (max-width: 600px) {
+  .form-group input,
+  .form-group textarea {
+    padding: 0.6rem;
+    font-size: 16px; /* Prevents iOS zoom on focus */
+  }
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+  border-color: #666;
+  box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.1);
+  outline: none;
+}
+
+.contact-form button {
+  background-color: #333;
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  font-family: "Plus Jakarta Sans", sans-serif; /* Explicitly set font family */
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.contact-form button:hover {
+  background-color: #555;
+}
+
+/* Contact Info Styling */
+.contact-info {
+  margin-bottom: 2rem;
+}
+
+.contact-info p {
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.75rem;
+}
+
+.contact-info .material-symbols-outlined {
+  margin-right: 0.75rem;
+}
+
+.contact-info a {
+  color: #333;
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.3s;
+}
+
+.contact-info a:hover {
+  border-bottom-color: #333;
 }
