@@ -1,5 +1,10 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+const writingPosts = Object.values(import.meta.glob('./writing/*.md', { eager: true }));
+const skyboundSaga = writingPosts.filter((post: any) => post.frontmatter.tags && post.frontmatter.tags.includes("Skybound Saga"));
+const otherWriting = writingPosts.filter((post: any) =>
+  !post.frontmatter.tags?.includes("Skybound Saga")
+);
 const pageTitle = "Writing";
 ---
 <BaseLayout pageTitle={pageTitle}>
@@ -15,4 +20,12 @@ const pageTitle = "Writing";
   <br><br>
   Currently, the main series of books in the Saga is set in the near future of the Information Era, but all stories and lore within the project span hundreds of years, even thousands, giving it a rich and detailed history.
   </p>
+  <ul>
+    {skyboundSaga.map((post: any) => <li><a href={post.url}>{post.frontmatter.title}</a></li>)}
+  </ul>
+
+  <h2>Other Writing</h2>
+  <ul>
+    {otherWriting.map((post: any) => <li><a href={post.url}>{post.frontmatter.title}</a></li>)}
+  </ul>
 </BaseLayout>
