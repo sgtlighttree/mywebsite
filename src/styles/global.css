@@ -58,33 +58,64 @@ h1 {
 
 /* nav styles */
 
+header nav {
+  /* Keep padding, background, border, radius, shadow for both mobile and desktop */
+  padding: 0.5rem 1rem;
+  background: hsl(20, 30%, 98%);
+  border: 1px solid rgb(224, 224, 224);
+  border-radius: 1em;
+  box-shadow: 0px 11px 28px 0px rgba(0,0,0,0.10);
+
+  /* Default to mobile layout (flex column) */
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; /* Align items to the start in the column */
+}
+
+.nav-top-row {
+    display: flex; /* Use flexbox for the top row */
+    justify-content: space-between; /* Push title and hamburger to ends */
+    align-items: center; /* Vertically align in the top row */
+    width: 100%; /* Ensure the top row takes full width */
+}
+
 .site-title {
   font-size: 1.5rem;
   color: #222;
   white-space: nowrap;
-  margin: 0em 5em 0em 0em;
+  margin: 0; /* Remove margin */
 }
 
 .hamburger {
-  padding-right: 20px;
+  padding-right: 0;
   cursor: pointer;
+  display: block;
 }
 
-.hamburger .line {
-  display: block;
-  width: 40px;
-  height: 5px;
-  margin-bottom: 10px;
-  background-color: #1c0328;
+.hamburger span.material-symbols-outlined {
+    font-size: 40px;
+    color: #1c0328;
 }
 
 .nav-links {
-  width: 100%;
-  top: 5rem;
-  left: 48px;
-  background-color: #76dfff;
-  display: none;
-  margin: 0;
+  /* Position and width are no longer needed due to flex column */
+  width: 100%; /* Take full width of the nav container */
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease-in-out;
+  scrollbar-width: none; /* Hides scrollbar */
+  /* z-index, border, radius, shadow are on header nav */
+  /* Remove background-color here, apply to links */
+}
+
+.nav-links::-webkit-scrollbar {
+  display: none; /* Hides scrollbar */
+}
+
+.nav-links.expanded {
+  max-height: 500px;
+  overflow: auto;
+  padding-top: 0.5rem; /* Add some space between top row and links */
 }
 
 .nav-links a {
@@ -96,7 +127,9 @@ h1 {
   text-transform: uppercase;
   border-radius: 1em;
   transition: 0.3s;
-  margin: 0em 0em 0em 0em;
+  margin: 0.5em 0;
+  padding: 15px 20px;
+  background-color: #ffffff; /* Apply background to individual links */
 }
 
 .nav-links a:hover, a:focus {
@@ -108,29 +141,38 @@ h1 {
   -moz-box-shadow: 0px 11px 28px 0px rgba(0,0,0,0.26);
 }
 
-.expanded {
-  display: unset;
-}
-
 @media screen and (min-width: 769px) {
-  .nav-links {
-    display: flex;
-    justify-content: center; /* Horizontally center */
-    align-items: center;    /* Vertically center */
-    position: static;
-    width: auto;
-    background: none;
-    padding: .3em;
-    background: hsl(20, 30%, 98%); /* same as html bg */
-    border: 1px solid rgb(224, 224, 224);
-    border-radius: 1em;
-    box-shadow: 0px 11px 28px 0px rgba(0,0,0,0.10);
+  header nav {
+      /* Revert to desktop horizontal flex layout */
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+      padding: .3em; /* Desktop padding */
+      /* Background, border, radius, shadow are kept from mobile styles */
   }
 
-  .nav-links a {
-    display: inline-block;
-    padding: 15px 20px;
+  .nav-top-row {
+      display: contents; /* Remove flex behavior from top row container on desktop */
   }
+
+  .site-title {
+    margin: 0em 5em 0em 0em; /* Restore desktop margin */
+  }
+
+  .nav-links {
+    display: flex; /* Display flex for horizontal layout */
+    max-height: unset;
+    overflow: visible;
+    width: auto;
+    padding-top: 0; /* Remove padding added for mobile expansion */
+  }
+
+    .nav-links a {
+        display: inline-block;
+        padding: 15px 20px;
+        margin: 0;
+        background-color: transparent; /* Remove background from links on desktop */
+    }
 
   .hamburger {
     display: none;
