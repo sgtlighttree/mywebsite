@@ -11,6 +11,11 @@ html {
   font-family: "Plus Jakarta Sans", sans-serif;
 }
 
+html.dark {
+  background-color: #170b1c;
+  color: #ffffff;
+}
+
 body {
   margin: 0 auto;
   width: 100%;
@@ -54,7 +59,71 @@ h1 {
   font-size: 2.5rem;
 }
 
+/* Dark mode styles for header and navigation */
+
+.dark .nav-links a {
+  color: #fff; /* Set link color to white in dark mode */
+  background-color: #e5c8f6; /* Darker background for mobile links in dark mode */
+}
+
+.dark .nav-links a:hover, 
+.dark .nav-links a:focus {
+  background-color: #592556; /* Apply darker background on hover and focus in dark mode */
+  box-shadow: 0px 11px 28px 0px rgba(0,0,0,0.40); /* Adjust shadow for hover/focus */
+}
+
+.dark header nav {
+  background: #2c1338; /* Darker background for header */
+  border-color: #5a2a73; /* Darker border color */
+  box-shadow: 0px 11px 28px 0px rgba(0,0,0,0.50); /* Adjust shadow for dark mode */
+}
+
+.dark .site-title {
+  color: #fff; /* White text for site title in dark mode */
+}
+
+.dark .hamburger span.material-symbols-outlined {
+  color: #fff; /* White color for hamburger icon in dark mode */
+}
+
+/* Ensure desktop nav link background and color are correct in dark mode */
+@media screen and (min-width: 769px) {
+    .nav-links a {
+        background-color: transparent; /* Ensure desktop links have no background in light mode */
+        color: #000; /* Ensure desktop link color is black in light mode */
+    }
+    .dark .nav-links a {
+        background-color: transparent; /* Ensure desktop links have no background in dark mode */
+        color: #fff; /* Ensure desktop link color is white in dark mode */
+    }
+}
+
+
 /* nav styles */
+
+.nav-links a {
+  display: block;
+  text-align: center;
+  text-decoration: none;
+  font-size: 1.1rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  border-radius: 1em;
+  transition: 0.3s;
+  margin: 0.5em 0;
+  padding: 15px 20px;
+  background-color: #ffffff; /* Apply background to individual links */
+  color: #000; /* Set default link color to black */
+}
+
+.nav-links a:hover, a:focus {
+  background-color: #ffffff; /* Keep white background on hover/focus in light mode */
+  border-radius: 1em;
+  transition: 0.3s;
+  box-shadow: 0px 11px 28px 0px rgba(0,0,0,0.26);
+  -webkit-box-shadow: 0px 11px 28px 0px rgba(0,0,0,0.26);
+  -moz-box-shadow: 0px 11px 28px 0px rgba(0,0,0,0.26);
+}
 
 header nav {
   /* Keep padding, background, border, radius, shadow for both mobile and desktop */
@@ -63,7 +132,6 @@ header nav {
   border: 1px solid rgb(224, 224, 224);
   border-radius: 1em;
   box-shadow: 0px 11px 28px 0px rgba(0,0,0,0.10);
-
   /* Default to mobile layout (flex column) */
   display: flex;
   flex-direction: column;
