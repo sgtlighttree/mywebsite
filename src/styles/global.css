@@ -3,12 +3,11 @@ header {
   top: 0;
   top: 1em;
   z-index: 1000;
-  /* Optional: Add border/shadow for better "floating" feel */
 }
 
 html {
   background-color: hsl(20, 30%, 98%);
-  font-family: "Plus Jakarta Sans", sans-serif;
+  font-family: "Anonymous Pro", sans-serif;
 }
 
 html.dark {
@@ -19,10 +18,9 @@ html.dark {
 body {
   margin: 0 auto;
   width: 100%;
-  max-width: 100ch;
+  max-width: 90ch;
   padding: 1rem;
   line-height: 1.5;
-
 }
 
 body::before {
@@ -59,188 +57,151 @@ h1 {
   font-size: 2.5rem;
 }
 
-/* Dark mode styles for header and navigation */
-
-.dark .nav-links a {
-  color: #fff; /* Set link color to white in dark mode */
-  background-color: #e5c8f6; /* Darker background for mobile links in dark mode */
-}
-
-.dark .nav-links a:hover, 
-.dark .nav-links a:focus {
-  background-color: #592556; /* Apply darker background on hover and focus in dark mode */
-  box-shadow: 0px 11px 28px 0px rgba(0,0,0,0.40); /* Adjust shadow for hover/focus */
-}
-
-.dark header nav {
-  background: #2c1338; /* Darker background for header */
-  border-color: #5a2a73; /* Darker border color */
-  box-shadow: 0px 11px 28px 0px rgba(0,0,0,0.50); /* Adjust shadow for dark mode */
-}
-
-.dark .site-title {
-  color: #fff; /* White text for site title in dark mode */
-}
-
-.dark .hamburger span.material-symbols-outlined {
-  color: #fff; /* White color for hamburger icon in dark mode */
-}
-
-/* Ensure desktop nav link background and color are correct in dark mode */
-@media screen and (min-width: 769px) {
-    .nav-links a {
-        background-color: transparent; /* Ensure desktop links have no background in light mode */
-        color: #000; /* Ensure desktop link color is black in light mode */
-    }
-    .dark .nav-links a {
-        background-color: transparent; /* Ensure desktop links have no background in dark mode */
-        color: #fff; /* Ensure desktop link color is white in dark mode */
-    }
-}
-
-
-/* nav styles */
-
-.nav-links a {
-  display: block;
-  text-align: center;
-  text-decoration: none;
-  font-size: 1.1rem;
-  font-weight: bold;
-  text-transform: uppercase;
-  border-radius: 1em;
-  transition: 0.3s;
-  margin: 0.5em 0;
-  padding: 15px 20px;
-  background-color: #ffffff; /* Apply background to individual links */
-  color: #000; /* Set default link color to black */
-}
-
-.nav-links a:hover, a:focus {
-  background-color: #ffffff; /* Keep white background on hover/focus in light mode */
-  border-radius: 1em;
-  transition: 0.3s;
-  box-shadow: 0px 11px 28px 0px rgba(0,0,0,0.26);
-  -webkit-box-shadow: 0px 11px 28px 0px rgba(0,0,0,0.26);
-  -moz-box-shadow: 0px 11px 28px 0px rgba(0,0,0,0.26);
-}
-
+/* Nav Styles */
 header nav {
-  /* Keep padding, background, border, radius, shadow for both mobile and desktop */
   padding: 0.5rem 1rem;
   background: hsl(20, 30%, 98%);
-  border: 1px solid rgb(224, 224, 224);
-  border-radius: 1em;
+  border: 1px solid #808080;
+  /* border-radius: 1em; */
   box-shadow: 0px 11px 28px 0px rgba(0,0,0,0.10);
-  /* Default to mobile layout (flex column) */
+
+  /* Mobile layout (flex column) */
   display: flex;
   flex-direction: column;
-  align-items: flex-start; /* Align items to the start in the column */
+  align-items: flex-start;
 }
 
 .nav-top-row {
-    display: flex; /* Use flexbox for the top row */
-    justify-content: space-between; /* Push title and hamburger to ends */
-    align-items: center; /* Vertically align in the top row */
-    width: 100%; /* Ensure the top row takes full width */
+    display: flex;
+    justify-content: center; /* Center items horizontally on mobile */
+    align-items: center;
+    width: 100%;
 }
 
 .site-title {
   font-size: 1.5rem;
-  color: #222;
   white-space: nowrap;
-  margin: 0; /* Remove margin */
+  margin: 0;
+  /* Light mode color */
+  color: #222;
 }
 
 .hamburger {
-  padding-right: 0;
-  cursor: pointer;
-  display: block;
-}
-
-.hamburger span.material-symbols-outlined {
-    font-size: 40px;
-    color: #1c0328;
+  display: none;
 }
 
 .nav-links {
-  /* Position and width are no longer needed due to flex column */
-  width: 100%; /* Take full width of the nav container */
-  max-height: 0;
-  overflow: hidden;
-  transition: max-height 0.3s ease-in-out;
-  scrollbar-width: none; /* Hides scrollbar */
-  /* z-index, border, radius, shadow are on header nav */
-  /* Remove background-color here, apply to links */
+  /* Mobile layout (flex row) */
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  max-height: unset;
+  overflow: visible;
+  transition: none;
+  scrollbar-width: none;
+  padding-top: 0.5rem;
 }
 
 .nav-links::-webkit-scrollbar {
-  display: none; /* Hides scrollbar */
-}
-
-.nav-links.expanded {
-  max-height: 500px;
-  overflow: auto;
-  padding-top: 0.5rem; /* Add some space between top row and links */
+  display: none;
 }
 
 .nav-links a {
-  display: block;
+  display: inline-block;
   text-align: center;
   text-decoration: none;
   font-size: 1.1rem;
   font-weight: bold;
   text-transform: uppercase;
-  border-radius: 1em;
-  transition: 0.3s;
-  margin: 0.5em 0;
-  padding: 15px 20px;
-  background-color: #ffffff; /* Apply background to individual links */
+  /* border-radius: 1em; */
+  /* transition: 0.3s; */
+  /* Mobile horizontal margin */
+  padding: 10px 15px;
+  /* Light mode colors */
+  color: #000;
 }
 
 .nav-links a:hover, a:focus {
-  background-color: #ffffff;
-  border-radius: 1em;
-  transition: 0.3s;
-  box-shadow: 0px 11px 28px 0px rgba(0,0,0,0.26);
-  -webkit-box-shadow: 0px 11px 28px 0px rgba(0,0,0,0.26);
-  -moz-box-shadow: 0px 11px 28px 0px rgba(0,0,0,0.26);
+  /* Light mode hover/focus */
+  background-color: #000;
+  color: #fff
+  /* border-radius: 1em; */
+}
+
+/* Dark mode styles */
+html.dark header nav {
+    background: #2c1338;
+    border-color: #5a2a73;
+}
+
+html.dark .site-title {
+  color: #fff;
+}
+
+html.dark .nav-links a {
+  color: #e5c8f6;
+}
+
+html.dark .nav-links a:hover, 
+html.dark .nav-links a:focus {
+  color: #592556;
+  background-color: #e5c8f6;
 }
 
 @media screen and (min-width: 769px) {
   header nav {
-      /* Revert to desktop horizontal flex layout */
+      /* Desktop horizontal flex layout */
       flex-direction: row;
-      justify-content: center;
+      justify-content: space-between;
       align-items: center;
-      padding: .3em; /* Desktop padding */
-      /* Background, border, radius, shadow are kept from mobile styles */
+      padding: .3em;
   }
 
   .nav-top-row {
-      display: contents; /* Remove flex behavior from top row container on desktop */
+      display: contents;
   }
 
   .site-title {
-    margin: 0em 2em 0em 0em; /* Restore desktop margin */
+    margin: 0em 0em 0em 1em;
+    /* Color handled by base and dark mode rules */
   }
 
   .nav-links {
-    display: flex; /* Display flex for horizontal layout */
+    /* Desktop layout */
+    display: flex;
     max-height: unset;
     overflow: visible;
     width: auto;
-    padding-top: 0; /* Remove padding added for mobile expansion */
+    padding-top: 0;
+    /* Background color handled by link styles */
   }
 
     .nav-links a {
+        /* Desktop link styles */
         display: inline-block;
         padding: 15px 20px;
         margin: 0;
-        background-color: transparent; /* Remove background from links on desktop */
+        background-color: transparent;
+        /* Color handled by base and dark mode rules */
     }
 
   .hamburger {
     display: none;
+  }
+
+  .nav-links a:hover, a:focus {
+    /* Light mode desktop hover/focus */
+    background-color: #2f2f2f;
+    color: #fff
+  }
+
+  html.dark .nav-links a:hover, 
+  html.dark .nav-links a:focus {
+    /* Dark mode desktop hover/focus */
+    color: #592556;
+    background-color: #e5c8f6;
   }
 }
