@@ -231,3 +231,70 @@ html.dark .nav-links a:focus {
     grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); /* Up to 3 columns */
   }
 }
+
+/*────────────────────────────────────────────────────────────────────────────
+   Portfolio Grid Styles
+────────────────────────────────────────────────────────────────────────────*/
+.portfolio-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); /* Responsive grid */
+  gap: 1rem;
+}
+
+.portfolio-item {
+  position: relative;
+  display: block; /* Make the whole item clickable */
+  overflow: hidden;
+  border: 1px solid #ccc;
+  text-decoration: none; /* Remove underline from the link */
+}
+
+.portfolio-thumbnail-container {
+  position: relative;
+  width: 100%;
+  height: 0;
+  padding-bottom: 75%; /* Maintain aspect ratio (4:3) for thumbnails */
+  overflow: hidden;
+}
+
+.portfolio-thumbnail {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Cover the container while maintaining aspect ratio */
+  transition: transform 0.3s ease;
+}
+
+.portfolio-item:hover .portfolio-thumbnail {
+  transform: scale(1.05); /* Slight zoom effect on hover */
+}
+
+.portfolio-title-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent dark background */
+  color: #fff;
+  padding: 0.5rem;
+  opacity: 0; /* Hidden by default */
+  transition: opacity 0.3s ease;
+  text-align: center;
+}
+
+.portfolio-item:hover .portfolio-title-overlay {
+  opacity: 1; /* Show on hover */
+}
+
+.portfolio-title-overlay h3 {
+  margin: 0;
+  font-size: 1em;
+  color: #fff; /* Ensure title is white */
+}
+
+/* Dark mode styles for Portfolio */
+html.dark .portfolio-item {
+  border-color: #5a2a73;
+}
