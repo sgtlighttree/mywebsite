@@ -10,7 +10,7 @@ header {
 
 html {
   background-color: hsl(20, 30%, 98%);
-  /* "code-saver", "cofo-sans-mono-variable", "auger-mono" */
+  /* "Plus Jakarta Sans" "code-saver", "cofo-sans-mono-variable", "auger-mono" */
   font-family: "auger-mono", sans-serif;
 }
 
@@ -69,11 +69,10 @@ body::before {
 ────────────────────────────────────────────────────────────────────────────*/
 /* Mobile styles */
 header nav {
-  padding: 0.5rem 1rem;
+  padding: 0.5rem 0.5rem;
   background: hsl(20, 30%, 98%);
   border: 1px solid #808080;
   border-bottom: 3px solid #404040;
-  box-shadow: 0px 11px 28px 0px rgba(0,0,0,0.10);
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -96,7 +95,7 @@ header nav {
 
 .nav-links {
   display: grid;
-  grid-template-columns: repeat(2, 1fr); /* Two equal columns */
+  grid-template-columns: repeat(4, 1fr); /* Two equal columns */
   gap: 0.5rem; /* Add some gap between links/tiles */
   width: 100%;
   max-height: unset;
@@ -120,6 +119,10 @@ header nav {
   border: 1px solid #808080;
   padding: 1px;
   color: #000;
+}
+
+.nav-links a.active {
+  border-top: 3px solid #808080;
 }
 
 .nav-links a:hover, a:focus {
@@ -207,7 +210,7 @@ html.dark .nav-links a:focus {
 
 .tile-item {
   border: 1px solid #808080;
-  padding: 1rem;
+  padding: .5rem;
 }
 
 .tile-item a {
