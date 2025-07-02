@@ -95,11 +95,9 @@ header nav {
 }
 
 .nav-links {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* Two equal columns */
+  gap: 0.5rem; /* Add some gap between links/tiles */
   width: 100%;
   max-height: unset;
   overflow: visible;
@@ -113,25 +111,21 @@ header nav {
 }
 
 .nav-links a {
-  display: inline-block;
+  display: block; /* Make the link fill the grid cell */
   text-align: center;
   text-decoration: none;
-  font-size: 1.1rem;
+  font-size: 1rem;
   font-weight: bold;
   text-transform: uppercase;
   border: 1px solid #808080;
-  /* transition: 0.3s; */
-  /* Mobile horizontal margin */
-  padding: 10px 15px;
-  /* Light mode colors */
+  padding: 1px;
   color: #000;
-  margin: .2em;
 }
 
 .nav-links a:hover, a:focus {
   /* Light mode hover/focus */
   background-color: #000;
-  color: #fff
+  color: #fff;
 }
 
 /* Dark mode styles for Navigation */
