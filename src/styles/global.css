@@ -7,7 +7,8 @@ header {
 
 html {
   background-color: hsl(20, 30%, 98%);
-  font-family: "Anonymous Pro", sans-serif;
+  /* "code-saver", "cofo-sans-mono-variable", "auger-mono" */
+  font-family: "auger-mono", sans-serif;
 }
 
 html.dark {
@@ -62,6 +63,7 @@ header nav {
   padding: 0.5rem 1rem;
   background: hsl(20, 30%, 98%);
   border: 1px solid #808080;
+  border-bottom: 3px solid #404040;
   /* border-radius: 1em; */
   box-shadow: 0px 11px 28px 0px rgba(0,0,0,0.10);
 
@@ -116,7 +118,7 @@ header nav {
   font-size: 1.1rem;
   font-weight: bold;
   text-transform: uppercase;
-  /* border-radius: 1em; */
+  border: 1px solid #808080;
   /* transition: 0.3s; */
   /* Mobile horizontal margin */
   padding: 10px 15px;
@@ -182,8 +184,8 @@ html.dark .nav-links a:focus {
     .nav-links a {
         /* Desktop link styles */
         display: inline-block;
-        padding: 15px 20px;
-        margin: 0;
+        padding: 10px 20px;
+        margin: .25em;
         background-color: transparent;
         /* Color handled by base and dark mode rules */
     }
