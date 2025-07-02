@@ -1,3 +1,6 @@
+/*────────────────────────────────────────────────────────────────────────────
+   General Styles
+────────────────────────────────────────────────────────────────────────────*/
 header {
   position: sticky;
   top: 0;
@@ -24,6 +27,18 @@ body {
   line-height: 1.5;
 }
 
+* {
+  box-sizing: border-box;
+}
+
+h1 {
+  margin: 1rem 0;
+  font-size: 2.5rem;
+}
+
+/*────────────────────────────────────────────────────────────────────────────
+   Rainbow Accent Bar
+──────────────────────────────────────────────────────────────────────────────*/
 body::before {
   content: "";
   position: fixed;
@@ -49,25 +64,16 @@ body::before {
   pointer-events: none;
 }
 
-* {
-  box-sizing: border-box;
-}
-
-h1 {
-  margin: 1rem 0;
-  font-size: 2.5rem;
-}
-
-/* Nav Styles */
+/*────────────────────────────────────────────────────────────────────────────
+   Navigation Styles
+────────────────────────────────────────────────────────────────────────────*/
+/* Mobile styles */
 header nav {
   padding: 0.5rem 1rem;
   background: hsl(20, 30%, 98%);
   border: 1px solid #808080;
   border-bottom: 3px solid #404040;
-  /* border-radius: 1em; */
   box-shadow: 0px 11px 28px 0px rgba(0,0,0,0.10);
-
-  /* Mobile layout (flex column) */
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -88,12 +94,7 @@ header nav {
   color: #222;
 }
 
-.hamburger {
-  display: none;
-}
-
 .nav-links {
-  /* Mobile layout (flex row) */
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
@@ -124,16 +125,16 @@ header nav {
   padding: 10px 15px;
   /* Light mode colors */
   color: #000;
+  margin: .2em;
 }
 
 .nav-links a:hover, a:focus {
   /* Light mode hover/focus */
   background-color: #000;
   color: #fff
-  /* border-radius: 1em; */
 }
 
-/* Dark mode styles */
+/* Dark mode styles for Navigation */
 html.dark header nav {
     background: #2c1338;
     border-color: #5a2a73;
@@ -147,15 +148,15 @@ html.dark .nav-links a {
   color: #e5c8f6;
 }
 
-html.dark .nav-links a:hover, 
+html.dark .nav-links a:hover,
 html.dark .nav-links a:focus {
   color: #592556;
   background-color: #e5c8f6;
 }
 
+/* Desktop styles */
 @media screen and (min-width: 769px) {
   header nav {
-      /* Desktop horizontal flex layout */
       flex-direction: row;
       justify-content: space-between;
       align-items: center;
@@ -172,7 +173,6 @@ html.dark .nav-links a:focus {
   }
 
   .nav-links {
-    /* Desktop layout */
     display: flex;
     max-height: unset;
     overflow: visible;
@@ -181,17 +181,11 @@ html.dark .nav-links a:focus {
     /* Background color handled by link styles */
   }
 
-    .nav-links a {
-        /* Desktop link styles */
-        display: inline-block;
-        padding: 10px 20px;
-        margin: .25em;
-        background-color: transparent;
-        /* Color handled by base and dark mode rules */
-    }
-
-  .hamburger {
-    display: none;
+  .nav-links a {
+      padding: 10px 20px;
+      margin: .25em;
+      background-color: transparent;
+      /* Color handled by base and dark mode rules */
   }
 
   .nav-links a:hover, a:focus {
@@ -200,10 +194,37 @@ html.dark .nav-links a:focus {
     color: #fff
   }
 
-  html.dark .nav-links a:hover, 
+  html.dark .nav-links a:hover,
   html.dark .nav-links a:focus {
     /* Dark mode desktop hover/focus */
     color: #592556;
     background-color: #e5c8f6;
+  }
+}
+
+/*────────────────────────────────────────────────────────────────────────────
+   Tile Layout Styles
+────────────────────────────────────────────────────────────────────────────*/
+/* Mobile styles */
+.tile-container {
+  display: grid;
+  gap: 1rem; /* Space between tiles */
+}
+
+.tile-item {
+  border: 1px solid #808080;
+  padding: 1rem;
+}
+
+.tile-item a {
+  text-decoration: none; /* Remove underline */
+  color: inherit; /* Inherit color from parent */
+  display: block; /* Make the link fill the tile */
+}
+
+/* Desktop styles */
+@media screen and (min-width: 769px) {
+  .tile-container {
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); /* Up to 3 columns */
   }
 }
