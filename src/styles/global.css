@@ -2,10 +2,10 @@
    General Styles
 ────────────────────────────────────────────────────────────────────────────*/
 header {
-  position: sticky;
   top: 0;
-  top: 1em;
-  z-index: 1000;
+  top: .5em;
+  position: relative; /* Ensure z-index works on mobile */
+  z-index: 2; /* Keep header above body::before gradient on mobile */
 }
 
 html {
@@ -95,7 +95,7 @@ header nav {
 
 .nav-links {
   display: grid;
-  grid-template-columns: repeat(4, 1fr); /* Two equal columns */
+  grid-template-columns: repeat(2, 1fr); /* Two equal columns */
   gap: 0.5rem; /* Add some gap between links/tiles */
   width: 100%;
   max-height: unset;
@@ -153,6 +153,12 @@ html.dark .nav-links a:focus {
 
 /* Desktop styles */
 @media screen and (min-width: 769px) {
+  header {
+    position: sticky; /* Apply sticky only on desktop */
+    top: 1em; /* Apply top for sticky positioning */
+    z-index: 1000; /* Ensure header is above everything else when sticky */
+  }
+
   header nav {
       flex-direction: row;
       justify-content: space-between;
