@@ -4,14 +4,15 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 const pageTitle = "Work";
 
 // Fetch all markdown files from the portfolio directory
-const portfolioEntries = await Astro.glob('../pages/portfolio/*.md');
+const portfolioFiles = import.meta.glob('../pages/portfolio/*.md', { eager: true });
+const portfolioEntries = Object.values(portfolioFiles);
 
 // Sort entries by date in descending order (most recent first)
-portfolioEntries.sort((a, b) => new Date(b.frontmatter.pubDate).valueOf() - new Date(a.frontmatter.pubDate).valueOf());
+portfolioEntries.sort((a: any, b: any) => new Date(b.frontmatter.pubDate).valueOf() - new Date(a.frontmatter.pubDate).valueOf());
 ---
 <BaseLayout pageTitle={pageTitle}>
   <div class="portfolio-grid">
-    {portfolioEntries.map(entry => (
+    {portfolioEntries.map((entry: any) => (
       <a href={entry.url} class="portfolio-item">
         <div class="portfolio-thumbnail-container">
           <img src={entry.frontmatter.image.url} alt={entry.frontmatter.image.alt} class="portfolio-thumbnail"/>
