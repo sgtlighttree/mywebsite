@@ -64,9 +64,16 @@
                 "footer footer";
             grid-template-rows: auto 1fr auto;
             grid-template-columns: 30ch 1fr;
-            height: 100vh;
             padding: 2ch;
             gap: 1ch;
+            /* === START: FIX FOR MOBILE VIEW === */
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            /* height: 100vh; /* This was causing the issue on mobile */
+            /* === END: FIX FOR MOBILE VIEW === */
         }
 
         /* 3. PANEL STYLING */
@@ -159,7 +166,7 @@
         
         /* Handle */
         ::-webkit-scrollbar-thumb {
-        background: var(--base01);
+        background: var(--base01)
         }
 
         /* Handle on hover */
@@ -203,20 +210,55 @@
             const themeToggleBtn = document.getElementById('theme-toggle');
             const showMenuBtn = document.getElementById('show-menu-btn');
             const showContentBtn = document.getElementById('show-content-btn');
-            
+    
+            const findFileByTitle = (title) => appState.files.find(f => f.title.toLowerCase() === title.toLowerCase().trim());
+            const findFileByPath = (path) => appState.files.find(f => f.path === path);
+    
+            const displayArticle = (path, replace = false) => {
+                const file = findFileByPath(path);
+                if (!file) return; // Don't do anything if the file isn't found
+    
+                // 1. Load the content
+                loadArticle(path);
+    
+                // 2. Update the focus in the sidebar
+                const fileIndex = appState.files.findIndex(f => f.path === path);
+                if (fileIndex !== -1) {
+                    updateFocus(fileIndex);
+                }
+    
+                // 3. Update the browser history and URL
+                const newUrl = `#${path}`;
+                const historyMethod = replace ? 'replaceState' : 'pushState';
+                history[historyMethod]({ path: path }, '', newUrl);
+                
+                // 4. Update the page title
+                document.title = `Wiki | ${file.title}`;
+            };
+    
             const init = async () => {
                 setupMarked();
                 await loadManifest();
                 renderSidebar();
                 setupEventListeners();
-                if (appState.files.length > 0) {
-                    updateFocus(0);
-                    loadArticle(appState.files[0].path);
+    
+                // Check for a path in the URL hash
+                const initialHash = window.location.hash.substring(1);
+                const initialFile = findFileByPath(initialHash);
+                
+                // Determine which article to load
+                const pathToLoad = initialFile ? initialFile.path : (appState.files.length > 0 ? appState.files[0].path : null);
+    
+                if (pathToLoad) {
+                    // Use displayArticle with replace=true for the initial load
+                    displayArticle(pathToLoad, true); 
                 }
-                if (window.innerWidth <= 768) { setMobileView('menu'); }
+    
+                if (window.innerWidth <= 768) { 
+                    // Show content if loaded via hash, otherwise show menu
+                    setMobileView(initialFile ? 'content' : 'menu');
+                }
             };
-            
-            const findFileByTitle = (title) => appState.files.find(f => f.title.toLowerCase() === title.toLowerCase().trim());
             
             const setupMarked = () => {
                 const wikilinkExtension = {
@@ -328,7 +370,7 @@
                             e.preventDefault();
                             const focusedLink = sidebarContent.querySelectorAll('a')[appState.focusedIndex];
                             if (focusedLink) {
-                                loadArticle(focusedLink.dataset.path);
+                                displayArticle(focusedLink.dataset.path);
                                 if (window.innerWidth <= 768) { setMobileView('content'); }
                             }
                             break;
@@ -337,27 +379,26 @@
                 });
                 
                 document.body.addEventListener('click', (e) => {
-                    // FIX: Changed e..closest to e.target.closest
-                    const sidebarLink = e.target.closest('#sidebar a');
-                    if (sidebarLink) {
+                    const link = e.target.closest('#sidebar a, .wikilink');
+                    if (link) {
                         e.preventDefault();
-                        const path = sidebarLink.dataset.path;
-                        const links = Array.from(sidebarContent.querySelectorAll('a'));
-                        const index = links.findIndex(link => link.dataset.path === path);
-                        updateFocus(index);
-                        loadArticle(path);
+                        displayArticle(link.dataset.path);
                         if (window.innerWidth <= 768) { setMobileView('content'); }
                     }
-                    
-                    const wikilink = e.target.closest('.wikilink');
-                    if (wikilink) {
-                        e.preventDefault();
-                        const path = wikilink.dataset.path;
-                        const fileIndex = appState.files.findIndex(f => f.path === path);
-                        if (fileIndex !== -1) {
-                            updateFocus(fileIndex);
+                });
+    
+                window.addEventListener('popstate', (e) => {
+                    const path = e.state?.path;
+                    if (path) {
+                        const file = findFileByPath(path);
+                        if (file) {
                             loadArticle(path);
+                            updateFocus(appState.files.findIndex(f => f.path === path));
+                            document.title = `Wiki | ${file.title}`;
                         }
+                    } else if (appState.files.length > 0) {
+                        // Fallback to the first article if state is null (e.g., initial page)
+                        displayArticle(appState.files[0].path, true);
                     }
                 });
             };
