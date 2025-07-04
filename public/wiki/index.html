@@ -107,6 +107,10 @@
             overflow-y: auto;
         }
 
+        .panel.active-panel {
+            border-color: var(--accent-color);
+        }
+
         /* 4. COMPONENT & CONTENT STYLES */
         #theme-toggle {
             color: var(--bg-color);
@@ -187,10 +191,10 @@
         </nav>
         <main id="content-display" class="panel">
             <div class="panel-title">CONTENT</div>
-            <div id="content-display-inner"><p>Loading...</p></div>
+            <div id="content-display-inner" tabindex="-1"><p>Loading...</p></div>
         </main>
         <footer id="status-bar" class="panel">
-            <span>[j/k, ↑/↓] Navigate | [Enter] Select | [t] Toggle Theme</span>
+            <span id="status-bar-text">[j/k, ↑/↓] Navigate | [Enter] Select | [t] Toggle Theme</span>
         </footer>
         <div id="mobile-nav">
             <button id="show-menu-btn" class="active">Menu</button>
@@ -201,7 +205,8 @@
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const appState = {
-                files: [], manifest: null, focusedIndex: 0, currentTheme: 'light', mobileView: 'content'
+                files: [], manifest: null, focusedIndex: 0, currentTheme: 'light', 
+                mobileView: 'content', activePanel: 'sidebar'
             };
             const sidebar = document.getElementById('sidebar');
             const contentDisplay = document.getElementById('content-display');
@@ -216,24 +221,35 @@
     
             const displayArticle = (path, replace = false) => {
                 const file = findFileByPath(path);
-                if (!file) return; // Don't do anything if the file isn't found
+                if (!file) return;
     
-                // 1. Load the content
                 loadArticle(path);
-    
-                // 2. Update the focus in the sidebar
                 const fileIndex = appState.files.findIndex(f => f.path === path);
-                if (fileIndex !== -1) {
-                    updateFocus(fileIndex);
-                }
+                if (fileIndex !== -1) updateFocus(fileIndex);
     
-                // 3. Update the browser history and URL
                 const newUrl = `#${path}`;
                 const historyMethod = replace ? 'replaceState' : 'pushState';
                 history[historyMethod]({ path: path }, '', newUrl);
-                
-                // 4. Update the page title
                 document.title = `Wiki | ${file.title}`;
+            };
+    
+            const setActivePanel = (panelName) => {
+                // No need to switch if already active
+                if (!panelName || appState.activePanel === panelName) return;
+    
+                appState.activePanel = panelName;
+                const statusBarText = document.getElementById('status-bar-text');
+    
+                if (panelName === 'sidebar') {
+                    contentDisplay.classList.remove('active-panel');
+                    sidebar.classList.add('active-panel');
+                    statusBarText.textContent = `[j/k, ↑/↓] Navigate | [Enter] Select | [l] → Content | [t] Theme`;
+                } else if (panelName === 'content') {
+                    sidebar.classList.remove('active-panel');
+                    contentDisplay.classList.add('active-panel');
+                    contentDisplayInner.focus(); // Focus the scrollable div
+                    statusBarText.textContent = `[j/k, ↑/↓] Scroll | [h] ← Files | [t] Theme`;
+                }
             };
     
             const init = async () => {
@@ -241,165 +257,102 @@
                 await loadManifest();
                 renderSidebar();
                 setupEventListeners();
-    
-                // Check for a path in the URL hash
                 const initialHash = window.location.hash.substring(1);
                 const initialFile = findFileByPath(initialHash);
-                
-                // Determine which article to load
                 const pathToLoad = initialFile ? initialFile.path : (appState.files.length > 0 ? appState.files[0].path : null);
-    
-                if (pathToLoad) {
-                    // Use displayArticle with replace=true for the initial load
-                    displayArticle(pathToLoad, true); 
-                }
-    
-                if (window.innerWidth <= 768) { 
-                    // Show content if loaded via hash, otherwise show menu
-                    setMobileView(initialFile ? 'content' : 'menu');
-                }
+                if (pathToLoad) displayArticle(pathToLoad, true);
+                if (window.innerWidth <= 768) setMobileView(initialFile ? 'content' : 'menu');
+                
+                // Set initial active panel and update status bar
+                setActivePanel('sidebar'); 
             };
             
             const setupMarked = () => {
-                const wikilinkExtension = {
-                    name: 'wikilink',
-                    level: 'inline',
-                    start(src) { return src.indexOf('[['); },
-                    tokenizer(src, tokens) {
-                        const rule = /^\[\[([^\]]+)\]\]/;
-                        const match = rule.exec(src);
-                        if (match) {
-                            return { type: 'wikilink', raw: match[0], title: match[1].trim(), tokens: [] };
-                        }
-                    },
-                    renderer(token) {
-                        const file = findFileByTitle(token.title);
-                        if (file) {
-                            return `<a href="#" data-path="${file.path}" class="wikilink">${token.title}</a>`;
-                        }
-                        return `<span style="color:var(--red)">[[${token.title}]]</span>`;
-                    }
+                const wikilinkExtension = { name: 'wikilink', level: 'inline', start(src) { return src.indexOf('[['); },
+                    tokenizer(src, tokens) { const rule = /^\[\[([^\]]+)\]\]/; const match = rule.exec(src); if (match) return { type: 'wikilink', raw: match[0], title: match[1].trim(), tokens: [] };},
+                    renderer(token) { const file = findFileByTitle(token.title); if (file) return `<a href="#" data-path="${file.path}" class="wikilink">${token.title}</a>`; return `<span style="color:var(--red)">[[${token.title}]]</span>`; }
                 };
                 marked.use({ extensions: [wikilinkExtension] });
             };
             
             const loadManifest = async () => {
-                try {
-                    const response = await fetch('content/manifest.json');
-                    if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
-                    appState.manifest = await response.json();
-                    appState.files = appState.manifest.categories.flatMap(cat => cat.files);
-                } catch (error) {
-                    console.error('Failed to load manifest.json:', error);
-                    contentDisplayInner.innerHTML = '<p style="color:var(--red)">Error: Could not load wiki manifest.</p>';
-                }
+                try { const response = await fetch('content/manifest.json'); if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`); appState.manifest = await response.json(); appState.files = appState.manifest.categories.flatMap(cat => cat.files); } catch (error) { console.error('Failed to load manifest.json:', error); contentDisplayInner.innerHTML = '<p style="color:var(--red)">Error: Could not load wiki manifest.</p>'; }
             };
             
             const renderSidebar = () => {
-                if (!appState.manifest) return;
-                const fragment = document.createDocumentFragment();
+                if (!appState.manifest) return; const fragment = document.createDocumentFragment();
                 appState.manifest.categories.forEach(category => {
-                    const catTitle = document.createElement('p');
-                    catTitle.className = 'category-title';
-                    catTitle.textContent = `// ${category.name}`;
-                    fragment.appendChild(catTitle);
+                    const catTitle = document.createElement('p'); catTitle.className = 'category-title'; catTitle.textContent = `// ${category.name}`; fragment.appendChild(catTitle);
                     const list = document.createElement('ul');
-                    category.files.forEach(file => {
-                        const listItem = document.createElement('li');
-                        const link = document.createElement('a');
-                        link.href = '#';
-                        link.textContent = file.title;
-                        link.dataset.path = file.path;
-                        listItem.appendChild(link);
-                        list.appendChild(listItem);
-                    });
+                    category.files.forEach(file => { const listItem = document.createElement('li'); const link = document.createElement('a'); link.href = '#'; link.textContent = file.title; link.dataset.path = file.path; listItem.appendChild(link); list.appendChild(listItem); });
                     fragment.appendChild(list);
                 });
-                sidebarContent.innerHTML = '';
-                sidebarContent.appendChild(fragment);
+                sidebarContent.innerHTML = ''; sidebarContent.appendChild(fragment);
             };
             
             const loadArticle = async (path) => {
-                try {
-                    const response = await fetch(`content/${path}`);
-                    if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
-                    const markdown = await response.text();
-                    contentDisplayInner.innerHTML = marked.parse(markdown);
-                    contentDisplayInner.scrollTop = 0;
-                } catch (error) {
-                    console.error(`Failed to load article: ${path}`, error);
-                    contentDisplayInner.innerHTML = `<p style="color:var(--red)">Error: Could not load article.</p>`;
-                }
+                try { const response = await fetch(`content/${path}`); if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`); const markdown = await response.text(); contentDisplayInner.innerHTML = marked.parse(markdown); contentDisplayInner.scrollTop = 0; } catch (error) { console.error(`Failed to load article: ${path}`, error); contentDisplayInner.innerHTML = `<p style="color:var(--red)">Error: Could not load article.</p>`; }
             };
             
             const updateFocus = (newIndex) => {
-                const links = sidebarContent.querySelectorAll('a');
-                if (links.length === 0) return;
-                newIndex = Math.max(0, Math.min(newIndex, links.length - 1));
-                links[appState.focusedIndex]?.classList.remove('focused');
-                appState.focusedIndex = newIndex;
-                links[appState.focusedIndex]?.classList.add('focused');
-                links[appState.focusedIndex]?.scrollIntoView({ block: 'nearest' });
+                const links = sidebarContent.querySelectorAll('a'); if (links.length === 0) return; newIndex = Math.max(0, Math.min(newIndex, links.length - 1));
+                links[appState.focusedIndex]?.classList.remove('focused'); appState.focusedIndex = newIndex; links[appState.focusedIndex]?.classList.add('focused'); links[appState.focusedIndex]?.scrollIntoView({ block: 'nearest' });
             };
             
-            const toggleTheme = () => {
-                appState.currentTheme = appState.currentTheme === 'light' ? 'dark' : 'light';
-                document.documentElement.dataset.theme = appState.currentTheme;
-            };
+            const toggleTheme = () => { appState.currentTheme = appState.currentTheme === 'light' ? 'dark' : 'light'; document.documentElement.dataset.theme = appState.currentTheme; };
             
-            const setMobileView = (view) => {
-                if (view === 'menu') {
-                    sidebar.classList.add('active'); contentDisplay.classList.remove('active');
-                    showMenuBtn.classList.add('active'); showContentBtn.classList.remove('active');
-                } else {
-                    sidebar.classList.remove('active'); contentDisplay.classList.add('active');
-                    showMenuBtn.classList.remove('active'); showContentBtn.classList.add('active');
-                }
-            };
+            const setMobileView = (view) => { if (view === 'menu') { sidebar.classList.add('active'); contentDisplay.classList.remove('active'); showMenuBtn.classList.add('active'); showContentBtn.classList.remove('active'); } else { sidebar.classList.remove('active'); contentDisplay.classList.add('active'); showMenuBtn.classList.remove('active'); showContentBtn.classList.add('active'); } };
             
             const setupEventListeners = () => {
                 themeToggleBtn.addEventListener('click', toggleTheme);
                 showMenuBtn.addEventListener('click', () => setMobileView('menu'));
                 showContentBtn.addEventListener('click', () => setMobileView('content'));
+    
+                // Set active panel on click for intuitive focus management
+                sidebar.addEventListener('click', () => setActivePanel('sidebar'));
+                contentDisplay.addEventListener('click', () => setActivePanel('content'));
                 
                 document.addEventListener('keydown', (e) => {
-                    switch (e.key) {
-                        case 'j': case 'ArrowDown': e.preventDefault(); updateFocus(appState.focusedIndex + 1); break;
-                        case 'k': case 'ArrowUp': e.preventDefault(); updateFocus(appState.focusedIndex - 1); break;
-                        case 'Enter':
-                            e.preventDefault();
-                            const focusedLink = sidebarContent.querySelectorAll('a')[appState.focusedIndex];
-                            if (focusedLink) {
-                                displayArticle(focusedLink.dataset.path);
-                                if (window.innerWidth <= 768) { setMobileView('content'); }
-                            }
-                            break;
-                        case 't': e.preventDefault(); toggleTheme(); break;
+                    // Universal commands
+                    if (e.key === 't') { e.preventDefault(); toggleTheme(); return; }
+                    if (e.key === 'h' || (e.key === 'ArrowLeft' && appState.activePanel === 'content')) { e.preventDefault(); setActivePanel('sidebar'); return; }
+                    if (e.key === 'l' || (e.key === 'ArrowRight' && appState.activePanel === 'sidebar')) { e.preventDefault(); setActivePanel('content'); return; }
+    
+                    // Context-aware commands
+                    if (appState.activePanel === 'sidebar') {
+                        switch (e.key) {
+                            case 'j': case 'ArrowDown': e.preventDefault(); updateFocus(appState.focusedIndex + 1); break;
+                            case 'k': case 'ArrowUp': e.preventDefault(); updateFocus(appState.focusedIndex - 1); break;
+                            case 'Enter':
+                                e.preventDefault();
+                                const focusedLink = sidebarContent.querySelectorAll('a')[appState.focusedIndex];
+                                if (focusedLink) {
+                                    displayArticle(focusedLink.dataset.path);
+                                    if (window.innerWidth <= 768) { setMobileView('content'); }
+                                    else { setActivePanel('content'); } // Switch to content after selecting
+                                }
+                                break;
+                        }
+                    } else if (appState.activePanel === 'content') {
+                        const scrollAmount = 50; // in pixels
+                        switch (e.key) {
+                            case 'j': case 'ArrowDown': e.preventDefault(); contentDisplayInner.scrollTop += scrollAmount; break;
+                            case 'k': case 'ArrowUp': e.preventDefault(); contentDisplayInner.scrollTop -= scrollAmount; break;
+                            case 'g': e.preventDefault(); contentDisplayInner.scrollTop = 0; break; // Go to top
+                            case 'G': e.preventDefault(); contentDisplayInner.scrollTop = contentDisplayInner.scrollHeight; break; // Go to bottom
+                        }
                     }
                 });
                 
                 document.body.addEventListener('click', (e) => {
                     const link = e.target.closest('#sidebar a, .wikilink');
-                    if (link) {
-                        e.preventDefault();
-                        displayArticle(link.dataset.path);
-                        if (window.innerWidth <= 768) { setMobileView('content'); }
-                    }
+                    if (link) { e.preventDefault(); displayArticle(link.dataset.path); if (window.innerWidth <= 768) setMobileView('content'); else setActivePanel('content'); }
                 });
     
                 window.addEventListener('popstate', (e) => {
                     const path = e.state?.path;
-                    if (path) {
-                        const file = findFileByPath(path);
-                        if (file) {
-                            loadArticle(path);
-                            updateFocus(appState.files.findIndex(f => f.path === path));
-                            document.title = `Wiki | ${file.title}`;
-                        }
-                    } else if (appState.files.length > 0) {
-                        // Fallback to the first article if state is null (e.g., initial page)
-                        displayArticle(appState.files[0].path, true);
-                    }
+                    if (path) { const file = findFileByPath(path); if (file) { loadArticle(path); updateFocus(appState.files.findIndex(f => f.path === path)); document.title = `Wiki | ${file.title}`; }
+                    } else if (appState.files.length > 0) { displayArticle(appState.files[0].path, true); }
                 });
             };
             
