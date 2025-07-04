@@ -41,6 +41,9 @@ const pageTitle = "Writings";
   <br><br>
   Currently, the main series of books in the Saga is set in the near future of the Information Era, but all stories and lore within the project span hundreds of years, even thousands, giving it a rich and detailed history.
   </p>
+  <a href="/wiki/index.html" target="_blank" rel="noopener noreferrer">
+    <button is-~="button">Launch Wiki</button>
+  </a>
   <div class="tile-container">
     {skyboundSaga.map((post: any) => <BlogPost url={post.url} title={post.frontmatter.title}/>)}
   </div>

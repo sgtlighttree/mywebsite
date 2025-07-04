@@ -1,0 +1,17 @@
+{
+    "categories": [
+      {
+        "name": "Technology",
+        "files": [
+          { "title": "FTL Drive", "path": "ftl-drive.md" },
+          { "title": "Sentient AI", "path": "sentient-ai.md" }
+        ]
+      },
+      {
+        "name": "Lore",
+        "files": [
+          { "title": "World History", "path": "world-history.md" }
+        ]
+      }
+    ]
+  }
