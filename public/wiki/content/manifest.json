@@ -1,16 +1,22 @@
 {
     "categories": [
       {
-        "name": "Technology",
+        "name": "Info",
         "files": [
-          { "title": "FTL Drive", "path": "ftl-drive.md" },
-          { "title": "Sentient AI", "path": "sentient-ai.md" }
+          { "title": "Project Info", "path": "project-info.md" }
         ]
       },
       {
         "name": "Lore",
         "files": [
           { "title": "World History", "path": "world-history.md" }
+        ]
+      },
+      {
+        "name": "Technology",
+        "files": [
+          { "title": "FTL Drive", "path": "ftl-drive.md" },
+          { "title": "Sentient AI", "path": "sentient-ai.md" }
         ]
       }
     ]
