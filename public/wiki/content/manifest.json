@@ -9,14 +9,14 @@
       {
         "name": "Lore",
         "files": [
-          { "title": "World History", "path": "world-history.md" }
+          { "title": "Metaquarks", "path": "metaquarks.md" },
+          { "title": "Drarthers", "path": "drarthers.md" }
         ]
       },
       {
-        "name": "Technology",
+        "name": "Locations",
         "files": [
-          { "title": "FTL Drive", "path": "ftl-drive.md" },
-          { "title": "Sentient AI", "path": "sentient-ai.md" }
+          { "title": "Klerga", "path": "klerga.md" }
         ]
       }
     ]

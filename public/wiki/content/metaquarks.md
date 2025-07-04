@@ -1,14 +1,5 @@
----
-layout: ../../layouts/MarkdownPostLayout.astro
-title: 'Metaquarks'
-pubDate: 2025-06-07
-description: 'Lore file for Metaquarks.'
-author: 'Matthew Oyan'
-image:
-    url: 
-    alt: 
-tags: ["Skybound Saga", "Skybound Lore", "creative writing",]
----
+# Metaquarks
+
 Metaquarks are rare, but naturally occurring elementary sub-atomic particles, with a size of about 150µm [(reference)](https://www.youtube.com/watch?v=htPXMQ5s-yo). Unlike the similarly named quarks, which are the building blocks of atoms that in turn make up matter, metaquarks manipulate existing matter and the fundamental forces of the universe. They are also considered to be a form of [exotic matter](https://en.wikipedia.org/wiki/Exotic_matter).
 
 Further studies have also revealed that metaquarks can create matter. In controlled environments, a matter-antimatter pair is allowed to materialize, and a metaquark was introduced into the system. The antimatter particle was attracted to the metaquark, annihilating it in the process. This leaves the baryonic matter particle free, and helped to solve a fundamental problem in physics.

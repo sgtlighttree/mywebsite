@@ -126,6 +126,7 @@
         #sidebar a { display: block; text-decoration: none; color: var(--text-muted-color); padding: 0 1ch; }
         #sidebar a.focused { background-color: var(--accent-color); color: var(--accent-text-color); text-decoration: none; }
         #sidebar a:focus { outline: none; }
+        #content-display-inner:focus { outline: none; }
         #sidebar .category-title { font-weight: bold; margin-top: 1lh; color: var(--text-color); }
 
         #content-display-inner a { color: var(--accent-color); text-decoration: underline; }
@@ -182,7 +183,8 @@
 <body>
     <div id="app">
         <header id="app-header" class="panel">
-            <div class="panel-title">[ Writing Project Wiki ]</div>
+            <div class="panel-title"></div>
+            <p><strong>🐉 Skybound Saga Wiki</strong></p>
             <button id="theme-toggle">Toggle Theme</button>
         </header>
         <nav id="sidebar" class="panel active">
