@@ -66,21 +66,19 @@
             grid-template-columns: 30ch 1fr;
             padding: 2ch;
             gap: 1ch;
-            /* === START: FIX FOR MOBILE VIEW === */
             position: fixed;
             top: 0;
             left: 0;
             right: 0;
             bottom: 0;
-            /* height: 100vh; /* This was causing the issue on mobile */
-            /* === END: FIX FOR MOBILE VIEW === */
         }
 
         /* 3. PANEL STYLING */
         .panel {
-            border: 2px solid var(--border-color);
+            border: .5ch solid var(--border-color);
             position: relative;
             padding: 1lh 1ch;
+            border-radius: 1ch;
         }
         .panel-title {
             position: absolute;
@@ -95,21 +93,13 @@
         }
 
         #app-header { grid-area: header; padding-top: 0.5lh; padding-bottom: 0.5lh; display: flex; justify-content: space-between; align-items: center; }
-        
-        /* FIX: Add min-height: 0 to allow panels to shrink and content to scroll */
-        #sidebar { grid-area: sidebar; padding-top: 2lh; min-height: 0; }
-        #content-display { grid-area: content; padding-top: 2lh; min-height: 0; }
-        
+        #sidebar { grid-area: sidebar; padding-top: 1ch; min-height: 0; }
+        #content-display { grid-area: content; padding-top: 1ch; min-height: 0; }
         #status-bar { grid-area: footer; display: flex; align-items: center; justify-content: center; padding: 0.25lh 1ch; }
 
-        #sidebar-content, #content-display-inner {
-            height: 100%;
-            overflow-y: auto;
-        }
+        #sidebar-content, #content-display-inner { height: 100%; overflow-y: auto; }
 
-        .panel.active-panel {
-            border-color: var(--accent-color);
-        }
+        .panel.active-panel { border-color: var(--accent-color); }
 
         /* 4. COMPONENT & CONTENT STYLES */
         #theme-toggle {
@@ -130,54 +120,91 @@
         #sidebar .category-title { font-weight: bold; margin-top: 1lh; color: var(--text-color); }
 
         #content-display-inner a { color: var(--accent-color); text-decoration: underline; }
-        #content-display-inner h1, #content-display-inner h2, #content-display-inner h3, #content-display-inner h4 {
-            font-size: 1em; font-weight: bold; margin-top: 1lh; margin-bottom: 0.5lh;
-        }
+        #content-display-inner h1, #content-display-inner h2, #content-display-inner h3, #content-display-inner h4 { font-size: 1em; font-weight: bold; margin-top: 1lh; margin-bottom: 0.5lh; }
         #content-display-inner p, #content-display-inner ul { margin-bottom: 1lh; }
         #content-display-inner ul { list-style-position: inside; list-style-type: '- '; }
 
         /* 5. MOBILE STYLES */
         #mobile-nav { display: none; }
         @media (max-width: 768px) {
-            #app {
-                grid-template-areas: "header" "main" "mobile-nav";
-                grid-template-rows: auto 1fr auto;
-                grid-template-columns: 1fr;
-                gap: 2ch; 
-                padding: 1ch;
-            }
-            
+            #app { grid-template-areas: "header" "main" "mobile-nav"; grid-template-rows: auto 1fr auto; grid-template-columns: 1fr; gap: 2ch; padding: 1ch; }
             #sidebar, #content-display { grid-area: main; }
             #status-bar { display: none; }
-
             #sidebar:not(.active), #content-display:not(.active) { display: none; }
-            
             #mobile-nav { display: grid; grid-template-columns: 1fr 1fr; }
-            #mobile-nav button {
-                background: var(--text-color); color: var(--bg-color); border: none;
-                padding: 1lh 1ch; font-family: inherit; font-size: 1em;
-            }
+            #mobile-nav button { background: var(--text-color); color: var(--bg-color); border: none; padding: 1lh 1ch; font-family: inherit; font-size: 1em; }
             #mobile-nav button.active { text-decoration: underline; }
         }
-        /* width */
-        ::-webkit-scrollbar {
-        width: 10px;
-        }
+        ::-webkit-scrollbar { width: 10px; }
+        ::-webkit-scrollbar-track { background: var(--base0); }
+        ::-webkit-scrollbar-thumb { background: var(--base01) }
+        ::-webkit-scrollbar-thumb:hover { background: var(--base03); }
 
-        /* Track */
-        ::-webkit-scrollbar-track {
-        background: var(--base0);
+
+        /* ================================================================= */
+        /* --- 6. RETRO CRT EFFECTS --- */
+        /* ================================================================= */
+
+        /* Chromatic Aberration applied to the app container.
+           We use very low opacity theme colors for a subtle effect. */
+        #app {
+            text-shadow: 1px 0 0 rgba(220, 50, 47, 0.15),  /* Solarized Red */
+                        -1px 0 0 rgba(42, 161, 152, 0.25); /* Solarized Cyan */
         }
         
-        /* Handle */
-        ::-webkit-scrollbar-thumb {
-        background: var(--base01)
+        /* The effect must be re-applied to panel titles due to stacking context */
+        .panel-title {
+            text-shadow: 1px 0 0 rgba(220, 50, 47, 0.15),
+                        -1px 0 0 rgba(42, 161, 152, 0.25);
+        }
+        
+        /* For readability, remove the shadow from the focused item in the sidebar */
+        #sidebar a.focused {
+            text-shadow: none;
         }
 
-        /* Handle on hover */
-        ::-webkit-scrollbar-thumb:hover {
-        background: var(--base03);
+        /* Vignette overlay for screen curvature effect */
+        #app::before {
+            content: " ";
+            display: block;
+            position: absolute;
+            top: 0; left: 0; bottom: 0; right: 0;
+            background: radial-gradient(circle at center, rgba(0,0,0,0) 60%, rgba(0,0,0,0.1) 90%, rgba(0,0,0,0.25) 100%);
+            pointer-events: none;
+            z-index: 10;
         }
+
+        /* Scanline and flicker overlay */
+        #app::after {
+            content: " ";
+            display: block;
+            position: absolute;
+            top: 0; left: 0; bottom: 0; right: 0;
+            background: repeating-linear-gradient(0deg, rgba(0,0,0,0.05), rgba(0,0,0,0.05) 1px, transparent 1px, transparent 3px);
+            pointer-events: none;
+            z-index: 11;
+            animation: flicker 0.15s infinite;
+        }
+
+        /* Flicker animation (changes opacity for performance) */
+        @keyframes flicker {
+            0%   { opacity: 0.95; }
+            20%  { opacity: 0.90; }
+            40%  { opacity: 1;    }
+            60%  { opacity: 0.88; }
+            80%  { opacity: 0.92; }
+            100% { opacity: 1;    }
+        }
+
+        /* Blinking cursor effect */
+        .blink {
+            animation: blink-caret 1s step-end infinite;
+        }
+        @keyframes blink-caret {
+            from, to { text-shadow: none; }
+            50% { color: transparent; text-shadow: none; }
+        }
+
     </style>
 </head>
 <body>
@@ -236,7 +263,6 @@
             };
     
             const setActivePanel = (panelName) => {
-                // No need to switch if already active
                 if (!panelName || appState.activePanel === panelName) return;
     
                 appState.activePanel = panelName;
@@ -249,7 +275,7 @@
                 } else if (panelName === 'content') {
                     sidebar.classList.remove('active-panel');
                     contentDisplay.classList.add('active-panel');
-                    contentDisplayInner.focus(); // Focus the scrollable div
+                    contentDisplayInner.focus(); 
                     statusBarText.textContent = `[j/k, ↑/↓] Scroll | [h] ← Files | [t] Theme`;
                 }
             };
@@ -265,7 +291,6 @@
                 if (pathToLoad) displayArticle(pathToLoad, true);
                 if (window.innerWidth <= 768) setMobileView(initialFile ? 'content' : 'menu');
                 
-                // Set initial active panel and update status bar
                 setActivePanel('sidebar'); 
             };
             
@@ -310,17 +335,14 @@
                 showMenuBtn.addEventListener('click', () => setMobileView('menu'));
                 showContentBtn.addEventListener('click', () => setMobileView('content'));
     
-                // Set active panel on click for intuitive focus management
                 sidebar.addEventListener('click', () => setActivePanel('sidebar'));
                 contentDisplay.addEventListener('click', () => setActivePanel('content'));
                 
                 document.addEventListener('keydown', (e) => {
-                    // Universal commands
                     if (e.key === 't') { e.preventDefault(); toggleTheme(); return; }
                     if (e.key === 'h' || (e.key === 'ArrowLeft' && appState.activePanel === 'content')) { e.preventDefault(); setActivePanel('sidebar'); return; }
                     if (e.key === 'l' || (e.key === 'ArrowRight' && appState.activePanel === 'sidebar')) { e.preventDefault(); setActivePanel('content'); return; }
     
-                    // Context-aware commands
                     if (appState.activePanel === 'sidebar') {
                         switch (e.key) {
                             case 'j': case 'ArrowDown': e.preventDefault(); updateFocus(appState.focusedIndex + 1); break;
@@ -331,17 +353,17 @@
                                 if (focusedLink) {
                                     displayArticle(focusedLink.dataset.path);
                                     if (window.innerWidth <= 768) { setMobileView('content'); }
-                                    else { setActivePanel('content'); } // Switch to content after selecting
+                                    else { setActivePanel('content'); }
                                 }
                                 break;
                         }
                     } else if (appState.activePanel === 'content') {
-                        const scrollAmount = 50; // in pixels
+                        const scrollAmount = 50;
                         switch (e.key) {
                             case 'j': case 'ArrowDown': e.preventDefault(); contentDisplayInner.scrollTop += scrollAmount; break;
                             case 'k': case 'ArrowUp': e.preventDefault(); contentDisplayInner.scrollTop -= scrollAmount; break;
-                            case 'g': e.preventDefault(); contentDisplayInner.scrollTop = 0; break; // Go to top
-                            case 'G': e.preventDefault(); contentDisplayInner.scrollTop = contentDisplayInner.scrollHeight; break; // Go to bottom
+                            case 'g': e.preventDefault(); contentDisplayInner.scrollTop = 0; break;
+                            case 'G': e.preventDefault(); contentDisplayInner.scrollTop = contentDisplayInner.scrollHeight; break;
                         }
                     }
                 });
