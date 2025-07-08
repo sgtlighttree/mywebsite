@@ -8,10 +8,19 @@ header {
   z-index: 2; /* Keep header above body::before gradient on mobile */
 }
 
+@font-face {
+  font-family: 'Geist Mono Variable';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 100 900;
+  src: url(https://cdn.jsdelivr.net/fontsource/fonts/geist-mono:vf@latest/latin-wght-normal.woff2) format('woff2-variations');
+  unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
+}
+
 html {
   background-color: hsl(20, 30%, 98%);
   /* "Plus Jakarta Sans" "code-saver", "cofo-sans-mono-variable", "auger-mono" */
-  font-family: "auger-mono", sans-serif;
+  font-family: "Geist Mono Variable", monospace;
 }
 
 html.dark {
@@ -33,7 +42,15 @@ body {
 
 h1 {
   margin: 1rem 0;
-  font-size: 2.5rem;
+  font-size: 1.75rem;
+  padding-top: 0.25rem; /* Add some space between title and divider */
+  border-bottom: 3px solid #404040; /* Add a divider line */
+  padding-bottom: 0.5rem; /* Add some space between title and divider */
+}
+
+h2 {
+  border-bottom: 1px dashed #808080; /* Add a divider line */
+  padding-bottom: 0.5rem; /* Add some space between title and divider */
 }
 
 button {
@@ -46,6 +63,12 @@ button {
   flex-direction: column;
   align-items: flex-start;
   font: inherit;
+}
+
+button:hover, :focus {
+  /* Light mode desktop hover/focus */
+  background-color: #2f2f2f;
+  color: #fff
 }
 
 /*────────────────────────────────────────────────────────────────────────────
@@ -197,7 +220,7 @@ html.dark .nav-links a:focus {
   }
 
   .nav-links a {
-      padding: 10px 20px;
+      padding: 5px 10px;
       margin: .25em;
       background-color: transparent;
       /* Color handled by base and dark mode rules */
@@ -229,6 +252,12 @@ html.dark .nav-links a:focus {
 .tile-item {
   border: 1px solid #808080;
   padding: .5rem;
+}
+
+.tile-item:hover, :focus {
+  /* Light mode desktop hover/focus */
+  background-color: #2f2f2f;
+  color: #fff
 }
 
 .tile-item a {
