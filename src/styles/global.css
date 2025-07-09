@@ -1,22 +1,96 @@
 /*────────────────────────────────────────────────────────────────────────────
+   CSS Variables - Unified Color Palette
+────────────────────────────────────────────────────────────────────────────*/
+:root {
+  /* Light theme colors */
+  --bg-primary: hsl(20, 30%, 98%);
+  --bg-secondary: hsl(20, 30%, 95%);
+  --text-primary: #222222;
+  --text-secondary: #404040;
+  --text-muted: #808080;
+  
+  /* Interactive elements */
+  --border-light: #808080;
+  --border-dark: #404040;
+  --hover-bg: #2f2f2f;
+  --hover-text: #ffffff;
+  
+  /* Navigation specific */
+  --nav-bg: var(--bg-primary);
+  --nav-border: var(--border-light);
+  --nav-border-accent: var(--border-dark);
+  --nav-text: var(--text-primary);
+  --nav-hover-bg: var(--hover-bg);
+  --nav-hover-text: var(--hover-text);
+  
+  /* Form elements */
+  --form-bg: #ffffff;
+  --form-border: #dddddd;
+  --form-border-focus: #666666;
+  --form-text: #333333;
+  
+  /* Portfolio */
+  --portfolio-border: #cccccc;
+  --portfolio-overlay: rgba(0, 0, 0, 0.7);
+  
+  /* Tags */
+  --tag-bg: #F8FCFD;
+  --tag-border: #a1a1a1;
+  --tag-text: #00539F;
+}
+
+/* Dark theme colors */
+html.dark {
+  --bg-primary: #170b1c;
+  --bg-secondary: #2c1338;
+  --text-primary: #ffffff;
+  --text-secondary: #e5c8f6;
+  --text-muted: #b8a1c9;
+  
+  /* Interactive elements */
+  --border-light: #5a2a73;
+  --border-dark: #7d4094;
+  --hover-bg: #e5c8f6;
+  --hover-text: #592556;
+  
+  /* Navigation specific */
+  --nav-bg: var(--bg-secondary);
+  --nav-border: var(--border-light);
+  --nav-border-accent: var(--border-light);
+  --nav-text: var(--text-primary);
+  --nav-hover-bg: var(--hover-bg);
+  --nav-hover-text: var(--hover-text);
+  
+  /* Form elements */
+  --form-bg: var(--bg-secondary);
+  --form-border: var(--border-light);
+  --form-border-focus: var(--border-dark);
+  --form-text: var(--text-primary);
+  
+  /* Portfolio */
+  --portfolio-border: var(--border-light);
+  --portfolio-overlay: rgba(0, 0, 0, 0.8);
+  
+  /* Tags */
+  --tag-bg: var(--bg-secondary);
+  --tag-border: var(--border-light);
+  --tag-text: var(--text-secondary);
+}
+
+/*────────────────────────────────────────────────────────────────────────────
    General Styles
 ────────────────────────────────────────────────────────────────────────────*/
 header {
   top: 0;
   top: .5em;
-  position: relative; /* Ensure z-index works on mobile */
-  z-index: 2; /* Keep header above body::before gradient on mobile */
+  position: relative;
+  z-index: 2;
 }
 
 html {
-  background-color: hsl(20, 30%, 98%);
-  /* "Plus Jakarta Sans" "code-saver", "cofo-sans-mono-variable", "auger-mono" */
+  background-color: var(--bg-primary);
   font-family: "Geist Mono Variable", monospace;
-}
-
-html.dark {
-  background-color: #170b1c;
-  color: #ffffff;
+  color: var(--text-primary);
 }
 
 body {
@@ -34,32 +108,37 @@ body {
 h1 {
   margin: 1rem 0;
   font-size: 1.75rem;
-  padding-top: 0.25rem; /* Add some space between title and divider */
-  border-bottom: 3px solid #404040; /* Add a divider line */
-  padding-bottom: 0.5rem; /* Add some space between title and divider */
+  padding-top: 0.25rem;
+  border-bottom: 3px solid var(--border-dark);
+  padding-bottom: 0.5rem;
+  color: var(--text-primary);
 }
 
 h2 {
-  border-bottom: 1px dashed #808080; /* Add a divider line */
-  padding-bottom: 0.5rem; /* Add some space between title and divider */
+  border-bottom: 1px dashed var(--border-light);
+  padding-bottom: 0.5rem;
+  color: var(--text-primary);
 }
 
 button {
   padding: 0.5rem;
   margin-bottom: 1em;
   width: 100%;
-  background: hsl(20, 30%, 98%);
-  border: 1px solid #808080;
-  border-bottom: 3px solid #404040;
+  background: var(--bg-primary);
+  border: 1px solid var(--border-light);
+  border-bottom: 3px solid var(--border-dark);
   flex-direction: column;
   align-items: flex-start;
   font: inherit;
+  color: var(--text-primary);
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
 }
 
-button:hover, :focus {
-  /* Light mode desktop hover/focus */
-  background-color: #2f2f2f;
-  color: #fff
+button:hover, 
+button:focus {
+  background-color: var(--hover-bg);
+  color: var(--hover-text);
 }
 
 /*────────────────────────────────────────────────────────────────────────────
@@ -93,36 +172,34 @@ body::before {
 /*────────────────────────────────────────────────────────────────────────────
    Navigation Styles
 ────────────────────────────────────────────────────────────────────────────*/
-/* Mobile styles */
 header nav {
   padding: 0.5rem 0.5rem;
-  background: hsl(20, 30%, 98%);
-  border: 1px solid #808080;
-  border-bottom: 3px solid #404040;
+  background: var(--nav-bg);
+  border: 1px solid var(--nav-border);
+  border-bottom: 3px solid var(--nav-border-accent);
   display: flex;
   flex-direction: column;
   align-items: flex-start;
 }
 
 .nav-top-row {
-    display: flex;
-    justify-content: center; /* Center items horizontally on mobile */
-    align-items: center;
-    width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
 }
 
 .site-title {
   font-size: 1.5rem;
   white-space: nowrap;
   margin: 0;
-  /* Light mode color */
-  color: #222;
+  color: var(--nav-text);
 }
 
 .nav-links {
   display: grid;
-  grid-template-columns: repeat(2, 1fr); /* Two equal columns */
-  gap: 0.5rem; /* Add some gap between links/tiles */
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.5rem;
   width: 100%;
   max-height: unset;
   overflow: visible;
@@ -136,69 +213,49 @@ header nav {
 }
 
 .nav-links a {
-  display: block; /* Make the link fill the grid cell */
+  display: block;
   text-align: center;
   text-decoration: none;
   font-size: 1rem;
   font-weight: bold;
   text-transform: uppercase;
-  border: 1px solid #808080;
+  border: 1px solid var(--nav-border);
   padding: 1px;
-  color: #000;
+  color: var(--nav-text);
+  transition: background-color 0.3s, color 0.3s;
 }
 
 .nav-links a.active {
-  border-top: 3px solid #808080;
+  border-top: 3px solid var(--nav-border);
 }
 
-.nav-links a:hover, a:focus {
-  /* Light mode hover/focus */
-  background-color: #000;
-  color: #fff;
-}
-
-/* Dark mode styles for Navigation */
-html.dark header nav {
-    background: #2c1338;
-    border-color: #5a2a73;
-}
-
-html.dark .site-title {
-  color: #fff;
-}
-
-html.dark .nav-links a {
-  color: #e5c8f6;
-}
-
-html.dark .nav-links a:hover,
-html.dark .nav-links a:focus {
-  color: #592556;
-  background-color: #e5c8f6;
+.nav-links a:hover, 
+.nav-links a:focus {
+  background-color: var(--nav-hover-bg);
+  color: var(--nav-hover-text);
 }
 
 /* Desktop styles */
 @media screen and (min-width: 769px) {
   header {
-    position: sticky; /* Apply sticky only on desktop */
-    top: 1em; /* Apply top for sticky positioning */
-    z-index: 1000; /* Ensure header is above everything else when sticky */
+    position: sticky;
+    top: 1em;
+    z-index: 1000;
   }
 
   header nav {
-      flex-direction: row;
-      justify-content: space-between;
-      align-items: center;
-      padding: .3em;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: .3em;
   }
 
   .nav-top-row {
-      display: contents;
+    display: contents;
   }
 
   .site-title {
     margin: 0em 0em 0em 1em;
-    /* Color handled by base and dark mode rules */
   }
 
   .nav-links {
@@ -207,60 +264,46 @@ html.dark .nav-links a:focus {
     overflow: visible;
     width: auto;
     padding-top: 0;
-    /* Background color handled by link styles */
   }
 
   .nav-links a {
-      padding: 5px 10px;
-      margin: .25em;
-      background-color: transparent;
-      /* Color handled by base and dark mode rules */
-  }
-
-  .nav-links a:hover, a:focus {
-    /* Light mode desktop hover/focus */
-    background-color: #2f2f2f;
-    color: #fff
-  }
-
-  html.dark .nav-links a:hover,
-  html.dark .nav-links a:focus {
-    /* Dark mode desktop hover/focus */
-    color: #592556;
-    background-color: #e5c8f6;
+    padding: 5px 10px;
+    margin: .25em;
+    background-color: transparent;
   }
 }
 
 /*────────────────────────────────────────────────────────────────────────────
    Tile Layout Styles
 ────────────────────────────────────────────────────────────────────────────*/
-/* Mobile styles */
 .tile-container {
   display: grid;
-  gap: 1rem; /* Space between tiles */
+  gap: 1rem;
 }
 
 .tile-item {
-  border: 1px solid #808080;
+  border: 1px solid var(--border-light);
   padding: .5rem;
+  background-color: var(--bg-primary);
+  transition: background-color 0.3s, color 0.3s;
 }
 
-.tile-item:hover, :focus {
-  /* Light mode desktop hover/focus */
-  background-color: #2f2f2f;
-  color: #fff
+.tile-item:hover, 
+.tile-item:focus {
+  background-color: var(--hover-bg);
+  color: var(--hover-text);
 }
 
 .tile-item a {
-  text-decoration: none; /* Remove underline */
-  color: inherit; /* Inherit color from parent */
-  display: block; /* Make the link fill the tile */
+  text-decoration: none;
+  color: inherit;
+  display: block;
 }
 
 /* Desktop styles */
 @media screen and (min-width: 769px) {
   .tile-container {
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); /* Up to 3 columns */
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
   }
 }
 
@@ -269,23 +312,24 @@ html.dark .nav-links a:focus {
 ────────────────────────────────────────────────────────────────────────────*/
 .portfolio-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); /* Responsive grid */
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   gap: 1rem;
 }
 
 .portfolio-item {
   position: relative;
-  display: block; /* Make the whole item clickable */
+  display: block;
   overflow: hidden;
-  border: 1px solid #ccc;
-  text-decoration: none; /* Remove underline from the link */
+  border: 1px solid var(--portfolio-border);
+  text-decoration: none;
+  transition: transform 0.3s ease;
 }
 
 .portfolio-thumbnail-container {
   position: relative;
   width: 100%;
   height: 0;
-  padding-bottom: 75%; /* Maintain aspect ratio (4:3) for thumbnails */
+  padding-bottom: 75%;
   overflow: hidden;
 }
 
@@ -295,12 +339,12 @@ html.dark .nav-links a:focus {
   left: 0;
   width: 100%;
   height: 100%;
-  object-fit: cover; /* Cover the container while maintaining aspect ratio */
+  object-fit: cover;
   transition: transform 0.3s ease;
 }
 
 .portfolio-item:hover .portfolio-thumbnail {
-  transform: scale(1.05); /* Slight zoom effect on hover */
+  transform: scale(1.05);
 }
 
 .portfolio-title-overlay {
@@ -308,25 +352,142 @@ html.dark .nav-links a:focus {
   bottom: 0;
   left: 0;
   right: 0;
-  background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent dark background */
-  color: #fff;
+  background-color: var(--portfolio-overlay);
+  color: #ffffff;
   padding: 0.5rem;
-  opacity: 0; /* Hidden by default */
+  opacity: 0;
   transition: opacity 0.3s ease;
   text-align: center;
 }
 
 .portfolio-item:hover .portfolio-title-overlay {
-  opacity: 1; /* Show on hover */
+  opacity: 1;
 }
 
 .portfolio-title-overlay h3 {
   margin: 0;
   font-size: 1em;
-  color: #fff; /* Ensure title is white */
+  color: #ffffff;
 }
 
-/* Dark mode styles for Portfolio */
-html.dark .portfolio-item {
-  border-color: #5a2a73;
+/*────────────────────────────────────────────────────────────────────────────
+   Form Styles
+────────────────────────────────────────────────────────────────────────────*/
+.contact-form {
+  max-width: 100%;
+  margin: 2rem 0;
+}
+
+.contact-form button {
+  width: 100%;
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+  color: var(--form-text);
+}
+
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid var(--form-border);
+  background-color: var(--form-bg);
+  color: var(--form-text);
+  font-family: inherit;
+  font-size: 1rem;
+  transition: border-color 0.3s, box-shadow 0.3s;
+  box-sizing: border-box;
+}
+
+@media (max-width: 600px) {
+  .form-group input,
+  .form-group textarea {
+    padding: 0.6rem;
+    font-size: 16px;
+  }
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+  border-color: var(--form-border-focus);
+  box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.1);
+  outline: none;
+}
+
+.contact-form button {
+  background-color: var(--text-secondary);
+  color: var(--bg-primary);
+  border: none;
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  font-family: inherit;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.contact-form button:hover {
+  background-color: var(--hover-bg);
+  color: var(--hover-text);
+}
+
+/*────────────────────────────────────────────────────────────────────────────
+   Contact Info Styles
+────────────────────────────────────────────────────────────────────────────*/
+.contact-info {
+  margin-bottom: 2rem;
+}
+
+.contact-info p {
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.75rem;
+  color: var(--text-primary);
+}
+
+.contact-info .material-symbols-outlined {
+  margin-right: 0.75rem;
+}
+
+.contact-info a {
+  color: var(--text-primary);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.3s;
+}
+
+.contact-info a:hover {
+  border-bottom-color: var(--text-primary);
+}
+
+/*────────────────────────────────────────────────────────────────────────────
+   Tag Styles
+────────────────────────────────────────────────────────────────────────────*/
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.tag {
+  margin: 0.25em;
+  border: dotted 1px var(--tag-border);
+  border-radius: .5em;
+  padding: .5em 1em;
+  font-size: 1.15em;
+  background-color: var(--tag-bg);
+}
+
+.tag a {
+  color: var(--tag-text);
+  text-decoration: none;
+}
+
+.tag a:hover {
+  opacity: 0.8;
 }
