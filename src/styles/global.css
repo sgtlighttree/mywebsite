@@ -27,7 +27,7 @@
   --form-bg: #ffffff;
   --form-border: #dddddd;
   --form-border-focus: #666666;
-  --form-text: #333333;
+  --form-text: var(--text-primary);
   
   /* Portfolio */
   --portfolio-border: #cccccc;
@@ -36,7 +36,7 @@
   /* Tags */
   --tag-bg: #F8FCFD;
   --tag-border: #a1a1a1;
-  --tag-text: #00539F;
+  --tag-text: var(--text-primary);
 }
 
 /* Dark theme colors */
@@ -74,7 +74,7 @@ html.dark {
   /* Tags */
   --tag-bg: var(--bg-secondary);
   --tag-border: var(--border-light);
-  --tag-text: var(--text-secondary);
+  --tag-text: var(--text-primary);
 }
 
 /*────────────────────────────────────────────────────────────────────────────
@@ -99,6 +99,7 @@ body {
   max-width: 90ch;
   padding: 1rem;
   line-height: 1.5;
+  color: var(--text-primary);
 }
 
 * {
@@ -453,7 +454,6 @@ header nav {
 
 .contact-info a {
   color: var(--text-primary);
-  text-decoration: none;
   border-bottom: 1px solid transparent;
 }
 

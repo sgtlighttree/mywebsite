@@ -20,7 +20,7 @@ const pageTitle = "Contact";
   </div>
   <div class="contact-form">
     <h2>Get In Touch (BETA)</h2>
-    <form name="contact" method="POST">
+    <form name="contact" method="POST" data-netlify="true">
       <div class="form-group">
         <label for="name">Name</label>
         <input type="text" name="name" id="name" required>
@@ -53,13 +53,6 @@ const pageTitle = "Contact";
 
   .form-group {
     margin-bottom: 1.5rem;
-  }
-
-  .form-group label {
-    display: block;
-    margin-bottom: 0.5rem;
-    font-weight: 500;
-    color: #333;
   }
 
   .form-group input,
@@ -121,14 +114,7 @@ const pageTitle = "Contact";
   }
 
   .contact-info a {
-    color: #333;
     text-decoration: none;
-    border-bottom: 1px solid transparent;
-    transition: border-color 0.3s;
-  }
-
-  .contact-info a:hover {
-    border-bottom-color: #333;
   }
   </style>
 </BaseLayout>
