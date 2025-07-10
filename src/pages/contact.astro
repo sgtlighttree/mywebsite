@@ -37,6 +37,7 @@ const pageTitle = "Contact";
         <label for="message">Message</label>
         <textarea name="message" id="message" rows="5" required></textarea>
       </div>
+      <input type="hidden" name="_subject" id="netlify-subject">
       <button type="submit">Send</button>
     </form>
   </div>
@@ -117,4 +118,17 @@ const pageTitle = "Contact";
     text-decoration: none;
   }
   </style>
+
+  <script is:inline>
+    const contactForm = document.querySelector('form[name="contact"]');
+    const nameInput = contactForm.querySelector('input[name="name"]');
+    const topicInput = contactForm.querySelector('input[name="topic"]');
+    const subjectHiddenInput = contactForm.querySelector('input[name="_subject"]');
+
+    contactForm.addEventListener('submit', function(event) {
+      const name = nameInput.value;
+      const topic = topicInput.value;
+      subjectHiddenInput.value = `[${topic}] - Message from ${name}`;
+    });
+  </script>
 </BaseLayout>
