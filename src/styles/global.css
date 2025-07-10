@@ -132,7 +132,6 @@ button {
   font: inherit;
   color: var(--text-primary);
   cursor: pointer;
-  transition: background-color 0.3s, color 0.3s;
 }
 
 button:hover, 
@@ -222,7 +221,6 @@ header nav {
   border: 1px solid var(--nav-border);
   padding: 1px;
   color: var(--nav-text);
-  transition: background-color 0.3s, color 0.3s;
 }
 
 .nav-links a.active {
@@ -285,7 +283,6 @@ header nav {
   border: 1px solid var(--border-light);
   padding: .5rem;
   background-color: var(--bg-primary);
-  transition: background-color 0.3s, color 0.3s;
 }
 
 .tile-item:hover, 
@@ -429,7 +426,6 @@ header nav {
   font-size: 1rem;
   font-family: inherit;
   cursor: pointer;
-  transition: background-color 0.3s, color 0.3s;
 }
 
 .contact-form button:hover {
@@ -459,7 +455,6 @@ header nav {
   color: var(--text-primary);
   text-decoration: none;
   border-bottom: 1px solid transparent;
-  transition: border-color 0.3s;
 }
 
 .contact-info a:hover {
