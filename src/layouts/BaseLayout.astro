@@ -3,7 +3,11 @@ import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import '../styles/global.css';
 import '@fontsource-variable/geist-mono';
-const { pageTitle } = Astro.props;
+export interface Props {
+  pageTitle: string;
+  showFooterCta?: boolean;
+}
+const { pageTitle, showFooterCta = true } = Astro.props;
 ---
 <html lang="en">
   <head>
@@ -21,7 +25,7 @@ const { pageTitle } = Astro.props;
     <Header />
     <h1>{pageTitle}</h1>
     <slot />
-    <Footer />
+    <Footer showCta={showFooterCta} />
     <script>
       import "../scripts/menu.js";
     </script>

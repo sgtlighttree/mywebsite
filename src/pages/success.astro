@@ -1,11 +1,23 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-const pageTitle = "Success";
+import Social from '../components/Social.astro';
+const pageTitle = "Thank you for reaching out!";
 ---
-<BaseLayout pageTitle={pageTitle}>
+<BaseLayout pageTitle={pageTitle} showFooterCta={false}>
   <main>
-    <h1>Success!</h1>
-    <p>Thank you for your message. I have received it and will get in touch as soon as I can.</p>
+    <p>I appreciate you taking the time to send a message. Your inquiry has been received, and I’ll get back to you as quickly as possible. If you have any urgent needs, you’re always welcome to follow up via <a href="mailto:matthew.oyan@protonmail.com">email</a>. Have a great day!</p>
+    <p>In the meantime, feel free to explore the rest of the website or connect through other channels listed below.</p>
+    <div class="tile-container">
+      {[
+        { platform: "LinkedIn", username: "in/matthewoyan/" },
+        { platform: "Instagram", username: "sgtlighttree" },
+        { platform: "Github", username: "sgtlighttree" }
+      ].map((item) => (
+        <div class="tile-item">
+          <Social platform={item.platform} username={item.username} />
+        </div>
+      ))}
+    </div>
     <p><a href="/">Return to the homepage</a></p>
   </main>
 </BaseLayout>

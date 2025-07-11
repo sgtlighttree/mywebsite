@@ -1,14 +1,23 @@
 ---
 import Social from './Social.astro';
 import ThemeIcon from './ThemeIcon.astro';
+
+export interface Props {
+  showCta?: boolean;
+}
+const { showCta = true } = Astro.props;
 ---
 <style>
 
 </style>
 
 <footer>
-  <h2>Interested?</h2>
-  <h3>Feel free to check out <a href="mailto:matthew.oyan@protonmail.com">Email</a> or <a href="/contact/">Contact</a> for more information.</h3>
+  {showCta && (
+    <>
+      <h2>Interested?</h2>
+      <h3>Feel free to check out <a href="mailto:matthew.oyan@protonmail.com">Email</a> or <a href="/contact/">Contact</a> for more information.</h3>
+    </>
+  )}
   <ThemeIcon />
   <!--
   <Social platform="github" username="sgtlighttree" />
