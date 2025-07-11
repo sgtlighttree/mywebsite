@@ -123,12 +123,22 @@ const pageTitle = "Contact";
     const contactForm = document.querySelector('form[name="contact"]');
     const nameInput = contactForm.querySelector('input[name="name"]');
     const topicInput = contactForm.querySelector('input[name="topic"]');
-    const subjectHiddenInput = contactForm.querySelector('input[name="subject"]');
+    const subjectHiddenInput = document.getElementById('netlify-subject'); // Select by ID
 
     contactForm.addEventListener('submit', function(event) {
-      const name = nameInput.value;
-      const topic = topicInput.value;
+      const name = nameInput.value || '(unnamed)'; // Add fallback
+      const topic = topicInput.value || 'Website Contact'; // Add fallback
       subjectHiddenInput.value = `[${topic}] - Message from ${name}`;
     });
+
+    // Optional: Update subject dynamically as user types (similar to Jekyll version's onchange)
+    // nameInput.addEventListener('input', updateSubjectField);
+    // topicInput.addEventListener('input', updateSubjectField);
+    // function updateSubjectField() {
+    //   const name = nameInput.value || '(unnamed)';
+    //   const topic = topicInput.value || 'Website Contact';
+    //   subjectHiddenInput.value = `[${topic}] - Message from ${name}`;
+    // }
+
   </script>
 </BaseLayout>
