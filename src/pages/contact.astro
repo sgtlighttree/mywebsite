@@ -22,10 +22,17 @@ const pageTitle = "Contact";
   <div class="contact-form">
     <h2>Get In Touch</h2>
     <!-- 
-      CHANGE #1: Added `data-netlify-subject=""` to the form tag. 
-      The script will populate this.
+      CHANGE #1: Updated the form tag.
+      We're now using Netlify's server-side placeholders {{topic}} and {{name}}.
+      Netlify will replace these with the values from the corresponding input fields.
     -->
-    <form name="contact" method="POST" data-netlify="true" action="/success/" data-netlify-subject="">
+    <form 
+      name="contact" 
+      method="POST" 
+      data-netlify="true" 
+      action="/success/" 
+      data-netlify-subject="[{{topic}}] - Message from {{name}}"
+    >
       <!-- This hidden input is still needed so Netlify knows the form's name -->
       <input type="hidden" name="form-name" value="contact" />
       <div class="form-group">
@@ -37,10 +44,7 @@ const pageTitle = "Contact";
         <input type="email" name="email" id="email" required>
       </div>
       <div class="form-group">
-        <!-- 
-          CHANGE #2: Renamed the input back to "topic". 
-          This is what will appear in the email BODY.
-        -->
+        <!-- The input `name="topic"` corresponds to the {{topic}} placeholder -->
         <label for="topic">Subject</label>
         <input type="text" name="topic" id="topic" required>
       </div>
@@ -48,9 +52,6 @@ const pageTitle = "Contact";
         <label for="message">Message</label>
         <textarea name="message" id="message" rows="5" required></textarea>
       </div>
-      <!-- 
-        CHANGE #3: The hidden subject input has been completely REMOVED.
-      -->
       <button type="submit">Send</button>
     </form>
   </div>
@@ -131,21 +132,4 @@ const pageTitle = "Contact";
     text-decoration: none;
   }
   </style>
-
-  <script is:inline>
-    // CHANGE #4: The script is now simplified to target the form attribute.
-    const contactForm = document.querySelector('form[name="contact"]');
-    const nameInput = contactForm.querySelector('#name');
-    const topicInput = contactForm.querySelector('#topic'); // Get the visible subject field
-
-    contactForm.addEventListener('submit', function(event) {
-      const name = nameInput.value || '(unnamed)';
-      const topic = topicInput.value || 'Website Contact';
-
-      const subjectLine = `[${topic}] - Message from ${name}`;
-
-      // Set the data-netlify-subject attribute on the form itself
-      contactForm.setAttribute('data-netlify-subject', subjectLine);
-    });
-  </script>
 </BaseLayout>
