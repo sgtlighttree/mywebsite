@@ -31,15 +31,15 @@ const pageTitle = "Contact";
         <input type="email" name="email" id="email" required>
       </div>
       <div class="form-group">
-        <label for="topic">Subject</label>
-        <input type="text" name="topic" id="topic" required>
+        <label for="subject">Subject</label>
+        <input type="text" name="subject" id="subject" required>
       </div>
       <div class="form-group">
         <label for="message">Message</label>
         <textarea name="message" id="message" rows="5" required></textarea>
       </div>
-      <!-- Hidden subject field that Netlify uses for the email subject -->
-      <input type="hidden" name="subject" id="form-subject">
+      <!-- Hidden field that Netlify uses for the email subject line -->
+      <input type="hidden" name="email-subject" id="email-subject">
       <button type="submit">Send</button>
     </form>
   </div>
@@ -122,17 +122,37 @@ const pageTitle = "Contact";
   </style>
 
   <script is:inline>
-    function updateSubject() {
-      const name = document.getElementById('name').value || '(unnamed)';
-      const topic = document.getElementById('topic').value || 'Website Contact';
-      document.getElementById('form-subject').value = `[${topic}] - Message from ${name}`;
-    }
+    document.addEventListener('DOMContentLoaded', function() {
+      const form = document.querySelector('form[name="contact"]');
+      const nameInput = document.getElementById('name');
+      const subjectInput = document.getElementById('subject');
+      const emailSubjectInput = document.getElementById('email-subject');
 
-    // Update when name or topic changes
-    document.getElementById('name').addEventListener('change', updateSubject);
-    document.getElementById('topic').addEventListener('change', updateSubject);
-    
-    // Update on form submission
-    document.querySelector('form[name="contact"]').addEventListener('submit', updateSubject);
+      function updateEmailSubject() {
+        const name = nameInput.value.trim() || '(unnamed)';
+        const subject = subjectInput.value.trim() || 'Website Contact';
+        // This creates the email subject line for Netlify
+        emailSubjectInput.value = `[${subject}] - Message from ${name}`;
+      }
+
+      // Update email subject when fields change
+      nameInput.addEventListener('input', updateEmailSubject);
+      subjectInput.addEventListener('input', updateEmailSubject);
+
+      // Ensure email subject is set on form submission
+      form.addEventListener('submit', function(e) {
+        updateEmailSubject();
+        
+        // The form will naturally submit with:
+        // - name: user's name (appears in email body)
+        // - email: user's email (appears in email body)  
+        // - subject: user's subject (appears in email body)
+        // - message: user's message (appears in email body)
+        // - email-subject: formatted subject line (used by Netlify for email subject)
+      });
+
+      // Initialize the email subject on page load
+      updateEmailSubject();
+    });
   </script>
 </BaseLayout>
