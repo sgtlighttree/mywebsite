@@ -26,12 +26,11 @@ const pageTitle = "Contact";
       We're now using Netlify's server-side placeholders {{topic}} and {{name}}.
       Netlify will replace these with the values from the corresponding input fields.
     -->
-    <form 
-      name="contact" 
-      method="POST" 
-      data-netlify="true" 
-      action="/success/" 
-      data-netlify-subject="[{{topic}}] - Message from {{name}}"
+    <form
+      name="contact"
+      method="POST"
+      data-netlify="true"
+      action="/success/"
     >
       <!-- This hidden input is still needed so Netlify knows the form's name -->
       <input type="hidden" name="form-name" value="contact" />
