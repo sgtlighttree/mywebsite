@@ -31,6 +31,7 @@ const pageTitle = "Contact";
       method="POST"
       data-netlify="true"
       action="/success/"
+      data-netlify-subject="[{{topic}}] - Message from {{name}}"
     >
       <!-- This hidden input is still needed so Netlify knows the form's name -->
       <input type="hidden" name="form-name" value="contact" />
