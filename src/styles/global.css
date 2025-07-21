@@ -486,20 +486,14 @@ header nav {
 }
 
 .tag {
-  margin: 0.25em;
+  margin-right: 0.25em;
   border: dotted 1px var(--tag-border);
-  border-radius: .5em;
-  padding: .5em 1em;
-  font-size: 1.15em;
+  padding: .25em .5em;
   background-color: var(--tag-bg);
 }
 
 .tag a {
   color: var(--tag-text);
   text-decoration: none;
-}
-
-.tag a:hover {
-  opacity: 0.8;
 }
 

@@ -26,7 +26,7 @@ const pageTitle = "Writings";
 
   <h2>Blog</h2>
   <div class="tile-container">
-    {blogPosts.map((post: any) => <BlogPost url={post.url} title={post.frontmatter.title}/>)}
+    {blogPosts.map((post: any) => <BlogPost url={post.url} title={post.frontmatter.title} date={post.frontmatter.pubDate}/>)}
   </div>
 
   <h2>Skybound Saga</h2>
@@ -39,11 +39,11 @@ const pageTitle = "Writings";
     <button is-~="button">Launch Wiki</button>
   </a>
   <div class="tile-container">
-    {skyboundSaga.map((post: any) => <BlogPost url={post.url} title={post.frontmatter.title}/>)}
+    {skyboundSaga.map((post: any) => <BlogPost url={post.url} title={post.frontmatter.title} date={post.frontmatter.pubDate}/>)}
   </div>
 
   <h2>Other Writing</h2>
   <div class="tile-container">
-    {otherWriting.map((post: any) => <BlogPost url={post.url} title={post.frontmatter.title}/>)}
+    {otherWriting.map((post: any) => <BlogPost url={post.url} title={post.frontmatter.title} date={post.frontmatter.pubDate}/>)}
   </div>
 </BaseLayout>
