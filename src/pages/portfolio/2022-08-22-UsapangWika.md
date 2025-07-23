@@ -3,7 +3,7 @@ layout: ../../layouts/MarkdownPostLayout.astro
 title: 'Usapang Wika (2022)'
 pubDate: 2022-08-16
 image:
-    url: '../../../images/UsapangWika.avif'
+    avif: '../../../images/UsapangWika.avif'
     alt: 'Usapang Wika Logo'
 tags: ["portfolio"]
 ---

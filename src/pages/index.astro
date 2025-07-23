@@ -15,7 +15,26 @@ portfolioEntries.sort((a: any, b: any) => new Date(b.frontmatter.pubDate).valueO
     {portfolioEntries.map((entry: any) => (
       <a href={entry.url} class="portfolio-item">
         <div class="portfolio-thumbnail-container">
-          <img src={entry.frontmatter.image.url} alt={entry.frontmatter.image.alt} class="portfolio-thumbnail"/>
+          {/* <img src={entry.frontmatter.image.avif} src={entry.frontmatter.image.webp} src={entry.frontmatter.image.png} alt={entry.frontmatter.image.alt} class="portfolio-thumbnail"/> */}
+          <picture class="portfolio-thumbnail">
+            {/* <!-- AVIF first --> */}
+            <source
+              srcset={entry.frontmatter.image.avif}
+              type="image/avif"
+            />
+            {/* <!-- Then WebP --> */}
+            <source
+              srcset={entry.frontmatter.image.webp}
+              type="image/webp"
+            />
+            {/* <!-- Finally PNG --> */}
+            <img
+              src={entry.frontmatter.image.png}
+              alt={entry.frontmatter.image.alt}
+              loading="lazy"
+              class="portfolio-thumbnail"
+            />
+          </picture>
           <div class="portfolio-title-overlay">
             <h3>{entry.frontmatter.title}</h3>
           </div>
