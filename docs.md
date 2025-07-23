@@ -2,7 +2,7 @@
 
 ## Overview
 
-**MyWebsite** is a personal portfolio, blog, and writing site built with [Astro](https://astro.build/) and [Preact](https://preactjs.com/). It serves as the GitHub Pages website for Matthew Oyan, showcasing video post-production, motion design work, and providing a technical blog and speculative fiction content.
+**mywebsite** is a personal portfolio, blog, and writing site built with [Astro](https://astro.build/) and [Preact](https://preactjs.com/). It serves as the GitHub Pages website for Matthew Oyan, showcasing video post-production, motion design work, and providing a blog and speculative fiction content.
 
 ## Table of Contents
 - [Overview](#overview)
@@ -161,6 +161,17 @@ Create `.astro` files under `src/pages/`. Each file maps to a route.
 - Markdown items under `src/pages/portfolio/`.
 - Similar frontmatter to blog posts but used in portfolio grid on home page.
 
+#### Converting PNGs to AVIF for Portfolio Posts
+Use this command to convert PNG images encoded as Rec709/BT.709 to sRGB to AVIF with minimal compression and color shifts.
+```bash
+magick input.png -gamma 0.917 -quality 95 output.avif
+```
+Otherwise:
+```bash
+magick input.png -quality 95 output.avif
+```
+Will suffice.
+
 ### Writing
 - Markdown under `src/pages/writing/`.
 - Displayed on the Writings index (`writings.astro`).
@@ -192,7 +203,3 @@ Recommended extensions and launch configs under `.vscode/`:
 - `astro-build.astro-vscode` for Astro language support.
 - Debug profile to launch `astro dev` in integrated terminal.
 
-## License
-
-This repository is published under the terms specified in the project license (if any).
-Otherwise, refer to the top-level repository settings.

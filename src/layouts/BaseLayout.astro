@@ -4,9 +4,12 @@ import Footer from '../components/Footer.astro';
 import '../styles/global.css';
 export interface Props {
   pageTitle: string;
+  metaTitle?: string; // different title for tabs
   showFooterCta?: boolean;
 }
-const { pageTitle, showFooterCta = true } = Astro.props;
+const { pageTitle, metaTitle, showFooterCta = true } = Astro.props;
+const siteName = "Matthew Oyan";
+const finalTabTitle = metaTitle ? metaTitle : `${siteName} - ${pageTitle}`;
 ---
 <html lang="en">
   <head>
@@ -14,7 +17,7 @@ const { pageTitle, showFooterCta = true } = Astro.props;
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width" />
     <meta name="generator" content={Astro.generator} />
-    <title>{pageTitle}</title>
+    <title>{finalTabTitle}</title>
     <!-- <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200..800&display=swap" />
     <link href="https://fonts.googleapis.com/css2?family=Anonymous+Pro:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://use.typekit.net/rwk4ccm.css">
