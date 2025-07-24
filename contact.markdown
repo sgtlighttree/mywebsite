@@ -11,13 +11,14 @@ permalink: /contact/
 <div class="contact-info">
   <p>
       <span class="material-symbols-outlined"> mail </span>
-      <a href="mailto:matthew.oyan@protonmail.com">matthew.oyan@protonmail.com</a>
+      <a href="mailto:matthew.oyan@gmail.com">matthew.oyan@gmail.com</a>
   </p>
-
+  <!--
   <p>
       <span class="material-symbols-outlined">call</span>
       (Philippines/SMART)&nbsp;&nbsp;<a href="tel:+639472290659">+63 947 229 0659</a>
   </p>
+  -->
 </div>
 
 <div class="contact-form">
