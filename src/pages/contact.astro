@@ -5,7 +5,14 @@ const pageTitle = "Contact";
 ---
 <BaseLayout pageTitle={pageTitle} showFooterCta={false}>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-  
+  <style>
+    /* Desktop styles */
+    @media screen and (min-width: 769px) {
+      .tile-container {
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      }
+    }
+  </style>
   <div class="tile-container">
     <!-- <div class="tile-item">
       <a href="mailto:matthew.oyan@gmail.com">Email</a>
@@ -63,6 +70,12 @@ const pageTitle = "Contact";
         <label for="message">Message*</label>
         <textarea name="message" id="message" rows="5" required></textarea>
       </div>
+      <!-- <div class="form-group">
+        <label>
+          <label for="file">Add File, max size 8 MB (Optional)</label>
+          <input name="file" type="file" />
+        </label>
+      </div> -->
       <button type="submit">Send</button>
     </form>
   </div>
