@@ -172,7 +172,6 @@ body::before {
     rgba(238,130,238,1) 100%,
     rgba(255,255,255,0) 100%
   );
-  filter: blur(15px);
   opacity: 1;
   z-index: 1;
   pointer-events: none;
@@ -310,7 +309,7 @@ header nav {
 /* Desktop styles */
 @media screen and (min-width: 769px) {
   .tile-container {
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
   }
 }
 

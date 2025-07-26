@@ -7,10 +7,11 @@ const pageTitle = "Contact";
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
   
   <div class="tile-container">
-    <div class="tile-item">
+    <!-- <div class="tile-item">
       <a href="mailto:matthew.oyan@gmail.com">Email</a>
-    </div>
+    </div> -->
     {[
+      { platform: "Facebook", username: "lighttree.gfx" },
       { platform: "LinkedIn", username: "in/matthewoyan/" },
       { platform: "Instagram", username: "sgtlighttree" },
     ].map((item) => (
@@ -78,68 +79,6 @@ const pageTitle = "Contact";
 
   .form-group {
     margin-bottom: 1.5rem;
-  }
-
-  .form-group input,
-  .form-group textarea {
-    width: 100%;
-    padding: 0.75rem;
-    border: 1px solid #ddd;
-    background-color: #fff;
-    font-family: inherit;
-    font-size: 1rem;
-    transition: border-color 0.3s, box-shadow 0.3s;
-    box-sizing: border-box; /* This ensures padding doesn't add to width */
-  }
-
-  /* Responsive form adjustments */
-  @media (max-width: 600px) {
-    .form-group input,
-    .form-group textarea {
-      padding: 0.6rem;
-      font-size: 16px; /* Prevents iOS zoom on focus */
-    }
-  }
-
-  .form-group input:focus,
-  .form-group textarea:focus {
-    border-color: #666;
-    box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.1);
-    outline: none;
-  }
-
-  .contact-form button {
-    background-color: #333;
-    color: white;
-    border: none;
-    padding: 0.75rem 1.5rem;
-    font-size: 1rem;
-    font-family: inherit;
-    cursor: pointer;
-    transition: background-color 0.3s;
-  }
-
-  .contact-form button:hover {
-    background-color: #555;
-  }
-
-  /* Contact Info Styling */
-  .contact-info {
-    margin-bottom: 2rem;
-  }
-
-  .contact-info p {
-    display: flex;
-    align-items: center;
-    margin-bottom: 0.75rem;
-  }
-
-  .contact-info .material-symbols-outlined {
-    margin-right: 0.75rem;
-  }
-
-  .contact-info a {
-    text-decoration: none;
   }
 
   .name-group {

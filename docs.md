@@ -2,7 +2,7 @@
 
 ## Overview
 
-**mywebsite** is a personal portfolio, blog, and writing site built with [Astro](https://astro.build/) and [Preact](https://preactjs.com/). It serves as the GitHub Pages website for Matthew Oyan, showcasing video post-production, motion design work, and providing a blog and speculative fiction content.
+**mywebsite** is a personal portfolio and blog built with [Astro](https://astro.build/) and [Preact](https://preactjs.com/). It showcases video post-production, motion design work, and hosts speculative fiction and blog content.
 
 ## Table of Contents
 - [Overview](#overview)
@@ -31,44 +31,49 @@
 
 ## Getting Started
 
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/<username>/mywebsite.git
-   cd mywebsite
-   ```
-2. Install dependencies:
-   ```bash
-   npm install
-   ```
+1.  Clone the repository:
+    ```bash
+    git clone https://github.com/matthewoyan/mywebsite.git
+    cd mywebsite
+    ```
+2.  Install dependencies:
+    ```bash
+    npm install
+    ```
 
 ## Development Workflow
 
-- Start local dev server with hot reload:
+- **Start local dev server with hot reload:**
   ```bash
   npm run dev
   ```
-- Preview the production build locally:
+  
+- **Start local dev server with LAN:**
+  ```bash
+  npm run dev --host
+  ```
+
+- **Preview the production build locally:**
   ```bash
   npm run build
   npm run preview
   ```
-- Run Astro CLI directly:
+- **Run Astro CLI commands directly:**
+  For example, to see all available Astro commands:
   ```bash
-  npm run astro -- <command>
+  npm run astro -- --help
   ```
 
 ## Build & Deployment
 
-The site is built with Astro and can be deployed to various static hosts or Cloudflare Workers via Wrangler.
+The site is built with Astro and deployed to Cloudflare Workers via Wrangler.
 
-- Generate a production build:
+- **Generate a production build:**
   ```bash
   npm run build
   ```
-- Configuration for Cloudflare Workers (via `wrangler.json`):
-  - Output directory: `./dist`
-  - Compatibility date specified in `wrangler.json`
-- To develop/debug the wiki assets separately:
+- **Develop/debug the wiki assets separately:**
+  The wiki is a pre-built static site. Use this command to preview changes to its assets with live-reloading.
   ```bash
   npm run dev:wiki
   ```
@@ -76,43 +81,31 @@ The site is built with Astro and can be deployed to various static hosts or Clou
 ## Directory Structure
 
 ```text
-. 
+.
 ├── .astro/               # Astro build cache
 ├── .git/                 # Git repository metadata
-├── .gitignore            # Files to ignore in Git
 ├── .vscode/              # VSCode recommended extensions & launch configs
 ├── astro.config.mjs      # Astro integration/config
 ├── package.json          # npm scripts & dependencies
-├── package-lock.json     # npm lock file
 ├── tsconfig.json         # TypeScript configuration
 ├── wrangler.json         # Cloudflare Wrangler config
 ├── public/               # Static assets (favicon, images, videos, wiki)
-│   ├── favicon.svg
-│   ├── images/
-│   ├── videos/
 │   └── wiki/             # Prebuilt wiki site assets
-├── src/                  # Source files
-│   ├── components/       # Reusable Astro components
-│   ├── layouts/          # Page/layout templates
-│   ├── pages/            # Routes & Markdown content
-│   │   ├── about.astro
-│   │   ├── contact.astro
-│   │   ├── index.astro    # Portfolio listing
-│   │   ├── portfolio/     # Markdown portfolio items
-│   │   ├── posts/         # Markdown blog posts
-│   │   ├── tags/          # Dynamic tag pages
-│   │   ├── writing/       # Markdown writing posts
-│   │   └── writings.astro # Writings index
-│   ├── scripts/          # Frontend/helper scripts (e.g., mobile nav)
-│   └── styles/           # Global CSS
-│       └── global.css
-└── README.md             # Project overview (brief)
+└── src/                  # Source files
+    ├── components/       # Reusable Astro components
+    ├── layouts/          # Page/layout templates
+    ├── pages/            # Routes & Markdown content
+    │   ├── portfolio/    # Markdown portfolio items
+    │   ├── posts/        # Markdown blog posts
+    │   └── writing/      # Markdown writing posts
+    ├── scripts/          # Frontend/helper scripts
+    └── styles/           # Global CSS
 ```
 
 ## Key Configuration Files
 
 ### astro.config.mjs
-Defines Astro integrations (e.g., Preact):
+Defines Astro integrations like Preact.
 ```js
 import { defineConfig } from 'astro/config';
 import preact from '@astrojs/preact';
@@ -123,21 +116,19 @@ export default defineConfig({
 ```
 
 ### tsconfig.json
-Extends Astro's strict TypeScript config and enables JSX for Preact:
+Extends Astro's strict TypeScript config and enables JSX for Preact.
 ```json
 {
   "extends": "astro/tsconfigs/strict",
   "compilerOptions": {
     "jsx": "react-jsx",
     "jsxImportSource": "preact"
-  },
-  "include": [".astro/types.d.ts", "**/*"],
-  "exclude": ["dist"]
+  }
 }
 ```
 
 ### wrangler.json
-Cloudflare Workers config:
+Cloudflare Workers configuration for deployment.
 ```json
 {
   "name": "websitev3",
@@ -151,55 +142,82 @@ Cloudflare Workers config:
 ## Adding Content
 
 ### Pages
-Create `.astro` files under `src/pages/`. Each file maps to a route.
+Create `.astro` files under `src/pages/`. Each file maps to a route (e.g., `src/pages/about.astro` becomes `/about`).
 
 ### Blog Posts
 - Place Markdown files in `src/pages/posts/`.
-- Frontmatter keys: `layout`, `title`, `pubDate`, `description`, `author`, `image`, `tags`.
+- **Example Frontmatter:**
+  ```markdown
+  ---
+  layout: '../../layouts/MarkdownPostLayout.astro'
+  title: 'My Awesome Blog Post'
+  pubDate: 2025-07-26
+  description: 'A brief summary of my post.'
+  author: 'Matthew Oyan'
+  image:
+      url: '/images/post-image.avif'
+      alt: 'Alt text for the image.'
+  tags: ["astro", "blogging", "tech"]
+  ---
+  
+  Your post content starts here.
+  ```
 
 ### Portfolio
-- Markdown items under `src/pages/portfolio/`.
-- Similar frontmatter to blog posts but used in portfolio grid on home page.
+- Place Markdown files in `src/pages/portfolio/`.
+- **Example Frontmatter:**
+  ```markdown
+  ---
+  layout: '../../layouts/MarkdownPostLayout.astro'
+  title: 'My Amazing Project'
+  pubDate: 2025-07-26
+  description: 'A short description of the project.'
+  image:
+    avif: '../../../images/image.avif'
+    webp: '../../../images/image.webp'
+    png: '../../../images/image.png'
+    alt: 'PDIC Logo'
+  tags: ["motion design", "video editing"]
+  ---
 
-#### Converting PNGs to AVIF for Portfolio Posts
-Use this command to convert PNG images encoded as Rec709/BT.709 to sRGB to AVIF with minimal compression and color shifts.
-```bash
-magick input.png -gamma 0.917 -quality 95 output.avif
-```
-Otherwise:
-```bash
-magick input.png -quality 95 output.avif
-```
-Will suffice.
+  Details about the project go here.
+  ```
+
+#### Converting Images to AVIF
+Use `imagemagick` to convert images to the efficient AVIF format. If the source is Rec.709 (common for video), convert gamma for correct sRGB display.
+
+- **For Rec.709 sources:**
+  ```bash
+  magick input.png -gamma 0.917 -quality 95 output.avif
+  ```
+- **For standard sRGB sources:**
+  ```bash
+  magick input.png -quality 95 output.avif
+  ```
 
 ### Writing
-- Markdown under `src/pages/writing/`.
-- Displayed on the Writings index (`writings.astro`).
+- Place Markdown files in `src/pages/writing/`. These are for creative or fictional pieces.
 
 ### Tags
-- Dynamic tag pages in `src/pages/tags/[tag].astro`.
-- `getStaticPaths` collects unique tags from blog & writing posts.
+Tag pages are generated automatically based on the `tags` array in the frontmatter of blog posts and portfolio items.
 
 ### Wiki
-- Prebuilt static wiki assets live under `public/wiki/`.
-- Served as standalone client-side app.
+The wiki is a pre-built static site located in `public/wiki/`. To update it, you must modify its source files and rebuild it separately. The assets are then committed to this repository.
 
 ## Styling
 
-Global styles defined in `src/styles/global.css`. The stylesheet handles:
-- Base typography and layout
-- Dark mode support via `html.dark`
-- Responsive navigation menu styles with mobile/desktop variants
-- Accent rainbow bar at top of page
-
-## Scripts
-
-- `src/scripts/menu.js`: helper for mobile navigation toggle.
-- `npm run dev:wiki`: launches BrowserSync for local wiki preview.
+Global styles are defined in `src/styles/global.css`. This file includes:
+- Base typography and layout rules.
+- Dark mode support via the `html.dark` class.
+- Responsive navigation styles.
+- The accent rainbow bar at the top of the page.
 
 ## VSCode Setup
 
-Recommended extensions and launch configs under `.vscode/`:
-- `astro-build.astro-vscode` for Astro language support.
-- Debug profile to launch `astro dev` in integrated terminal.
+The `.vscode/` directory contains recommended extensions and launch configurations.
+- **Extension:** `astro-build.astro-vscode` for Astro language support.
+- **Launch Config:** A debugger profile to run `astro dev` from the integrated terminal.
 
+## License
+
+This project is licensed under the terms of the MIT license. See the [LICENSE.TXT](LICENSE.TXT) file for details.
