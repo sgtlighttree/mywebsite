@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Social from '../components/Social.astro';
+import ObfuscatedEmail from '../components/ObfuscatedEmail.astro';
 const pageTitle = "Thank you for reaching out!";
 ---
 <BaseLayout pageTitle={pageTitle} showFooterCta={false}>
@@ -13,7 +14,7 @@ const pageTitle = "Thank you for reaching out!";
         }
       }
     </style>
-    <p>I appreciate you taking the time to send a message. Your message has been received, and I’ll get back to you as quickly as possible. If you have any urgent needs, you’re always welcome to follow up via <a href="mailto:matthew.oyan@gmail.com">email</a>. Have a great day!</p>
+    <p>I appreciate you taking the time to send a message. Your message has been received, and I’ll get back to you as quickly as possible. If you have any urgent needs, you’re always welcome to follow up via <ObfuscatedEmail text="email."/> Have a great day!</p>
     <p>In the meantime, feel free to read my <a href="/about">resume</a>, explore the rest of the website, or connect through other channels listed below.</p>
     <div class="tile-container">
       {[

@@ -1,0 +1,44 @@
+---
+// Props can be used to customize the link text if needed
+export interface Props {
+	text?: string;
+}
+const { text = 'Email' } = Astro.props;
+
+const emailUser = "matthew.oyan";
+const emailDomain = "gmail.com";
+---
+<a href="#" class="email-link" data-user={emailUser} data-domain={emailDomain}>{text}</a>
+<noscript>
+	<style>
+		/* Hide the non-functional link if JS is disabled */
+		.email-link {
+			display: none;
+		}
+	</style>
+	<!-- Show the "munged" email as a fallback for NoScript users -->
+	<span>matthew.oyan [at] gmail.com</span>
+</noscript>
+
+<script is:inline>
+    function decodeEmail() {
+        const links = document.querySelectorAll('a.email-link');
+        links.forEach(link => {
+            if (link.dataset.user && link.dataset.domain) {
+                const user = link.dataset.user;
+                const domain = link.dataset.domain;
+                const email = `${user}@${domain}`;
+                link.href = `mailto:${email}`;
+                // The link text will now remain what was originally set.
+            }
+        });
+    }
+    // Run on initial load
+    if (document.readyState === "loading") {
+        document.addEventListener('DOMContentLoaded', decodeEmail);
+    } else {
+        decodeEmail();
+    }
+    // Also run after Astro's view transitions for SPAs
+    document.addEventListener('astro:after-swap', decodeEmail);
+</script>

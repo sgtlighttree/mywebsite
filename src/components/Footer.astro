@@ -1,6 +1,7 @@
 ---
 import Social from './Social.astro';
 import ThemeIcon from './ThemeIcon.astro';
+import ObfuscatedEmail from './ObfuscatedEmail.astro';
 
 export interface Props {
   showCta?: boolean;
@@ -15,7 +16,7 @@ const { showCta = true } = Astro.props;
   {showCta && (
     <>
       <h2>Interested?</h2>
-      <h3>Feel free to check out <a href="mailto:matthew.oyan@gmail.com">Email</a> or <a href="/contact/">Contact</a> for more information.</h3>
+      <h3>Feel free to check out <ObfuscatedEmail /> or <a href="/contact/">Contact</a> for more information.</h3>
     </>
   )}
   <ThemeIcon />

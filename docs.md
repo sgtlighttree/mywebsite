@@ -50,7 +50,7 @@
   
 - **Start local dev server with LAN:**
   ```bash
-  npm run dev --host
+  npm run dev -- --host
   ```
 
 - **Preview the production build locally:**
