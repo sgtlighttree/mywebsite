@@ -89,8 +89,7 @@ header {
 
 html {
   background-color: var(--bg-primary);
-  /* font-family: "Atkinson Hyperlegible Next", sans-serif; */
-  font-family: "Atkinson Hyperlegible Next", monospace;
+  font-family: 'Atkinson Hyperlegible Next Variable', sans-serif;
   color: var(--text-primary);
 }
 
@@ -105,19 +104,19 @@ html {
 }
 
 
-/* @font-face {
+@font-face {
   font-family: 'Geist Mono Variable';
   font-style: normal;
   font-display: swap;
   font-weight: 100 900;
   src: url(https://cdn.jsdelivr.net/fontsource/fonts/geist-mono:vf@latest/latin-wght-normal.woff2) format('woff2-variations');
   unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
-} */
+}
 
 body {
   margin: 0 auto;
   width: 100%;
-  max-width: 90ch;
+  max-width: 60em;
   padding: 1rem;
   line-height: 1.5;
   color: var(--text-primary);
@@ -516,3 +515,52 @@ header nav {
   text-decoration: none;
 }
 
+/*────────────────────────────────────────────────────────────────────────────
+   Code Block Styles
+────────────────────────────────────────────────────────────────────────────*/
+pre,
+code,
+kbd {
+    font-family: 'Geist Mono Variable', monospace !important;
+}
+
+pre {
+    position: relative;
+    padding: 3.5em 1.5em 1em 1em !important; /* Increased padding, especially top for the label */
+    background-color: #282a36 !important; /* Dracula background */
+    overflow-x: auto !important;
+    margin-block-end: 1em !important;
+}
+
+pre::before {
+    content: attr(data-language);
+    position: absolute;
+    top: 1em;
+    left: 1em;
+    padding: 0.25em 0.5em;
+    background-color: #6272a4; /* Dracula comment color */
+    color: #f8f8f2; /* Dracula foreground color */
+    font-size: 0.8rem;
+    font-weight: bold;
+}
+
+/* Adjust for code blocks without a language */
+pre:not([data-language])::before {
+    content: 'TEXT';
+}
+
+/* Inline code styles */
+code {
+    font-size: 0.9rem !important;
+    padding: 0.2rem 0.4rem !important;
+    background-color: #44475a !important; /* Dracula selection color */
+    color: #f8f8f2 !important; /* Dracula foreground color */
+}
+
+/* Reset styles for code inside a pre block */
+pre code {
+    padding: 0 !important;
+    background-color: transparent !important;
+    color: inherit !important; /* Inherit color from the pre element */
+    border-radius: 0 !important;
+}

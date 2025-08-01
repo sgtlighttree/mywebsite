@@ -1,6 +1,7 @@
 ---
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+import ThemeIcon from '../components/ThemeIcon.astro';
 import '../styles/global.css';
 export interface Props {
   pageTitle: string;
@@ -27,6 +28,6 @@ const finalTabTitle = metaTitle ? metaTitle : `${siteName} - ${pageTitle}`;
     <Header />
     <h1>{pageTitle}</h1>
     <slot />
-    <Footer showCta={showFooterCta} />
+    <ThemeIcon />
   </body>
 </html>

@@ -27,7 +27,7 @@ schtasks /run /tn "Start Copyparty Server"
 
 And to verify, I can run `tasklist | findstr /i "pythonw.exe"` and it should look like this:
 
-```
+```batch
 matth@MATTHEW M:\>tasklist | findstr /i "pythonw.exe"       
 pythonw.exe                   2576 Console                    1     63,480 K
 ```
