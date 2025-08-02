@@ -1,5 +1,5 @@
 ---
-layout: ../../layouts/MarkdownPostLayout.astro
+layout: ../../layouts/BlogPostLayout.astro
 title: 'Website Rebuild'
 pubDate: 2025-07-21
 description: 'Migrating from Jekyll to Astro'

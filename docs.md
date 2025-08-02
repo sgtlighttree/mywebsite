@@ -149,7 +149,7 @@ Create `.astro` files under `src/pages/`. Each file maps to a route (e.g., `src/
 - **Example Frontmatter:**
   ```markdown
   ---
-  layout: '../../layouts/MarkdownPostLayout.astro'
+  layout: '../../layouts/BlogPostLayout.astro'
   title: 'My Awesome Blog Post'
   pubDate: 2025-07-26
   description: 'A brief summary of my post.'
@@ -168,7 +168,7 @@ Create `.astro` files under `src/pages/`. Each file maps to a route (e.g., `src/
 - **Example Frontmatter:**
   ```markdown
   ---
-  layout: '../../layouts/MarkdownPostLayout.astro'
+  layout: '../../layouts/BlogPostLayout.astro'
   title: 'My Amazing Project'
   pubDate: 2025-07-26
   description: 'A short description of the project.'

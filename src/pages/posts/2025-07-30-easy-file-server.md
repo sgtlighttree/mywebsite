@@ -1,5 +1,5 @@
 ---
-layout: ../../layouts/MarkdownPostLayout.astro
+layout: ../../layouts/BlogPostLayout.astro
 title: 'An Easy DIY File Server with copyparty and Tailscale'
 pubDate: 2025-07-30
 description: 'I have never been this nerd sniped before.'
@@ -28,7 +28,7 @@ schtasks /run /tn "Start Copyparty Server"
 And to verify, I can run `tasklist | findstr /i "pythonw.exe"` and it should look like this:
 
 ```batch
-matth@MATTHEW M:\>tasklist | findstr /i "pythonw.exe"       
+matth@MATTHEW M:\>tasklist | findstr /i "pythonw.exe"
 pythonw.exe                   2576 Console                    1     63,480 K
 ```
 

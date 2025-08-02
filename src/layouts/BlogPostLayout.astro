@@ -1,0 +1,21 @@
+---
+import BaseLayout from './BaseLayout.astro';
+const { frontmatter } = Astro.props;
+---
+<BaseLayout pageTitle={frontmatter.title} showFooterCta={false}>
+  <p><em>{frontmatter.description}</em></p>
+  <p>{new Date(frontmatter.pubDate).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}</p>
+
+  {frontmatter.author && (
+    <p>Written by: {frontmatter.author}</p>
+  )}
+
+  { !Astro.url.pathname.startsWith('/portfolio/') && (
+    <div class="tags">
+      {frontmatter.tags.map((tag: string) => (
+        <p class="tag"><a href={`/tags/${tag}`}>{tag}</a></p>
+      ))}
+    </div>
+  )}
+  <slot />
+</BaseLayout>

@@ -22,7 +22,7 @@ const otherWriting = (allWritingPosts as (PostWithPubDate & PostWithTags)[]).fil
 const pageTitle = "Writings";
 ---
 
-<BaseLayout pageTitle={pageTitle}>
+<BaseLayout pageTitle={pageTitle} showFooterCta={false}>
 
   <h2>Blog</h2>
   <div class="tile-container">
@@ -46,4 +46,5 @@ const pageTitle = "Writings";
   <div class="tile-container">
     {otherWriting.map((post: any) => <BlogPost url={post.url} title={post.frontmatter.title} date={post.frontmatter.pubDate}/>)}
   </div>
+  <br>
 </BaseLayout>
