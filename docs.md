@@ -1,223 +1,152 @@
-# Project Documentation
+# Website Documentation
 
-## Overview
+This document provides an exhaustive overview of the Astro-based personal website, tailored for the solo developer, Matthew Oyan. It covers the project's architecture, components, layouts, and key functionalities.
 
-**mywebsite** is a personal portfolio and blog built with [Astro](https://astro.build/) and [Preact](https://preactjs.com/). It showcases video post-production, motion design work, and hosts speculative fiction and blog content.
+## 1. Project Overview
 
-## Table of Contents
-- [Overview](#overview)
-- [Prerequisites](#prerequisites)
-- [Getting Started](#getting-started)
-- [Development Workflow](#development-workflow)
-- [Build & Deployment](#build--deployment)
-- [Directory Structure](#directory-structure)
-- [Key Configuration Files](#key-configuration-files)
-- [Adding Content](#adding-content)
-  - [Pages](#pages)
-  - [Blog Posts](#blog-posts)
-  - [Portfolio](#portfolio)
-  - [Writing](#writing)
-  - [Tags](#tags)
-  - [Wiki](#wiki)
-- [Styling](#styling)
-- [Scripts](#scripts)
-- [VSCode Setup](#vscode-setup)
-- [License](#license)
+This project is a personal website and portfolio built with [Astro](https://astro.build/), a modern static site generator. It's designed to be fast, content-focused, and easy to maintain. The site uses [Preact](https://preactjs.com/) for some interactive components, demonstrating Astro's ability to integrate with UI frameworks.
 
-## Prerequisites
+### Technologies Used
 
-- **Node.js** >=16.x
-- **npm** (comes with Node.js)
+*   **Astro**: The core framework for building the site.
+*   **Preact**: Used for small, interactive UI components.
+*   **TypeScript**: For type safety in Astro components and scripts.
+*   **CSS**: For styling, with global styles and component-scoped styles.
 
-## Getting Started
+## 2. Project Structure
 
-1.  Clone the repository:
-    ```bash
-    git clone https://github.com/matthewoyan/mywebsite.git
-    cd mywebsite
-    ```
-2.  Install dependencies:
-    ```bash
-    npm install
-    ```
+The project follows a standard Astro project structure:
 
-## Development Workflow
+*   `src/`: Contains all the source code.
+    *   `components/`: Reusable UI components (`.astro`, `.jsx`).
+    *   `layouts/`: The base templates for pages.
+    *   `pages/`: The individual pages of the site. Astro uses file-based routing.
+    *   `styles/`: Global CSS styles.
+    *   `scripts/`: JavaScript files.
+*   `public/`: Static assets like images, fonts, and favicons.
 
-- **Start local dev server with hot reload:**
-  ```bash
-  npm run dev
-  ```
-  
-- **Start local dev server with LAN:**
-  ```bash
-  npm run dev -- --host
-  ```
+## 3. Layouts
 
-- **Preview the production build locally:**
-  ```bash
-  npm run build
-  npm run preview
-  ```
-- **Run Astro CLI commands directly:**
-  For example, to see all available Astro commands:
-  ```bash
-  npm run astro -- --help
-  ```
+Layouts are Astro components that define the UI structure shared by one or more pages.
 
-## Build & Deployment
+### `BaseLayout.astro`
 
-The site is built with Astro and deployed to Cloudflare Workers via Wrangler.
+This is the foundational layout for the entire site. It defines the main HTML structure, including the `<html>`, `<head>`, and `<body>` tags.
 
-- **Generate a production build:**
-  ```bash
-  npm run build
-  ```
-- **Develop/debug the wiki assets separately:**
-  The wiki is a pre-built static site. Use this command to preview changes to its assets with live-reloading.
-  ```bash
-  npm run dev:wiki
-  ```
+**Props:**
 
-## Directory Structure
+*   `pageTitle` (string, required): The main title of the page, displayed in the `<h1>` tag.
+*   `metaTitle` (string, optional): A different title for the browser tab. If not provided, it defaults to `"Matthew Oyan - {pageTitle}"`.
+*   `showFooterCta` (boolean, optional, default: `true`): A boolean to control the visibility of the call-to-action in the footer.
 
-```text
-.
-├── .astro/               # Astro build cache
-├── .git/                 # Git repository metadata
-├── .vscode/              # VSCode recommended extensions & launch configs
-├── astro.config.mjs      # Astro integration/config
-├── package.json          # npm scripts & dependencies
-├── tsconfig.json         # TypeScript configuration
-├── wrangler.json         # Cloudflare Wrangler config
-├── public/               # Static assets (favicon, images, videos, wiki)
-│   └── wiki/             # Prebuilt wiki site assets
-└── src/                  # Source files
-    ├── components/       # Reusable Astro components
-    ├── layouts/          # Page/layout templates
-    ├── pages/            # Routes & Markdown content
-    │   ├── portfolio/    # Markdown portfolio items
-    │   ├── posts/        # Markdown blog posts
-    │   └── writing/      # Markdown writing posts
-    ├── scripts/          # Frontend/helper scripts
-    └── styles/           # Global CSS
+**Usage:**
+
+```astro
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+<BaseLayout pageTitle="About Me">
+  <p>This is the about page.</p>
+</BaseLayout>
 ```
 
-## Key Configuration Files
+### `BlogPostLayout.astro`
 
-### astro.config.mjs
-Defines Astro integrations like Preact.
-```js
-import { defineConfig } from 'astro/config';
-import preact from '@astrojs/preact';
+This layout is designed for markdown-based blog posts. It extends `BaseLayout` and is responsible for rendering the post's frontmatter and content.
 
-export default defineConfig({
-  integrations: [preact()]
-});
-```
+**Frontmatter:**
 
-### tsconfig.json
-Extends Astro's strict TypeScript config and enables JSX for Preact.
-```json
-{
-  "extends": "astro/tsconfigs/strict",
-  "compilerOptions": {
-    "jsx": "react-jsx",
-    "jsxImportSource": "preact"
-  }
-}
-```
+It expects the following frontmatter fields in the markdown files:
 
-### wrangler.json
-Cloudflare Workers configuration for deployment.
-```json
-{
-  "name": "websitev3",
-  "compatibility_date": "2025-06-23",
-  "assets": {
-    "directory": "./dist"
-  }
-}
-```
+*   `title` (string): The title of the blog post.
+*   `description` (string): A short description of the post.
+*   `pubDate` (string): The publication date of the post.
+*   `author` (string, optional): The author of the post.
+*   `tags` (array of strings): A list of tags associated with the post.
 
-## Adding Content
+**Functionality:**
 
-### Pages
-Create `.astro` files under `src/pages/`. Each file maps to a route (e.g., `src/pages/about.astro` becomes `/about`).
+*   It displays the post's description, publication date, and author.
+*   It renders a list of tags, with each tag linking to a tag-specific page (e.g., `/tags/astro`).
+*   It includes a condition to *not* display tags on pages under the `/portfolio/` path.
 
-### Blog Posts
-- Place Markdown files in `src/pages/posts/`.
-- **Example Frontmatter:**
-  ```markdown
-  ---
-  layout: '../../layouts/BlogPostLayout.astro'
-  title: 'My Awesome Blog Post'
-  pubDate: 2025-07-26
-  description: 'A brief summary of my post.'
-  author: 'Matthew Oyan'
-  image:
-      url: '/images/post-image.avif'
-      alt: 'Alt text for the image.'
-  tags: ["astro", "blogging", "tech"]
-  ---
-  
-  Your post content starts here.
-  ```
+### `PortfolioPostLayout.astro`
 
-### Portfolio
-- Place Markdown files in `src/pages/portfolio/`.
-- **Example Frontmatter:**
-  ```markdown
-  ---
-  layout: '../../layouts/BlogPostLayout.astro'
-  title: 'My Amazing Project'
-  pubDate: 2025-07-26
-  description: 'A short description of the project.'
-  image:
-    avif: '../../../images/image.avif'
-    webp: '../../../images/image.webp'
-    png: '../../../images/image.png'
-    alt: 'PDIC Logo'
-  tags: ["motion design", "video editing"]
-  ---
+This layout is intended for portfolio items.
 
-  Details about the project go here.
-  ```
+**Note:** This layout is currently identical to `BlogPostLayout.astro`. The conditional logic to hide tags on portfolio pages is present in both files, making it redundant here. For better maintainability, consider creating a single, more generic `PostLayout.astro` and passing a prop to control the visibility of tags.
 
-#### Converting Images to AVIF
+## 4. Components
+
+Components are reusable pieces of UI.
+
+### `Header.astro` & `Navigation.astro`
+
+These two components work together to create the site's header.
+
+*   `Header.astro`: The main header component. It displays the site title and imports the `Navigation` component.
+*   `Navigation.astro`: Contains the primary navigation links. It uses `Astro.url.pathname` to apply an `active` class to the current page's link for styling. The "Tags" link is currently commented out.
+
+### `Footer.astro`
+
+The `Footer.astro` component renders the site's footer.
+
+**Functionality:**
+
+*   It conditionally displays a call-to-action section based on the `showCta` prop passed from `BaseLayout.astro`.
+*   It includes the `ThemeIcon` component for theme switching and the `ObfuscatedEmail` component.
+*   The `Social.astro` component is imported but not currently used.
+
+### `ObfuscatedEmail.astro`
+
+This is a security-focused component that obfuscates your email address to protect it from spam bots.
+
+**How it works:**
+
+1.  The email address is split into a `user` and `domain` and stored in `data-` attributes on an `<a>` tag.
+2.  An inline script runs on page load, which reconstructs the `mailto:` link from the `data-` attributes.
+3.  For users with JavaScript disabled, a `<noscript>` tag displays the email address in a "munged" format (e.g., `matthew.oyan [at] gmail.com`).
+4.  The script is also configured to re-run after Astro's view transitions (`astro:after-swap`), ensuring it works correctly in a single-page application (SPA) context.
+
+### `ThemeIcon.astro`
+
+This component provides a button to toggle between light and dark themes.
+
+**How it works:**
+
+1.  An inline script runs immediately to determine the user's preferred theme. It checks `localStorage` first, then the `prefers-color-scheme` media query.
+2.  The `dark` class is added or removed from the `<html>` element to apply the appropriate theme.
+3.  A click event listener on the button toggles the `dark` class and updates the theme preference in `localStorage`.
+4.  The SVG icon for the sun and moon is styled with CSS to reflect the current theme.
+
+## 5. Pages
+
+The `src/pages/` directory contains the site's pages. Astro's file-based routing means that each file in this directory becomes a page on the site.
+
+*   `.astro` files are used for pages with complex layouts or server-side logic.
+*   `.md` files are used for content-heavy pages like blog posts and portfolio items. They use a `layout` property in their frontmatter to specify which layout to use.
+
+## 6. Styling
+
+Global styles are defined in `src/styles/global.css`. This file is imported into `BaseLayout.astro`, so the styles are applied to every page. Astro components can also have their own scoped styles within a `<style>` tag.
+
+## 7. Build & Deployment
+
+The `package.json` file contains the following scripts for managing the site:
+
+*   `npm run dev`: Starts the Astro development server with hot-reloading.
+*   `npm run build`: Builds the site for production.
+*   `npm run preview`: Previews the production build locally.
+*   `npm run dev:wiki`: Starts a `browser-sync` server for the `public/wiki` directory.
+
+## 8. Converting Images to AVIF
 Use `imagemagick` to convert images to the efficient AVIF format. If the source is Rec.709 (common for video), convert gamma for correct sRGB display.
 
-- **For Rec.709 sources:**
+**For Rec.709 sources:**
   ```bash
   magick input.png -gamma 0.917 -quality 95 output.avif
   ```
-- **For standard sRGB sources:**
+**For standard sRGB sources:**
   ```bash
   magick input.png -quality 95 output.avif
   ```
-
-### Writing
-- Place Markdown files in `src/pages/writing/`. These are for creative or fictional pieces.
-
-### Tags
-Tag pages are generated automatically based on the `tags` array in the frontmatter of blog posts and portfolio items.
-
-### Wiki
-The wiki is a pre-built static site located in `public/wiki/`. To update it, you must modify its source files and rebuild it separately. The assets are then committed to this repository.
-
-## Styling
-
-Global styles are defined in `src/styles/global.css`. This file includes:
-- Base typography and layout rules.
-- Dark mode support via the `html.dark` class.
-- Responsive navigation styles.
-- The accent rainbow bar at the top of the page.
-
-## VSCode Setup
-
-The `.vscode/` directory contains recommended extensions and launch configurations.
-- **Extension:** `astro-build.astro-vscode` for Astro language support.
-- **Launch Config:** A debugger profile to run `astro dev` from the integrated terminal.
-
-## License
-
-This project is licensed under the terms of the MIT license. See the [LICENSE.TXT](LICENSE.TXT) file for details.

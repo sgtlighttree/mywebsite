@@ -7,10 +7,18 @@ image:
     alt: 'The isometric logo for MAGNUS PC, featuring the letters M, P, and C arranged as faces of a purple cube. The logo is set against a white background with a subtle grid pattern.'
 tags: ["portfolio"]
 ---
+import PhotoGallery from '../../components/PhotoGallery.jsx';
+
 A tech/retail startup built with my friends, creating quality gaming PCs at an affordable cost to Filipinos. Branding & logo creation. **Currently serving as Marketing Director.**
 
 
 <video autoplay loop muted width="100%">
-  <source src="../../../videos/MAGNUSPC_MotionLogo-Looping_v01_h264.mp4" type="video/mp4">
+  <source src="../../../videos/MAGNUSPC_MotionLogo-Looping_v01_h264.mp4" type="video/mp4" />
 Your browser does not support the video tag.
 </video>
+
+<PhotoGallery client:load images={[
+    { src: '../../../images/MAGNUSPC_MotionLogo-Looping_v01_h264-0001.avif', alt: 'Image 1' },
+    { src: '../../../images/AYDA22_Event-Screen_v01-0001.webp', alt: 'Image 2' },
+    { src: '../../../images/dti25pa_heroImage_cavif_q95.avif', alt: 'Image 3' }
+]} />

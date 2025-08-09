@@ -10,11 +10,15 @@
     "dev:wiki": "browser-sync 'public/wiki' --files 'public/wiki/**/*' --no-notify"
   },
   "dependencies": {
+    "@astrojs/mdx": "^4.3.3",
     "@astrojs/preact": "^4.1.0",
     "@fontsource-variable/atkinson-hyperlegible-next": "^5.2.4",
     "@fontsource-variable/geist-mono": "^5.2.6",
     "astro": "^5.9.0",
-    "preact": "^10.26.9"
+    "preact": "^10.26.9",
+    "react": "npm:@preact/compat@^18.3.1",
+    "react-dom": "npm:@preact/compat@^18.3.1",
+    "yet-another-react-lightbox": "^3.25.0"
   },
   "devDependencies": {
     "browser-sync": "^3.0.4"
