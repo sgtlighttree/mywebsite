@@ -119,6 +119,43 @@ This component provides a button to toggle between light and dark themes.
 3.  A click event listener on the button toggles the `dark` class and updates the theme preference in `localStorage`.
 4.  The SVG icon for the sun and moon is styled with CSS to reflect the current theme.
 
+### `VideoPlayer.astro`
+
+This component provides a responsive video player with a custom loading state to prevent layout shift. It displays a "Loading Video..." message and a progress bar that reflects the video's buffer status while it loads.
+
+**Props:**
+
+*   `src` (string, required): The path to the video file.
+*   `type` (string, optional, default: `'video/mp4'`): The MIME type of the video.
+*   `autoplay` (boolean, optional, default: `true`): Whether the video should start playing automatically.
+*   `loop` (boolean, optional, default: `true`): Whether the video should loop.
+*   `muted` (boolean, optional, default: `true`): Whether the video audio should be muted.
+*   `controls` (boolean, optional, default: `false`): Whether to display the browser's default video controls.
+
+**Usage:**
+
+**Default (autoplay, loop, muted):**
+```astro
+---
+import VideoPlayer from '../components/VideoPlayer.astro';
+---
+<VideoPlayer src="/videos/my-video.mp4" />
+```
+
+**Customized (no autoplay, with controls):**
+```astro
+---
+import VideoPlayer from '../components/VideoPlayer.astro';
+---
+<VideoPlayer 
+  src="/videos/my-video.mp4"
+  autoplay={false}
+  loop={false}
+  muted={false}
+  controls={true}
+/>
+```
+
 ## 5. Pages
 
 The `src/pages/` directory contains the site's pages. Astro's file-based routing means that each file in this directory becomes a page on the site.

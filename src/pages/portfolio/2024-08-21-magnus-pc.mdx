@@ -8,14 +8,12 @@ image:
 tags: ["portfolio"]
 ---
 import PhotoGallery from '../../components/PhotoGallery.jsx';
+import VideoPlayer from '../../components/VideoPlayer.astro';
 
 A tech/retail startup built with my friends, creating quality gaming PCs at an affordable cost to Filipinos. Branding & logo creation. **Currently serving as Marketing Director.**
 
 
-<video autoplay loop muted width="100%">
-  <source src="../../../videos/MAGNUSPC_MotionLogo-Looping_v01_h264.mp4" type="video/mp4" />
-Your browser does not support the video tag.
-</video>
+<VideoPlayer src="../../../videos/MAGNUSPC_MotionLogo-Looping_v01_h264.mp4" />
 
 <PhotoGallery client:load images={[
     { src: '../../../images/MAGNUSPC_MotionLogo-Looping_v01_h264-0001.avif', alt: 'Image 1' },

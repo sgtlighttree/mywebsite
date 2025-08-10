@@ -1,0 +1,144 @@
+---
+const {
+  src,
+  type = 'video/mp4',
+  autoplay = true,
+  loop = true,
+  muted = true,
+  controls = false,
+} = Astro.props;
+---
+
+<div class="video-container">
+  <div class="loading-overlay">
+    <div class="loading-text">Loading Video...</div>
+    <div class="progress-bar">
+      <div class="progress-buffer"></div>
+      <div class="progress-indeterminate"></div>
+    </div>
+  </div>
+  <video {autoplay} {loop} {muted} {controls} width="100%" playsinline>
+    <source src={src} type={type} />
+    Your browser does not support the video tag.
+  </video>
+</div>
+
+<style>
+  .video-container {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    background-color: var(--bg-secondary);
+    margin-bottom: 1rem;
+  }
+
+  .loading-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 1;
+    transition: opacity 0.3s ease;
+  }
+
+  .loading-text {
+    color: var(--text-primary);
+    margin-bottom: 1rem;
+  }
+
+  .progress-bar {
+    width: 80%;
+    height: 8px;
+    background-color: var(--bg-secondary);
+    border: 1px solid var(--text-primary);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .progress-buffer {
+    width: 0%;
+    height: 100%;
+    background-color: var(--text-primary);
+    transition: width 0.2s ease-out;
+  }
+
+  .progress-indeterminate {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 30%;
+    background-color: var(--text-primary);
+    opacity: 0.3;
+    animation: indeterminate-animation 2s infinite ease-in-out;
+  }
+
+  video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  video.loaded {
+    opacity: 1;
+  }
+
+  .loading-overlay.hidden {
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  @keyframes indeterminate-animation {
+    0% {
+      transform: translateX(-100%);
+    }
+    100% {
+      transform: translateX(333%);
+    }
+  }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const videoContainers = document.querySelectorAll('.video-container');
+    videoContainers.forEach(container => {
+      const video = container.querySelector('video');
+      const loadingOverlay = container.querySelector('.loading-overlay');
+      const bufferProgress = container.querySelector<HTMLElement>('.progress-buffer');
+
+      if (video && loadingOverlay && bufferProgress) {
+        const onCanPlay = () => {
+          video.classList.add('loaded');
+          loadingOverlay.classList.add('hidden');
+        };
+
+        const onProgress = () => {
+          if (video.buffered.length > 0) {
+            const bufferedEnd = video.buffered.end(video.buffered.length - 1);
+            const duration = video.duration;
+            if (duration > 0) {
+              const bufferedPercent = (bufferedEnd / duration) * 100;
+              bufferProgress.style.width = `${bufferedPercent}%`;
+            }
+          }
+        };
+
+        if (video.readyState >= 3) {
+          onCanPlay();
+        } else {
+          video.addEventListener('canplay', onCanPlay, { once: true });
+          video.addEventListener('progress', onProgress);
+        }
+      }
+    });
+  });
+</script>
