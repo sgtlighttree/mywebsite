@@ -12,7 +12,7 @@ A series of videos showcasing the Philippine Board of Investments’s Foreign Di
 
 ### Omnibus AVP
 
-<div class="video-container">
+<div class="embedded-video-container">
   <iframe src="https://www.youtube-nocookie.com/embed/Xe876u9Q91s?si=yl0ov_aDU8DGw1eo" 
           title="YouTube video player" 
           frameborder="0" 
@@ -24,7 +24,7 @@ A series of videos showcasing the Philippine Board of Investments’s Foreign Di
 
 ### Corporate AVP
 
-<div class="video-container">
+<div class="embedded-video-container">
   <iframe src="https://www.youtube-nocookie.com/embed/2tVzycwG4DI?si=1WdtFJHx8DHo-JZc" 
           title="YouTube video player" 
           frameborder="0" 
@@ -36,7 +36,7 @@ A series of videos showcasing the Philippine Board of Investments’s Foreign Di
 
 ### Liberalized Laws AVP
 
-<div class="video-container">
+<div class="embedded-video-container">
   <iframe src="https://www.youtube-nocookie.com/embed/os0obZjTZ7I?si=3jxNsZCF2dAMYJeB" 
           title="YouTube video player" 
           frameborder="0" 

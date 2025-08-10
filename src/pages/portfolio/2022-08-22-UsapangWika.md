@@ -10,7 +10,7 @@ tags: ["portfolio"]
 ---
 A pandemic-era documentary series about eight of the major languages the Philippines. Produced by the Philippine National Commision for Culture and the Arts and then-congresswoman, currently Senator Loren Legarda. **Editing and motion graphics.**
 
-<div class="video-container">
+<div class="embedded-video-container">
   <iframe src="https://www.youtube-nocookie.com/embed/YYpG1LMOfzY?si=0QHZSX6XyTKHr6kF&amp;start=20" 
           title="YouTube video player" 
           frameborder="0" 
