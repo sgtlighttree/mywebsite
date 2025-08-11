@@ -116,27 +116,35 @@ const {
       const bufferProgress = container.querySelector<HTMLElement>('.progress-buffer');
 
       if (video && loadingOverlay && bufferProgress) {
-        const onCanPlay = () => {
-          video.classList.add('loaded');
-          loadingOverlay.classList.add('hidden');
-        };
-
-        const onProgress = () => {
-          if (video.buffered.length > 0) {
-            const bufferedEnd = video.buffered.end(video.buffered.length - 1);
-            const duration = video.duration;
-            if (duration > 0) {
-              const bufferedPercent = (bufferedEnd / duration) * 100;
-              bufferProgress.style.width = `${bufferedPercent}%`;
-            }
+        const hideLoader = () => {
+          if (!loadingOverlay.classList.contains('hidden')) {
+            video.classList.add('loaded');
+            loadingOverlay.classList.add('hidden');
           }
         };
 
-        if (video.readyState >= 3) {
-          onCanPlay();
+        const onProgress = () => {
+          if (video.duration > 0) {
+            const bufferedEnd = video.buffered.length > 0 ? video.buffered.end(video.buffered.length - 1) : 0;
+            const bufferedPercent = (bufferedEnd / video.duration) * 100;
+            bufferProgress.style.width = `${bufferedPercent}%`;
+          }
+        };
+
+        // Always listen to progress
+        video.addEventListener('progress', onProgress);
+
+        // If video is already loaded enough (e.g. from cache), hide loader
+        if (video.readyState >= 4) { // HAVE_ENOUGH_DATA
+          hideLoader();
+          return;
+        }
+
+        // Otherwise, choose the best event to hide the loader
+        if (video.autoplay) {
+          video.addEventListener('playing', hideLoader, { once: true });
         } else {
-          video.addEventListener('canplay', onCanPlay, { once: true });
-          video.addEventListener('progress', onProgress);
+          video.addEventListener('canplaythrough', hideLoader, { once: true });
         }
       }
     });
