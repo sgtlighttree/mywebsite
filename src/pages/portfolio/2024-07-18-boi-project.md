@@ -1,7 +1,7 @@
 ---
 layout: ../../layouts/PortfolioPostLayout.astro
 title: 'Board of Investments "Make it Happen in the Philippines" Campaign (2023)'
-pubDate: 2023-03-10
+pubDate: 2023-07-18
 image:
     webp: '../../../images/OmnibusAVP.webp'
     alt: 'The logo for the "Make it Happen in the Philippines" investment campaign. The text is in bold blue and red, with "Make it Happen" positioned above the word "Philippines".'

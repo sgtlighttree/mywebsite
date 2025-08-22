@@ -37,7 +37,15 @@ This is the foundational layout for the entire site. It defines the main HTML st
 
 *   `pageTitle` (string, required): The main title of the page, displayed in the `<h1>` tag.
 *   `metaTitle` (string, optional): A different title for the browser tab. If not provided, it defaults to `"Matthew Oyan - {pageTitle}"`.
+*   `pageDescription` (string, optional): A short, descriptive summary of the page content for search engines and social media.
 *   `showFooterCta` (boolean, optional, default: `true`): A boolean to control the visibility of the call-to-action in the footer.
+
+**SEO Enhancements:**
+
+This layout now includes essential SEO meta tags:
+*   **Meta Description**: Dynamically set using `pageDescription`.
+*   **Open Graph (Facebook)**: `og:type`, `og:url`, `og:title`, `og:description`, and `og:image` are included for rich social media previews.
+*   **Twitter Cards**: `twitter:card`, `twitter:url`, `twitter:title`, `twitter:description`, and `twitter:image` are included for rich Twitter previews.
 
 **Usage:**
 
@@ -69,10 +77,13 @@ It expects the following frontmatter fields in the markdown files:
 *   It displays the post's description, publication date, and author.
 *   It renders a list of tags, with each tag linking to a tag-specific page (e.g., `/tags/astro`).
 *   It includes a condition to *not* display tags on pages under the `/portfolio/` path.
+*   **SEO Integration**: This layout now passes `frontmatter.title` to `metaTitle` and `frontmatter.description` to `pageDescription` in `BaseLayout.astro` for improved SEO.
 
 ### `PortfolioPostLayout.astro`
 
 This layout is intended for portfolio items.
+
+**SEO Integration**: This layout now passes `frontmatter.title` to `metaTitle` and `frontmatter.description` to `pageDescription` in `BaseLayout.astro` for improved SEO.
 
 **Note:** This layout is currently identical to `BlogPostLayout.astro`. The conditional logic to hide tags on portfolio pages is present in both files, making it redundant here. For better maintainability, consider creating a single, more generic `PostLayout.astro` and passing a prop to control the visibility of tags.
 
@@ -163,6 +174,10 @@ The `src/pages/` directory contains the site's pages. Astro's file-based routing
 *   `.astro` files are used for pages with complex layouts or server-side logic.
 *   `.md` files are used for content-heavy pages like blog posts and portfolio items. They use a `layout` property in their frontmatter to specify which layout to use.
 
+**SEO Enhancements:**
+
+*   **Structured Data (Schema.org)**: The `src/pages/index.astro` page now includes basic Schema.org markup for `CollectionPage` to provide search engines with more context about the portfolio.
+
 ## 6. Styling
 
 Global styles are defined in `src/styles/global.css`. This file is imported into `BaseLayout.astro`, so the styles are applied to every page. Astro components can also have their own scoped styles within a `<style>` tag.
@@ -175,6 +190,11 @@ The `package.json` file contains the following scripts for managing the site:
 *   `npm run build`: Builds the site for production.
 *   `npm run preview`: Previews the production build locally.
 *   `npm run dev:wiki`: Starts a `browser-sync` server for the `public/wiki` directory.
+
+**SEO-related Configurations:**
+
+*   **Sitemap Generation**: The `@astrojs/sitemap` integration is configured in `astro.config.mjs` to automatically generate a sitemap for the website. The `site` property in `astro.config.mjs` must be set to the website's base URL for the sitemap to be generated correctly.
+*   **Robots.txt**: A `public/robots.txt` file is present to guide search engine crawlers, specifying which parts of the site they can access and pointing to the generated sitemap.
 
 ## 8. Converting Images to AVIF
 Use `imagemagick` to convert images to the efficient AVIF format. If the source is Rec.709 (common for video), convert gamma for correct sRGB display.

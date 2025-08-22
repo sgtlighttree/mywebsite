@@ -496,6 +496,42 @@ header nav {
 }
 
 /*────────────────────────────────────────────────────────────────────────────
+   About Page Styles
+────────────────────────────────────────────────────────────────────────────*/
+.about-intro {
+  display: flex;
+  flex-direction: column; /* Stack on mobile */
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.about-intro img {
+  order: -1; /* Image on top for mobile */
+  margin-bottom: 1.5rem;
+  max-width: 200px; /* Set max-width for the image */
+}
+
+@media screen and (min-width: 512px) {
+  .about-intro {
+    flex-direction: row; /* Side-by-side on desktop */
+    align-items: flex-start;
+    gap: 2rem; /* Space between text and image */
+  }
+
+  .about-intro p {
+    flex: 1;
+    text-align: left;
+    margin-bottom: 0;
+  }
+
+  .about-intro img {
+    order: 1; /* Image on right for desktop */
+    margin-bottom: 0;
+    margin-left: auto; /* Push image to the right */
+  }
+}
+
+/*────────────────────────────────────────────────────────────────────────────
    Tag Styles
 ────────────────────────────────────────────────────────────────────────────*/
 .tags {

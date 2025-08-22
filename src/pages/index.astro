@@ -2,6 +2,8 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 
 const pageTitle = "Selected Work";
+const metaTitle = "Matthew Oyan - Portfolio";
+const pageDescription = "Explore the selected work and projects by Matthew Oyan, a creative professional specializing in various digital media.";
 
 // Fetch all markdown files from the portfolio directory
 const portfolioFiles = import.meta.glob('../pages/portfolio/*.{md,mdx}', { eager: true });
@@ -10,12 +12,13 @@ const portfolioEntries = Object.values(portfolioFiles);
 // Sort entries by date in descending order (most recent first)
 portfolioEntries.sort((a: any, b: any) => new Date(b.frontmatter.pubDate).valueOf() - new Date(a.frontmatter.pubDate).valueOf());
 ---
-<BaseLayout pageTitle={pageTitle}>
+<BaseLayout pageTitle={pageTitle} metaTitle={metaTitle} pageDescription={pageDescription}>
   <div class="portfolio-grid">
     {portfolioEntries.map((entry: any) => (
       <a href={entry.url} class="portfolio-item">
         <div class="portfolio-thumbnail-container">
           {/* <img src={entry.frontmatter.image.avif} src={entry.frontmatter.image.webp} src={entry.frontmatter.image.png} alt={entry.frontmatter.image.alt} class="portfolio-thumbnail"/> */}
+          {/* Multi-format picture handling */}
           <picture class="portfolio-thumbnail">
             {/* <!-- AVIF first --> */}
             <source
@@ -43,3 +46,22 @@ portfolioEntries.sort((a: any, b: any) => new Date(b.frontmatter.pubDate).valueO
     ))}
   </div>
 </BaseLayout>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  "name": "{metaTitle}",
+  "description": "{pageDescription}",
+  "url": "{Astro.url.href}",
+  "image": "/images//MatthewOyan_2025_headshot_optimized_65.webp",
+  "publisher": {
+    "@type": "Organization",
+    "name": "Matthew Oyan",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "/favicon.svg"
+    }
+  }
+}
+</script>

@@ -6,9 +6,10 @@ import '../styles/global.css';
 export interface Props {
   pageTitle: string;
   metaTitle?: string; // different title for tabs
+  pageDescription?: string;
   showFooterCta?: boolean;
 }
-const { pageTitle, metaTitle, showFooterCta = true } = Astro.props;
+const { pageTitle, metaTitle, pageDescription, showFooterCta = true } = Astro.props;
 const siteName = "Matthew Oyan";
 const finalTabTitle = metaTitle ? metaTitle : `${siteName} - ${pageTitle}`;
 ---
@@ -19,6 +20,22 @@ const finalTabTitle = metaTitle ? metaTitle : `${siteName} - ${pageTitle}`;
     <meta name="viewport" content="width=device-width" />
     <meta name="generator" content={Astro.generator} />
     <title>{finalTabTitle}</title>
+    {pageDescription && <meta name="description" content={pageDescription} />}
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={Astro.url.href} />
+    <meta property="og:title" content={finalTabTitle} />
+    {pageDescription && <meta property="og:description" content={pageDescription} />}
+    <meta property="og:image" content="/images/dti25pa_heroImage.png" />
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content={Astro.url.href} />
+    <meta property="twitter:title" content={finalTabTitle} />
+    {pageDescription && <meta property="twitter:description" content={pageDescription} />}
+    <meta property="twitter:image" content="/images/dti25pa_heroImage.png" />
+
     <!-- <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200..800&display=swap" />
     <link href="https://fonts.googleapis.com/css2?family=Anonymous+Pro:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://use.typekit.net/rwk4ccm.css">
