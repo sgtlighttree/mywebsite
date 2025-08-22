@@ -203,7 +203,6 @@ header nav {
 
 .nav-top-row {
   display: flex;
-  justify-content: center;
   align-items: center;
   width: 100%;
 }
@@ -273,7 +272,7 @@ header nav {
   }
 
   .site-title {
-    margin: 0em 0em 0em 1em;
+    margin: 0em 0em 0em .25em;
   }
 
   .nav-links {

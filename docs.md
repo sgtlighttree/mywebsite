@@ -187,9 +187,11 @@ Global styles are defined in `src/styles/global.css`. This file is imported into
 The `package.json` file contains the following scripts for managing the site:
 
 *   `npm run dev`: Starts the Astro development server with hot-reloading.
+*.  `npm run dev -- --host`: Same as above, but also serves the the Astro development server on LAN.
 *   `npm run build`: Builds the site for production.
 *   `npm run preview`: Previews the production build locally.
 *   `npm run dev:wiki`: Starts a `browser-sync` server for the `public/wiki` directory.
+*.  `npm run build && npm run dev -- --host`: Builds the site and then serves the site on LAN.
 
 **SEO-related Configurations:**
 
