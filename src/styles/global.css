@@ -84,7 +84,6 @@ header {
   top: 0;
   top: .5em;
   position: relative;
-  z-index: 2;
 }
 
 html {
@@ -120,6 +119,7 @@ body {
   padding: 1rem;
   line-height: 1.5;
   color: var(--text-primary);
+  border: 1px solid var(--portfolio-border);
 }
 
 * {
@@ -184,7 +184,7 @@ body::before {
     rgba(255,255,255,0) 100%
   );
   opacity: 1;
-  z-index: 1;
+  z-index: 2;
   pointer-events: none;
 }
 
@@ -254,10 +254,14 @@ header nav {
 
 /* Desktop styles */
 @media screen and (min-width: 769px) {
+  body {
+    margin-top: 1em;
+    margin-bottom: 1em;
+  }
   header {
     position: sticky;
     top: 1em;
-    z-index: 1000;
+    z-index: 1;
   }
 
   header nav {
@@ -328,8 +332,8 @@ header nav {
 ────────────────────────────────────────────────────────────────────────────*/
 .portfolio-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 1rem;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: .5rem;
 }
 
 .portfolio-item {
