@@ -11,7 +11,7 @@ const {
 
 <div class="video-container">
   <div class="loading-overlay">
-    <div class="loading-text">Loading...</div>
+    <div class="loading-text">Loading Video...</div>
     <div class="progress-bar">
       <div class="progress-buffer"></div>
       <div class="progress-indeterminate"></div>
@@ -124,26 +124,11 @@ const {
           }
         };
 
-        const updateLoadingText = (percentage: number) => {
-          if (percentage >= 100) {
-            loadingText.innerText = 'Ready.';
-          } else if (percentage >= 76) {
-            loadingText.innerText = 'Preparing to Start…';
-          } else if (percentage >= 51) {
-            loadingText.innerText = 'Almost There…';
-          } else if (percentage >= 26) {
-            loadingText.innerText = 'Loading Video…';
-          } else {
-            loadingText.innerText = 'Initializing Video…';
-          }
-        };
-
         const onProgress = () => {
           if (video.duration > 0) {
             const bufferedEnd = video.buffered.length > 0 ? video.buffered.end(video.buffered.length - 1) : 0;
             const bufferedPercent = (bufferedEnd / video.duration) * 100;
             bufferProgress.style.width = `${bufferedPercent}%`;
-            updateLoadingText(bufferedPercent);
           }
         };
 
