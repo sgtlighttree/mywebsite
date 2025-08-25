@@ -7,9 +7,9 @@ import Navigation from "./Navigation.astro";
             <a href="/" style="text-decoration: none;"><div class="site-title" style="display: flex; align-items: center; gap: 10px;">
                 <svg id="Layer_1" xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 100 60" style="height: 30px; width: auto;">
                   <!-- Generator: Adobe Illustrator 29.6.1, SVG Export Plug-In . SVG Version: 2.1.1 Build 9)  -->
-                  <rect x="5" y="5" width="90" height="50" fill="#fff"/>
-                  <path d="M0,0v60h100V0H0ZM90,50h-40v-30h-10v30h-10v-30h-10v30h-10V10h80v40Z" fill="#231f20"/>
-                  <polygon points="80 20 60 20 60 40 80 40 80 20 80 20" fill="#231f20"/>
+                  <rect x="5" y="5" width="90" height="50" class="logo-bg"/>
+                  <path d="M0,0v60h100V0H0ZM90,50h-40v-30h-10v30h-10v-30h-10v30h-10V10h80v40Z" class="logo-main"/>
+                  <polygon points="80 20 60 20 60 40 80 40 80 20 80 20" class="logo-accent"/>
                 </svg>
                 Matthew Oyan
             </div></a>
@@ -31,11 +31,21 @@ import Navigation from "./Navigation.astro";
 </header>
 
 <style>
+    /* Theme toggle styles */
     .sun { fill: black; }
     .moon { fill: transparent; }
   
     :global(.dark) .sun { fill: transparent; }
     :global(.dark) .moon { fill: white; }
+
+    /* Logo theme styles */
+    .logo-bg { fill: #fff; }
+    .logo-main { fill: #231f20; }
+    .logo-accent { fill: #231f20; }
+    
+    :global(.dark) .logo-bg { fill: #231f20; }
+    :global(.dark) .logo-main { fill: #fff; }
+    :global(.dark) .logo-accent { fill: #fff; }
 
     #themeToggle,
     #themeToggleDesktop {
