@@ -11,6 +11,7 @@ const {
 
 <div class="video-container">
   <div class="loading-overlay">
+    <canvas class="loading-animation"></canvas>
     <div class="loading-text">Loading...</div>
     <div class="progress-bar">
       <div class="progress-buffer"></div>
@@ -44,6 +45,12 @@ const {
     align-items: center;
     z-index: 1;
     transition: opacity 0.3s ease;
+  }
+
+  .loading-animation {
+    width: 60px;
+    height: 36px; /* Maintaining 100x60 aspect ratio */
+    margin-bottom: 1rem;
   }
 
   .loading-text {
@@ -107,24 +114,108 @@ const {
   }
 </style>
 
-<script>
+<script type="module">
+  import { DotLottie } from "../node_modules/@lottiefiles/dotlottie-web";
+
+  // Inline animation data to eliminate network request
+  const animationData = {"v":"5.9.0","fr":60,"ip":0,"op":161,"w":100,"h":60,"nm":"MatthewOyan_MonogramAnimation_v03","ddd":0,"assets":[],"layers":[{"ddd":0,"ind":4,"ty":4,"nm":"Shape Layer 19","sr":1,"ks":{"o":{"a":0,"k":100,"ix":11},"r":{"a":0,"k":0,"ix":10},"p":{"a":0,"k":[70,30,0],"ix":2,"l":2},"a":{"a":0,"k":[-27.218,-7.118,0],"ix":1,"l":2},"s":{"a":1,"k":[{"i":{"x":[0,0,0],"y":[1,1,1]},"o":{"x":[0.05,0.05,0.05],"y":[0,0,0]},"t":39,"s":[0,0,100]},{"i":{"x":[0.95,0.95,0.95],"y":[1,1,1]},"o":{"x":[0.05,0.05,0.05],"y":[0,0,0]},"t":44,"s":[100,100,100]},{"i":{"x":[0.95,0.95,0.95],"y":[1,1,1]},"o":{"x":[1,1,1],"y":[0,0,0]},"t":120,"s":[100,100,100]},{"t":125,"s":[0,0,100]}],"ix":6,"l":2}},"ao":0,"shapes":[{"ty":"gr","it":[{"ty":"rc","d":1,"s":{"a":0,"k":[20,20],"ix":2},"p":{"a":0,"k":[0,0],"ix":3},"r":{"a":0,"k":0,"ix":4},"nm":"Rectangle Path 1","mn":"ADBE Vector Shape - Rect","hd":false},{"ty":"fl","c":{"a":0,"k":[0,0,0,1],"ix":4},"o":{"a":0,"k":100,"ix":5},"r":1,"bm":0,"nm":"Fill 1","mn":"ADBE Vector Graphic - Fill","hd":false},{"ty":"tr","p":{"a":0,"k":[-27.218,-7.118],"ix":2},"a":{"a":0,"k":[0,0],"ix":1},"s":{"a":0,"k":[100,100],"ix":3},"r":{"a":0,"k":0,"ix":6},"o":{"a":0,"k":100,"ix":7},"sk":{"a":0,"k":0,"ix":4},"sa":{"a":0,"k":0,"ix":5},"nm":"Transform"}],"nm":"Rectangle 1","np":3,"cix":2,"bm":0,"ix":1,"mn":"ADBE Vector Group","hd":false}],"ip":39,"op":153,"st":39,"bm":0},{"ddd":0,"ind":5,"ty":4,"nm":"Shape Layer 14","sr":1,"ks":{"o":{"a":0,"k":100,"ix":11},"r":{"a":0,"k":0,"ix":10},"p":{"a":0,"k":[45,51,0],"ix":2,"l":2},"a":{"a":0,"k":[-27.218,8.382,0],"ix":1,"l":2},"s":{"a":1,"k":[{"i":{"x":[0,0,0],"y":[1,1,1]},"o":{"x":[0.05,0.05,0.05],"y":[0,0,0]},"t":36,"s":[100,0,100]},{"i":{"x":[0.95,0.95,0.95],"y":[1,1,1]},"o":{"x":[0.05,0.05,0.05],"y":[0,0,0]},"t":41,"s":[100,100,100]},{"i":{"x":[0.95,0.95,0.95],"y":[1,1,1]},"o":{"x":[1,1,1],"y":[0,0,0]},"t":115,"s":[100,100,100]},{"t":120,"s":[100,0,100]}],"ix":6,"l":2}},"ao":0,"shapes":[{"ty":"gr","it":[{"ty":"rc","d":1,"s":{"a":0,"k":[10,31],"ix":2},"p":{"a":0,"k":[0,0],"ix":3},"r":{"a":0,"k":0,"ix":4},"nm":"Rectangle Path 1","mn":"ADBE Vector Shape - Rect","hd":false},{"ty":"fl","c":{"a":0,"k":[0,0,0,1],"ix":4},"o":{"a":0,"k":100,"ix":5},"r":1,"bm":0,"nm":"Fill 1","mn":"ADBE Vector Graphic - Fill","hd":false},{"ty":"tr","p":{"a":0,"k":[-27.218,-7.118],"ix":2},"a":{"a":0,"k":[0,0],"ix":1},"s":{"a":0,"k":[100,100],"ix":3},"r":{"a":0,"k":0,"ix":6},"o":{"a":0,"k":100,"ix":7},"sk":{"a":0,"k":0,"ix":4},"sa":{"a":0,"k":0,"ix":5},"nm":"Transform"}],"nm":"Rectangle 1","np":3,"cix":2,"bm":0,"ix":1,"mn":"ADBE Vector Group","hd":false}],"ip":36,"op":150,"st":36,"bm":0},{"ddd":0,"ind":6,"ty":4,"nm":"Shape Layer 39","sr":1,"ks":{"o":{"a":0,"k":100,"ix":11},"r":{"a":0,"k":0,"ix":10},"p":{"a":0,"k":[25,51,0],"ix":2,"l":2},"a":{"a":0,"k":[-27.218,8.382,0],"ix":1,"l":2},"s":{"a":1,"k":[{"i":{"x":[0,0,0],"y":[1,1,1]},"o":{"x":[0.05,0.05,0.05],"y":[0,0,0]},"t":34,"s":[100,0,100]},{"i":{"x":[0.95,0.95,0.95],"y":[1,1,1]},"o":{"x":[0.05,0.05,0.05],"y":[0,0,0]},"t":39,"s":[100,100,100]},{"i":{"x":[0.95,0.95,0.95],"y":[1,1,1]},"o":{"x":[1,1,1],"y":[0,0,0]},"t":113,"s":[100,100,100]},{"t":118,"s":[100,0,100]}],"ix":6,"l":2}},"ao":0,"shapes":[{"ty":"gr","it":[{"ty":"rc","d":1,"s":{"a":0,"k":[10,31],"ix":2},"p":{"a":0,"k":[0,0],"ix":3},"r":{"a":0,"k":0,"ix":4},"nm":"Rectangle Path 1","mn":"ADBE Vector Shape - Rect","hd":false},{"ty":"fl","c":{"a":0,"k":[0,0,0,1],"ix":4},"o":{"a":0,"k":100,"ix":5},"r":1,"bm":0,"nm":"Fill 1","mn":"ADBE Vector Graphic - Fill","hd":false},{"ty":"tr","p":{"a":0,"k":[-27.218,-7.118],"ix":2},"a":{"a":0,"k":[0,0],"ix":1},"s":{"a":0,"k":[100,100],"ix":3},"r":{"a":0,"k":0,"ix":6},"o":{"a":0,"k":100,"ix":7},"sk":{"a":0,"k":0,"ix":4},"sa":{"a":0,"k":0,"ix":5},"nm":"Transform"}],"nm":"Rectangle 1","np":3,"cix":2,"bm":0,"ix":1,"mn":"ADBE Vector Group","hd":false}],"ip":26,"op":140,"st":26,"bm":0},{"ddd":0,"ind":7,"ty":4,"nm":"top_right","sr":1,"ks":{"o":{"a":0,"k":100,"ix":11},"r":{"a":0,"k":0,"ix":10},"p":{"a":1,"k":[{"i":{"x":0.833,"y":0.833},"o":{"x":0.167,"y":0.167},"t":132,"s":[90,5,0],"to":[0,0,0],"ti":[0,0,0]},{"t":133,"s":[60,5,0]}],"ix":2,"l":2},"a":{"a":1,"k":[{"i":{"x":0.833,"y":0.833},"o":{"x":0.167,"y":0.167},"t":132,"s":[-12.218,-7.118,0],"to":[0,0,0],"ti":[0,0,0]},{"t":133,"s":[-42.218,-7.118,0]}],"ix":1,"l":2},"s":{"a":1,"k":[{"i":{"x":[0,0,0],"y":[1,1,1]},"o":{"x":[0.05,0.05,0.05],"y":[0,0,0]},"t":48,"s":[0,100,100]},{"i":{"x":[0,0,0],"y":[1,1,1]},"o":{"x":[0.05,0.05,0.05],"y":[0,0,0]},"t":70,"s":[100,100,100]},{"i":{"x":[0,0,0],"y":[1,1,1]},"o":{"x":[0.05,0.05,0.05],"y":[0,0,0]},"t":133,"s":[100,100,100]},{"t":160,"s":[0,100,100]}],"ix":6,"l":2}},"ao":0,"shapes":[{"ty":"gr","it":[{"ty":"rc","d":1,"s":{"a":0,"k":[30,10],"ix":2},"p":{"a":0,"k":[0,0],"ix":3},"r":{"a":0,"k":0,"ix":4},"nm":"Rectangle Path 1","mn":"ADBE Vector Shape - Rect","hd":false},{"ty":"fl","c":{"a":0,"k":[0,0,0,1],"ix":4},"o":{"a":0,"k":100,"ix":5},"r":1,"bm":0,"nm":"Fill 1","mn":"ADBE Vector Graphic - Fill","hd":false},{"ty":"tr","p":{"a":0,"k":[-27.218,-7.118],"ix":2},"a":{"a":0,"k":[0,0],"ix":1},"s":{"a":0,"k":[100,100],"ix":3},"r":{"a":0,"k":0,"ix":6},"o":{"a":0,"k":100,"ix":7},"sk":{"a":0,"k":0,"ix":4},"sa":{"a":0,"k":0,"ix":5},"nm":"Transform"}],"nm":"Rectangle 1","np":3,"cix":2,"bm":0,"ix":1,"mn":"ADBE Vector Group","hd":false}],"ip":48,"op":161,"st":48,"bm":0},{"ddd":0,"ind":8,"ty":4,"nm":"right","sr":1,"ks":{"o":{"a":0,"k":100,"ix":11},"r":{"a":0,"k":0,"ix":10},"p":{"a":1,"k":[{"i":{"x":0.833,"y":0.833},"o":{"x":0.167,"y":0.167},"t":124,"s":[95,50,0],"to":[0,0,0],"ti":[0,0,0]},{"t":125,"s":[95,0,0]}],"ix":2,"l":2},"a":{"a":1,"k":[{"i":{"x":0.833,"y":0.833},"o":{"x":0.167,"y":0.167},"t":124,"s":[-27.218,17.882,0],"to":[0,0,0],"ti":[0,0,0]},{"t":125,"s":[-27.218,-32.118,0]}],"ix":1,"l":2},"s":{"a":1,"k":[{"i":{"x":[0.833,0.833,0.833],"y":[0.833,0.833,0.833]},"o":{"x":[0.167,0.167,0.167],"y":[0.167,0.167,0.167]},"t":40,"s":[100,0,100]},{"i":{"x":[0.833,0.833,0.833],"y":[0.833,0.833,0.833]},"o":{"x":[0.167,0.167,0.167],"y":[0.167,0.167,0.167]},"t":48,"s":[100,100,100]},{"i":{"x":[0.833,0.833,0.833],"y":[0.833,0.833,0.833]},"o":{"x":[0.167,0.167,0.167],"y":[0.167,0.167,0.167]},"t":125,"s":[100,100,100]},{"t":133,"s":[100,0,100]}],"ix":6,"l":2}},"ao":0,"shapes":[{"ty":"gr","it":[{"ty":"rc","d":1,"s":{"a":0,"k":[10,50],"ix":2},"p":{"a":0,"k":[0,0],"ix":3},"r":{"a":0,"k":0,"ix":4},"nm":"Rectangle Path 1","mn":"ADBE Vector Shape - Rect","hd":false},{"ty":"fl","c":{"a":0,"k":[0,0,0,1],"ix":4},"o":{"a":0,"k":100,"ix":5},"r":1,"bm":0,"nm":"Fill 1","mn":"ADBE Vector Graphic - Fill","hd":false},{"ty":"tr","p":{"a":0,"k":[-27.218,-7.118],"ix":2},"a":{"a":0,"k":[0,0],"ix":1},"s":{"a":0,"k":[100,100],"ix":3},"r":{"a":0,"k":0,"ix":6},"o":{"a":0,"k":100,"ix":7},"sk":{"a":0,"k":0,"ix":4},"sa":{"a":0,"k":0,"ix":5},"nm":"Transform"}],"nm":"Rectangle 1","np":3,"cix":2,"bm":0,"ix":1,"mn":"ADBE Vector Group","hd":false}],"ip":40,"op":161,"st":38,"bm":0},{"ddd":0,"ind":9,"ty":4,"nm":"bottom","sr":1,"ks":{"o":{"a":0,"k":100,"ix":11},"r":{"a":0,"k":0,"ix":10},"p":{"a":1,"k":[{"i":{"x":0.833,"y":0.833},"o":{"x":0.167,"y":0.167},"t":116,"s":[10,55,0],"to":[0,0,0],"ti":[0,0,0]},{"t":117,"s":[100,55,0]}],"ix":2,"l":2},"a":{"a":1,"k":[{"i":{"x":0.833,"y":0.833},"o":{"x":0.167,"y":0.167},"t":116,"s":[-72.218,-7.118,0],"to":[0,0,0],"ti":[0,0,0]},{"t":117,"s":[17.782,-7.118,0]}],"ix":1,"l":2},"s":{"a":1,"k":[{"i":{"x":[0.833,0.833,0.833],"y":[0.833,0.833,0.833]},"o":{"x":[0.167,0.167,0.167],"y":[0.167,0.167,0.167]},"t":33,"s":[0,100,100]},{"i":{"x":[0.833,0.833,0.833],"y":[0.833,0.833,0.833]},"o":{"x":[0.167,0.167,0.167],"y":[0.167,0.167,0.167]},"t":40,"s":[100,100,100]},{"i":{"x":[0.833,0.833,0.833],"y":[0.833,0.833,0.833]},"o":{"x":[0.167,0.167,0.167],"y":[0.167,0.167,0.167]},"t":117,"s":[100,100,100]},{"t":125,"s":[0,100,100]}],"ix":6,"l":2}},"ao":0,"shapes":[{"ty":"gr","it":[{"ty":"rc","d":1,"s":{"a":0,"k":[90,10],"ix":2},"p":{"a":0,"k":[0,0],"ix":3},"r":{"a":0,"k":0,"ix":4},"nm":"Rectangle Path 1","mn":"ADBE Vector Shape - Rect","hd":false},{"ty":"fl","c":{"a":0,"k":[0,0,0,1],"ix":4},"o":{"a":0,"k":100,"ix":5},"r":1,"bm":0,"nm":"Fill 1","mn":"ADBE Vector Graphic - Fill","hd":false},{"ty":"tr","p":{"a":0,"k":[-27.218,-7.118],"ix":2},"a":{"a":0,"k":[0,0],"ix":1},"s":{"a":0,"k":[100,100],"ix":3},"r":{"a":0,"k":0,"ix":6},"o":{"a":0,"k":100,"ix":7},"sk":{"a":0,"k":0,"ix":4},"sa":{"a":0,"k":0,"ix":5},"nm":"Transform"}],"nm":"Rectangle 1","np":3,"cix":2,"bm":0,"ix":1,"mn":"ADBE Vector Group","hd":false}],"ip":33,"op":161,"st":33,"bm":0},{"ddd":0,"ind":10,"ty":4,"nm":"left","sr":1,"ks":{"o":{"a":0,"k":100,"ix":11},"r":{"a":0,"k":0,"ix":10},"p":{"a":1,"k":[{"i":{"x":0.833,"y":0.833},"o":{"x":0.167,"y":0.167},"t":111,"s":[5,10,0],"to":[0,0,0],"ti":[0,0,0]},{"t":112,"s":[5,60,0]}],"ix":2,"l":2},"a":{"a":1,"k":[{"i":{"x":0.833,"y":0.833},"o":{"x":0.167,"y":0.167},"t":111,"s":[-27.218,-32.118,0],"to":[0,0,0],"ti":[0,0,0]},{"t":112,"s":[-27.218,17.882,0]}],"ix":1,"l":2},"s":{"a":1,"k":[{"i":{"x":[0.833,0.833,0.833],"y":[0.833,0.833,0.833]},"o":{"x":[0.167,0.167,0.167],"y":[0.167,0.167,0.167]},"t":28,"s":[100,0,100]},{"i":{"x":[0.833,0.833,0.833],"y":[0.833,0.833,0.833]},"o":{"x":[0.167,0.167,0.167],"y":[0.167,0.167,0.167]},"t":33,"s":[100,100,100]},{"i":{"x":[0.833,0.833,0.833],"y":[0.833,0.833,0.833]},"o":{"x":[0.167,0.167,0.167],"y":[0.167,0.167,0.167]},"t":112,"s":[100,100,100]},{"t":117,"s":[100,0,100]}],"ix":6,"l":2}},"ao":0,"shapes":[{"ty":"gr","it":[{"ty":"rc","d":1,"s":{"a":0,"k":[10,50],"ix":2},"p":{"a":0,"k":[0,0],"ix":3},"r":{"a":0,"k":0,"ix":4},"nm":"Rectangle Path 1","mn":"ADBE Vector Shape - Rect","hd":false},{"ty":"fl","c":{"a":0,"k":[0,0,0,1],"ix":4},"o":{"a":0,"k":100,"ix":5},"r":1,"bm":0,"nm":"Fill 1","mn":"ADBE Vector Graphic - Fill","hd":false},{"ty":"tr","p":{"a":0,"k":[-27.218,-7.118],"ix":2},"a":{"a":0,"k":[0,0],"ix":1},"s":{"a":0,"k":[100,100],"ix":3},"r":{"a":0,"k":0,"ix":6},"o":{"a":0,"k":100,"ix":7},"sk":{"a":0,"k":0,"ix":4},"sa":{"a":0,"k":0,"ix":5},"nm":"Transform"}],"nm":"Rectangle 1","np":3,"cix":2,"bm":0,"ix":1,"mn":"ADBE Vector Group","hd":false}],"ip":28,"op":161,"st":26,"bm":0},{"ddd":0,"ind":11,"ty":4,"nm":"top_left","sr":1,"ks":{"o":{"a":0,"k":100,"ix":11},"r":{"a":0,"k":0,"ix":10},"p":{"a":1,"k":[{"i":{"x":0.833,"y":0.833},"o":{"x":0.167,"y":0.167},"t":79,"s":[60,5,0],"to":[0,0,0],"ti":[0,0,0]},{"t":80,"s":[0,5,0]}],"ix":2,"l":2},"a":{"a":1,"k":[{"i":{"x":0.833,"y":0.833},"o":{"x":0.167,"y":0.167},"t":79,"s":[2.782,-7.118,0],"to":[0,0,0],"ti":[0,0,0]},{"t":80,"s":[-57.218,-7.118,0]}],"ix":1,"l":2},"s":{"a":1,"k":[{"i":{"x":[0.95,0.95,0.95],"y":[1,1,1]},"o":{"x":[1,1,1],"y":[0,0,0]},"t":0,"s":[0,100,100]},{"i":{"x":[0.95,0.95,0.95],"y":[1,1,1]},"o":{"x":[1,1,1],"y":[0,0,0]},"t":28,"s":[100,100,100]},{"i":{"x":[0.95,0.95,0.95],"y":[1,1,1]},"o":{"x":[1,1,1],"y":[0,0,0]},"t":80,"s":[100,100,100]},{"t":112,"s":[0,100,100]}],"ix":6,"l":2}},"ao":0,"shapes":[{"ty":"gr","it":[{"ty":"rc","d":1,"s":{"a":0,"k":[60,10],"ix":2},"p":{"a":0,"k":[0,0],"ix":3},"r":{"a":0,"k":0,"ix":4},"nm":"Rectangle Path 1","mn":"ADBE Vector Shape - Rect","hd":false},{"ty":"fl","c":{"a":0,"k":[0,0,0,1],"ix":4},"o":{"a":0,"k":100,"ix":5},"r":1,"bm":0,"nm":"Fill 1","mn":"ADBE Vector Graphic - Fill","hd":false},{"ty":"tr","p":{"a":0,"k":[-27.218,-7.118],"ix":2},"a":{"a":0,"k":[0,0],"ix":1},"s":{"a":0,"k":[100,100],"ix":3},"r":{"a":0,"k":0,"ix":6},"o":{"a":0,"k":100,"ix":7},"sk":{"a":0,"k":0,"ix":4},"sa":{"a":0,"k":0,"ix":5},"nm":"Transform"}],"nm":"Rectangle 1","np":3,"cix":2,"bm":0,"ix":1,"mn":"ADBE Vector Group","hd":false}],"ip":0,"op":161,"st":0,"bm":0}],"markers":[]};
+
   document.addEventListener('DOMContentLoaded', () => {
     const videoContainers = document.querySelectorAll('.video-container');
-    videoContainers.forEach(container => {
+    
+    videoContainers.forEach((container) => {
       const video = container.querySelector('video');
       const loadingOverlay = container.querySelector('.loading-overlay');
-      const bufferProgress = container.querySelector<HTMLElement>('.progress-buffer');
-      const loadingText = container.querySelector<HTMLElement>('.loading-text');
+      const bufferProgress = container.querySelector('.progress-buffer');
+      const loadingText = container.querySelector('.loading-text');
+      const canvas = container.querySelector('.loading-animation');
+
+      let dotLottie;
+      let animationReady = false;
+
+      // Function to update animation colors based on theme
+      const updateAnimationColors = (isDark) => {
+        const modifiedData = JSON.parse(JSON.stringify(animationData));
+        
+        modifiedData.layers.forEach(layer => {
+          if (layer.shapes && layer.shapes[0] && layer.shapes[0].it) {
+            layer.shapes[0].it.forEach(item => {
+              if (item.ty === 'fl') { // Fill layer
+                if (isDark) {
+                  item.c.k = [1, 1, 1, 1]; // White for dark theme
+                } else {
+                  item.c.k = [0.137, 0.122, 0.125, 1]; // Dark color for light theme
+                }
+              }
+            });
+          }
+        });
+        
+        return modifiedData;
+      };
+
+      // Initialize Lottie animation immediately (no network request)
+      if (canvas) {
+        try {
+          const isDarkTheme = document.documentElement.classList.contains('dark');
+          const modifiedAnimationData = updateAnimationColors(isDarkTheme);
+
+          dotLottie = new DotLottie({
+            canvas,
+            data: modifiedAnimationData,
+            loop: true,
+            autoplay: true
+          });
+
+          // Mark animation as ready
+          animationReady = true;
+
+          // Listen for theme changes
+          const observer = new MutationObserver((mutations) => {
+            mutations.forEach((mutation) => {
+              if (mutation.type === 'attributes' && mutation.attributeName === 'class') {
+                const isDark = document.documentElement.classList.contains('dark');
+                const newAnimationData = updateAnimationColors(isDark);
+                
+                if (dotLottie) {
+                  dotLottie.destroy();
+                }
+                dotLottie = new DotLottie({
+                  canvas,
+                  data: newAnimationData,
+                  loop: true,
+                  autoplay: true
+                });
+              }
+            });
+          });
+          
+          observer.observe(document.documentElement, {
+            attributes: true,
+            attributeFilter: ['class']
+          });
+
+        } catch (error) {
+          console.warn('Could not load Lottie animation:', error);
+          canvas.style.display = 'none';
+          animationReady = true; // Allow video to proceed even if animation fails
+        }
+      } else {
+        animationReady = true; // No canvas, so consider animation "ready"
+      }
 
       if (video && loadingOverlay && bufferProgress && loadingText) {
         const hideLoader = () => {
           if (!loadingOverlay.classList.contains('hidden')) {
             video.classList.add('loaded');
             loadingOverlay.classList.add('hidden');
+            if (dotLottie) {
+              dotLottie.stop();
+            }
           }
         };
 
-        const updateLoadingText = (percentage: number) => {
+        const updateLoadingText = (percentage) => {
           if (percentage >= 100) {
             loadingText.innerText = 'Ready.';
           } else if (percentage >= 76) {

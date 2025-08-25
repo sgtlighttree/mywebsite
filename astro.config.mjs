@@ -8,5 +8,12 @@ import sitemap from '@astrojs/sitemap';
 // https://astro.build/config
 export default defineConfig({
   site: 'https://staging-mattoyan.netlify.app/', // Replace with your actual site URL
-  integrations: [preact(), mdx(), sitemap()]
+  integrations: [preact(), mdx(), sitemap()],
+  vite: {
+    resolve: {
+      alias: {
+        '@lottiefiles/dotlottie-web': '/node_modules/@lottiefiles/dotlottie-web/dist/index.js'
+      }
+    }
+  }
 });
