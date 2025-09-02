@@ -85,7 +85,7 @@ This layout is intended for portfolio items.
 
 **SEO Integration**: This layout now passes `frontmatter.title` to `metaTitle` and `frontmatter.description` to `pageDescription` in `BaseLayout.astro` for improved SEO.
 
-**Note:** This layout is currently identical to `BlogPostLayout.astro`. The conditional logic to hide tags on portfolio pages is present in both files, making it redundant here. For better maintainability, consider creating a single, more generic `PostLayout.astro` and passing a prop to control the visibility of tags.
+**Note:** This layout is almost identical to `BlogPostLayout.astro`, but it defaults to showing the footer call-to-action. The conditional logic to hide tags on portfolio pages is present in both files, making it redundant here. For better maintainability, consider creating a single, more generic `PostLayout.astro` and passing a prop to control the visibility of tags.
 
 ## 4. Components
 
@@ -95,7 +95,7 @@ Components are reusable pieces of UI.
 
 These two components work together to create the site's header.
 
-*   `Header.astro`: The main header component. It displays the site title and imports the `Navigation` component.
+*   `Header.astro`: The main header component. It displays the site title, imports the `Navigation` component, and includes a theme switcher button. The theme switcher uses an inline script to toggle a `dark` class on the `<html>` element and saves the user's preference in `localStorage`.
 *   `Navigation.astro`: Contains the primary navigation links. It uses `Astro.url.pathname` to apply an `active` class to the current page's link for styling. The "Tags" link is currently commented out.
 
 ### `Footer.astro`
@@ -105,8 +105,8 @@ The `Footer.astro` component renders the site's footer.
 **Functionality:**
 
 *   It conditionally displays a call-to-action section based on the `showCta` prop passed from `BaseLayout.astro`.
-*   It includes the `ThemeIcon` component for theme switching and the `ObfuscatedEmail` component.
-*   The `Social.astro` component is imported but not currently used.
+*   It includes the `ObfuscatedEmail` component.
+*   It features a DotLottie animation of the site's monogram.
 
 ### `ObfuscatedEmail.astro`
 
@@ -118,17 +118,6 @@ This is a security-focused component that obfuscates your email address to prote
 2.  An inline script runs on page load, which reconstructs the `mailto:` link from the `data-` attributes.
 3.  For users with JavaScript disabled, a `<noscript>` tag displays the email address in a "munged" format (e.g., `matthew.oyan [at] gmail.com`).
 4.  The script is also configured to re-run after Astro's view transitions (`astro:after-swap`), ensuring it works correctly in a single-page application (SPA) context.
-
-### `ThemeIcon.astro`
-
-This component provides a button to toggle between light and dark themes.
-
-**How it works:**
-
-1.  An inline script runs immediately to determine the user's preferred theme. It checks `localStorage` first, then the `prefers-color-scheme` media query.
-2.  The `dark` class is added or removed from the `<html>` element to apply the appropriate theme.
-3.  A click event listener on the button toggles the `dark` class and updates the theme preference in `localStorage`.
-4.  The SVG icon for the sun and moon is styled with CSS to reflect the current theme.
 
 ### `VideoPlayer.astro`
 
