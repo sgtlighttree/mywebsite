@@ -35,6 +35,11 @@ src/
 ├── components/    # Reusable UI components (.astro, .jsx)
 ├── layouts/       # Page templates (BaseLayout, PostLayouts)
 ├── pages/         # Routes (.astro files, .md posts)
+│   ├── writing/   # Main writings index page
+│   ├── blog/      # Technical blog posts
+│   ├── fiction/   # Creative writing pieces
+│   ├── portfolio/ # Project work
+│   └── ...        # Other pages
 ├── styles/        # Global CSS
 └── scripts/       # JavaScript files
 
@@ -73,7 +78,7 @@ Shared structure for content pages:
 ## Key Components
 
 ### Navigation (Header + Navigation)
-- Responsive nav with current page highlighting
+- Responsive nav with **smart active highlighting** - "Writings" tab stays highlighted across `/writing/`, `/blog/`, and `/fiction/` paths
 - Theme switcher (saves to localStorage)
 - Clean, simple structure
 
@@ -104,9 +109,10 @@ Anti-spam email protection:
 ## Common Tasks Cheat Sheet
 
 ### Adding New Content
-1. **Blog Post**: Create `.md` in `src/pages/posts/` with frontmatter (title, pubDate, etc.)
-2. **Portfolio Item**: Create `.md` or `.mdx` in `src/pages/portfolio/`
-3. **Page**: Create `.astro` in `src/pages/` following file-based routing
+1. **Blog Post**: Create `.md` in `src/pages/blog/` with frontmatter (title, pubDate, etc.) - URLs: `/blog/post-slug`
+2. **Fiction/Creative Writing**: Create `.md` in `src/pages/fiction/` - URLs: `/fiction/story-slug`
+3. **Portfolio Item**: Create `.md` or `.mdx` in `src/pages/portfolio/` - URLs: `/portfolio/project-slug`
+4. **Page**: Create `.astro` in `src/pages/` following file-based routing
 
 ### Building & Previewing
 ```bash
@@ -114,6 +120,7 @@ npm run dev           # Local dev with hot reload
 npm run dev -- --host # Expose to network
 npm run build        # Production build
 npm run preview      # Preview production build
+npm run build && npm run dev -- --host # combined build and then expose
 ```
 
 ### Image Optimization
@@ -175,8 +182,10 @@ Common issues and fixes:
 - [ ] Theme: Consistent design system across all components
 
 **Recent Changes:**
-- **Layout Consolidation**: Merged separate BlogPost/Portfolio layouts into single auto-detecting PostLayout.astro
-- **Archive Old Code**: Moved old layout files to src/layouts/archive/ with timestamp for reference
+- **Layout Consolidation**: Merged separate BlogPost/Portfolio layouts into single auto-detecting PostLayout.astro ✓ (Sep 2025)
+- **Archive Old Code**: Moved old layout files to src/layouts/archive/ with timestamp for reference ✓ (Sep 2025)
+- **URL Consolidation**: Consolidated writings navigation - `/writing/` index now serves `/blog/` and `/fiction/` subdirectories ✓ (Sep 2025)
+- **Smart Navigation**: Enhanced active highlighting ensures "Writings" tab stays highlighted across all content sections ✓ (Sep 2025)
 
 ## Performance & Optimization
 

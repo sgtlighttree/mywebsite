@@ -1,9 +1,9 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro';
-import BlogPost from '../components/BlogPost.astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import BlogPost from '../../components/BlogPost.astro';
 
-const allBlogPosts = Object.values(import.meta.glob('./posts/*.md', { eager: true }));
-const allWritingPosts = Object.values(import.meta.glob('./writing/*.md', { eager: true }));
+const allBlogPosts = Object.values(import.meta.glob('../blog/*.md', { eager: true }));
+const allWritingPosts = Object.values(import.meta.glob('../fiction/*.md', { eager: true }));
 
 const allPosts = [...allBlogPosts, ...allWritingPosts];
 
