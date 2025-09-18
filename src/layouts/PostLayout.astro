@@ -1,0 +1,31 @@
+---
+import BaseLayout from './BaseLayout.astro';
+const { frontmatter } = Astro.props;
+
+// Auto-detect layout behavior based on URL path
+const isBlogPost = Astro.url.pathname.startsWith('/posts/');
+const isPortfolio = Astro.url.pathname.startsWith('/portfolio/');
+const showFooterCta = isPortfolio && !isBlogPost;
+---
+<BaseLayout
+  pageTitle={frontmatter.title}
+  metaTitle={frontmatter.title}
+  pageDescription={frontmatter.description}
+  showFooterCta={showFooterCta}
+>
+  <p><em>{frontmatter.description}</em></p>
+  <p>{new Date(frontmatter.pubDate).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}</p>
+
+  {frontmatter.author && (
+    <p>Written by: {frontmatter.author}</p>
+  )}
+
+  {isBlogPost && !isPortfolio && (
+    <div class="tags">
+      {frontmatter.tags.map((tag: string) => (
+        <p class="tag"><a href={`/tags/${tag}`}>{tag}</a></p>
+      ))}
+    </div>
+  )}
+  <slot />
+</BaseLayout>

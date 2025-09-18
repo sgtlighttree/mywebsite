@@ -1,200 +1,208 @@
 # Website Documentation
 
-This document provides an exhaustive overview of the Astro-based personal website, tailored for the solo developer, Matthew Oyan. It covers the project's architecture, components, layouts, and key functionalities.
+Personal docs for maintaining Matthew Oyan's Astro-based website. Updated last: September 2025.
 
-## 1. Project Overview
+## Getting Started
 
-This project is a personal website and portfolio built with [Astro](https://astro.build/), a modern static site generator. It's designed to be fast, content-focused, and easy to maintain. The site uses [Preact](https://preactjs.com/) for some interactive components, demonstrating Astro's ability to integrate with UI frameworks.
+For when I need to set up or remind myself of the basics:
 
-### Technologies Used
-
-*   **Astro**: The core framework for building the site.
-*   **Preact**: Used for small, interactive UI components.
-*   **TypeScript**: For type safety in Astro components and scripts.
-*   **CSS**: For styling, with global styles and component-scoped styles.
-
-## 2. Project Structure
-
-The project follows a standard Astro project structure:
-
-*   `src/`: Contains all the source code.
-    *   `components/`: Reusable UI components (`.astro`, `.jsx`).
-    *   `layouts/`: The base templates for pages.
-    *   `pages/`: The individual pages of the site. Astro uses file-based routing.
-    *   `styles/`: Global CSS styles.
-    *   `scripts/`: JavaScript files.
-*   `public/`: Static assets like images, fonts, and favicons.
-
-## 3. Layouts
-
-Layouts are Astro components that define the UI structure shared by one or more pages.
-
-### `BaseLayout.astro`
-
-This is the foundational layout for the entire site. It defines the main HTML structure, including the `<html>`, `<head>`, and `<body>` tags.
-
-**Props:**
-
-*   `pageTitle` (string, required): The main title of the page, displayed in the `<h1>` tag.
-*   `metaTitle` (string, optional): A different title for the browser tab. If not provided, it defaults to `"Matthew Oyan - {pageTitle}"`.
-*   `pageDescription` (string, optional): A short, descriptive summary of the page content for search engines and social media.
-*   `showFooterCta` (boolean, optional, default: `true`): A boolean to control the visibility of the call-to-action in the footer.
-
-**SEO Enhancements:**
-
-This layout now includes essential SEO meta tags:
-*   **Meta Description**: Dynamically set using `pageDescription`.
-*   **Open Graph (Facebook)**: `og:type`, `og:url`, `og:title`, `og:description`, and `og:image` are included for rich social media previews.
-*   **Twitter Cards**: `twitter:card`, `twitter:url`, `twitter:title`, `twitter:description`, and `twitter:image` are included for rich Twitter previews.
-
-**Usage:**
-
-```astro
----
-import BaseLayout from '../layouts/BaseLayout.astro';
----
-<BaseLayout pageTitle="About Me">
-  <p>This is the about page.</p>
-</BaseLayout>
+### Quick Setup
+```bash
+cd /Users/matthewoyan/mywebsite
+npm install
+npm run dev
 ```
 
-### `BlogPostLayout.astro`
+### Project Overview
+This is my personal portfolio site built with:
+- **Astro**: Static site generator with component support
+- **Preact**: For interactive components (PhotoGallery, etc.)
+- **MDX**: Blog posts and portfolio items
+- **Sitemap**: Auto-generated via @astrojs/sitemap
+- **Staging URL**: Currently set to `https://staging-mattoyan.netlify.app/` - update in astro.config.mjs for production
 
-This layout is designed for markdown-based blog posts. It extends `BaseLayout` and is responsible for rendering the post's frontmatter and content.
+### Dependencies to Watch
+- Astro 5.9.0 (latest)
+- Preact integration for components
+- MDX for content
+- FontSource for custom fonts
+- DotLottie for animations (footer monogram)
 
-**Frontmatter:**
+## Project Structure
 
-It expects the following frontmatter fields in the markdown files:
+```
+src/
+├── components/    # Reusable UI components (.astro, .jsx)
+├── layouts/       # Page templates (BaseLayout, PostLayouts)
+├── pages/         # Routes (.astro files, .md posts)
+├── styles/        # Global CSS
+└── scripts/       # JavaScript files
 
-*   `title` (string): The title of the blog post.
-*   `description` (string): A short description of the post.
-*   `pubDate` (string): The publication date of the post.
-*   `author` (string, optional): The author of the post.
-*   `tags` (array of strings): A list of tags associated with the post.
-
-**Functionality:**
-
-*   It displays the post's description, publication date, and author.
-*   It renders a list of tags, with each tag linking to a tag-specific page (e.g., `/tags/astro`).
-*   It includes a condition to *not* display tags on pages under the `/portfolio/` path.
-*   **SEO Integration**: This layout now passes `frontmatter.title` to `metaTitle` and `frontmatter.description` to `pageDescription` in `BaseLayout.astro` for improved SEO.
-
-### `PortfolioPostLayout.astro`
-
-This layout is intended for portfolio items.
-
-**SEO Integration**: This layout now passes `frontmatter.title` to `metaTitle` and `frontmatter.description` to `pageDescription` in `BaseLayout.astro` for improved SEO.
-
-**Note:** This layout is almost identical to `BlogPostLayout.astro`, but it defaults to showing the footer call-to-action. The conditional logic to hide tags on portfolio pages is present in both files, making it redundant here. For better maintainability, consider creating a single, more generic `PostLayout.astro` and passing a prop to control the visibility of tags.
-
-## 4. Components
-
-Components are reusable pieces of UI.
-
-### `Header.astro` & `Navigation.astro`
-
-These two components work together to create the site's header.
-
-*   `Header.astro`: The main header component. It displays the site title, imports the `Navigation` component, and includes a theme switcher button. The theme switcher uses an inline script to toggle a `dark` class on the `<html>` element and saves the user's preference in `localStorage`.
-*   `Navigation.astro`: Contains the primary navigation links. It uses `Astro.url.pathname` to apply an `active` class to the current page's link for styling. The "Tags" link is currently commented out.
-
-### `Footer.astro`
-
-The `Footer.astro` component renders the site's footer.
-
-**Functionality:**
-
-*   It conditionally displays a call-to-action section based on the `showCta` prop passed from `BaseLayout.astro`.
-*   It includes the `ObfuscatedEmail` component.
-*   It features a DotLottie animation of the site's monogram.
-
-### `ObfuscatedEmail.astro`
-
-This is a security-focused component that obfuscates your email address to protect it from spam bots.
-
-**How it works:**
-
-1.  The email address is split into a `user` and `domain` and stored in `data-` attributes on an `<a>` tag.
-2.  An inline script runs on page load, which reconstructs the `mailto:` link from the `data-` attributes.
-3.  For users with JavaScript disabled, a `<noscript>` tag displays the email address in a "munged" format (e.g., `matthew.oyan [at] gmail.com`).
-4.  The script is also configured to re-run after Astro's view transitions (`astro:after-swap`), ensuring it works correctly in a single-page application (SPA) context.
-
-### `VideoPlayer.astro`
-
-This component provides a responsive video player with a custom loading state to prevent layout shift. It displays a "Loading Video..." message and a progress bar that reflects the video's buffer status while it loads.
-
-**Props:**
-
-*   `src` (string, required): The path to the video file.
-*   `type` (string, optional, default: `'video/mp4'`): The MIME type of the video.
-*   `autoplay` (boolean, optional, default: `true`): Whether the video should start playing automatically.
-*   `loop` (boolean, optional, default: `true`): Whether the video should loop.
-*   `muted` (boolean, optional, default: `true`): Whether the video audio should be muted.
-*   `controls` (boolean, optional, default: `false`): Whether to display the browser's default video controls.
-
-**Usage:**
-
-**Default (autoplay, loop, muted):**
-```astro
----
-import VideoPlayer from '../components/VideoPlayer.astro';
----
-<VideoPlayer src="/videos/my-video.mp4" />
+public/            # Static assets, images, videos
+├── images/        # Optimized webp/avif images
+├── videos/        # MP4 files
+└── wiki/         # Separate wiki section
 ```
 
-**Customized (no autoplay, with controls):**
+## Layouts
+
+Templates for different page types:
+
+### BaseLayout.astro
+Foundation for all pages with:
+- HTML head (meta tags, SEO, Open Graph)
+- Header/Navigation
+- Footer with call-to-action
+- Social sharing integration
+
+Props:
+- `pageTitle` (required): Main page title
+- `metaTitle` (optional): Custom browser tab title
+- `pageDescription` (optional): SEO description
+- `showFooterCta` (optional): Toggle footer CTA
+
+### PostLayouts (Blog & Portfolio)
+Shared structure for content pages:
+- Frontmatter: title, description, pubDate, tags
+- SEO integration with BaseLayout
+- Tag links (disabled for portfolio)
+- Linked from `/posts/` or `/portfolio/`
+
+**Note:** Consider merging BlogPostLayout and PortfolioPostLayout into a generic PostLayout with props to reduce duplication.
+
+## Key Components
+
+### Navigation (Header + Navigation)
+- Responsive nav with current page highlighting
+- Theme switcher (saves to localStorage)
+- Clean, simple structure
+
+### Footer
+- Conditional CTA section
+- Obfuscated email (anti-spam)
+- Lottie animation monogram
+
+### VideoPlayer
+Responsive player with loading state:
 ```astro
----
-import VideoPlayer from '../components/VideoPlayer.astro';
----
-<VideoPlayer 
-  src="/videos/my-video.mp4"
-  autoplay={false}
-  loop={false}
-  muted={false}
-  controls={true}
-/>
+<VideoPlayer src="/videos/file.mp4" autoplay muted loop />
+```
+Props: src (required), type, autoplay, loop, muted, controls
+
+### PhotoGallery
+React/Preact component with lightbox:
+- Uses yet-another-react-lightbox
+- Supports image arrays
+- Client-side interactive
+
+### ObfuscatedEmail
+Anti-spam email protection:
+- Data attributes for bot protection
+- Reconstructs mailto: via script
+- Fallback for no-JS users
+
+## Common Tasks Cheat Sheet
+
+### Adding New Content
+1. **Blog Post**: Create `.md` in `src/pages/posts/` with frontmatter (title, pubDate, etc.)
+2. **Portfolio Item**: Create `.md` or `.mdx` in `src/pages/portfolio/`
+3. **Page**: Create `.astro` in `src/pages/` following file-based routing
+
+### Building & Previewing
+```bash
+npm run dev           # Local dev with hot reload
+npm run dev -- --host # Expose to network
+npm run build        # Production build
+npm run preview      # Preview production build
 ```
 
-## 5. Pages
+### Image Optimization
+Convert to AVIF for size (95% quality):
+```bash
+# Rec.709 video sources
+magick input.png -gamma 0.917 -quality 95 output.avif
 
-The `src/pages/` directory contains the site's pages. Astro's file-based routing means that each file in this directory becomes a page on the site.
+# Standard sRGB images
+magick input.png -quality 95 output.avif
+```
 
-*   `.astro` files are used for pages with complex layouts or server-side logic.
-*   `.md` files are used for content-heavy pages like blog posts and portfolio items. They use a `layout` property in their frontmatter to specify which layout to use.
+### Wikitest Development
+```bash
+npm run dev:wiki     # Develop wiki section with browser-sync
+```
 
-**SEO Enhancements:**
+## Build & Deployment
 
-*   **Structured Data (Schema.org)**: The `src/pages/index.astro` page now includes basic Schema.org markup for `CollectionPage` to provide search engines with more context about the portfolio.
+Configured for production builds:
+- Static generation via Astro
+- Sitemap auto-generation
+- Optimized assets
+- Staging currently set in config
 
-## 6. Styling
+Deploy to Netlify/GitHub Pages by pushing to main branch. Update site URL in astro.config.mjs when deploying.
 
-Global styles are defined in `src/styles/global.css`. This file is imported into `BaseLayout.astro`, so the styles are applied to every page. Astro components can also have their own scoped styles within a `<style>` tag.
+## Troubleshooting
 
-## 7. Build & Deployment
+Common issues and fixes:
 
-The `package.json` file contains the following scripts for managing the site:
+### Build Errors
+- Check frontmatter in `.md` files (YAML valid?)
+- Ensure component imports are correct
+- Clear node_modules if dependency conflicts
 
-*   `npm run dev`: Starts the Astro development server with hot-reloading.
-*.  `npm run dev -- --host`: Same as above, but also serves the the Astro development server on LAN.
-*   `npm run build`: Builds the site for production.
-*   `npm run preview`: Previews the production build locally.
-*   `npm run dev:wiki`: Starts a `browser-sync` server for the `public/wiki` directory.
-*.  `npm run build && npm run dev -- --host`: Builds the site and then serves the site on LAN.
+### SEO/OG Image Not Working
+- Verify image paths in public/
+- Check BaseLayout meta tags
+- Run build to generate fresh assets
 
-**SEO-related Configurations:**
+### Component Not Rendering
+- Check Preact imports in .jsx files
+- Ensure client:load directive if needed
+- Run build + preview to test
 
-*   **Sitemap Generation**: The `@astrojs/sitemap` integration is configured in `astro.config.mjs` to automatically generate a sitemap for the website. The `site` property in `astro.config.mjs` must be set to the website's base URL for the sitemap to be generated correctly.
-*   **Robots.txt**: A `public/robots.txt` file is present to guide search engine crawlers, specifying which parts of the site they can access and pointing to the generated sitemap.
+### Deployment Issues
+- Update site URL in astro.config.mjs
+- Check build output for errors
+- Verify robots.txt and sitemap
 
-## 8. Converting Images to AVIF
-Use `imagemagick` to convert images to the efficient AVIF format. If the source is Rec.709 (common for video), convert gamma for correct sRGB display.
+## Personal Notes & TODOs
 
-**For Rec.709 sources:**
-  ```bash
-  magick input.png -gamma 0.917 -quality 95 output.avif
-  ```
-**For standard sRGB sources:**
-  ```bash
-  magick input.png -quality 95 output.avif
-  ```
+- [x] Merge BlogPostLayout and PortfolioPostLayout into generic version ✓ (Sep 2025)
+- [ ] Add more OG images for social sharing
+- [ ] Consider migration to view transitions (Astro 3+)
+- [ ] Performance: Optimize Lottie animation loading
+- [ ] Future: Add contact form backend? (currently pure frontend)
+- [ ] Theme: Consistent design system across all components
+
+**Recent Changes:**
+- **Layout Consolidation**: Merged separate BlogPost/Portfolio layouts into single auto-detecting PostLayout.astro
+- **Archive Old Code**: Moved old layout files to src/layouts/archive/ with timestamp for reference
+
+## Performance & Optimization
+
+Current best practices:
+- WebP/AVIF images
+- Lazy loading via Astro
+- Minimal JS bundles
+- Sitemap for crawlers
+- Robots.txt configuration
+
+Monitor bundle size with `npm run build` output.
+
+## Version Control
+
+Personal workflow:
+- Commit frequently: `git add . && git commit -m "Brief update"`
+- Push to staging for testing
+- Merge via PR for deployments
+- Tag releases for major updates
+
+## Useful Links
+- [Astro Docs](https://docs.astro.build)
+- [Preact Guide](https://preactjs.com/guide/v10/getting-started)
+- [MDX Overview](https://mdxjs.com/docs)
+- [Netlify Deployment](https://docs.astro.build/en/guides/deploy/netlify/)
+
+---
+
+This doc is for my solo dev workflow - keeping it practical and updated with actual experiences.

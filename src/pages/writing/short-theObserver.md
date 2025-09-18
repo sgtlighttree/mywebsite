@@ -1,5 +1,5 @@
 ---
-layout: ../../layouts/BlogPostLayout.astro
+layout: ../../layouts/PostLayout.astro
 title: 'The Observer'
 pubDate: 2020-10-16
 description: 'Short Story.'

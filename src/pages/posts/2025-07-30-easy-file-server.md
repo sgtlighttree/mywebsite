@@ -1,5 +1,5 @@
 ---
-layout: ../../layouts/BlogPostLayout.astro
+layout: ../../layouts/PostLayout.astro
 title: 'An Easy DIY File Server with copyparty and Tailscale'
 pubDate: 2025-07-30
 description: 'I have never been this nerd sniped before.'

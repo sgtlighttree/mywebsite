@@ -1,5 +1,5 @@
 ---
-layout: ../../layouts/BlogPostLayout.astro
+layout: ../../layouts/PostLayout.astro
 title: 'Making the Transition to Jekyll, Part 2'
 pubDate: 2024-10-05
 description: 'The Jekyll Journey continues.'
