@@ -29,20 +29,17 @@ const pageTitle = "Contact";
   </div>
   <div class="contact-form">
     <h2>Get In Touch</h2>
-    <!-- 
-      CHANGE #1: Updated the form tag.
-      We're now using Netlify's server-side placeholders {{topic}} and {{name}}.
-      Netlify will replace these with the values from the corresponding input fields.
-    -->
     <form
       name="contact"
       method="POST"
       data-netlify="true"
-      action="/success/"
-      data-netlify-subject="[{{topic}}] - Message from {{name}}"
+      data-netlify-subject="{{subject}}"
+      onsubmit="return buildSubject();"
     >
       <!-- This hidden input is still needed so Netlify knows the form's name -->
       <input type="hidden" name="form-name" value="contact" />
+      <!-- Hidden input for custom subject -->
+      <input type="hidden" name="subject" id="subject" value="" />
       <div class="name-group">
         <div class="form-group">
           <label for="firstname">First Name*</label>
@@ -58,7 +55,11 @@ const pageTitle = "Contact";
         <input type="email" name="email" id="email" required>
       </div>
       <div class="form-group">
-        <label for="phone">Phone Number*</label>
+        <label for="organization">Organization/Company/Agency</label>
+        <input type="text" name="organization" id="organization">
+      </div>
+      <div class="form-group">
+        <label for="phone">Phone Number</label>
         <input type="tel" name="phone" id="phone">
       </div>
       <div class="form-group">
@@ -103,4 +104,34 @@ const pageTitle = "Contact";
     flex: 1; /* This will make both inputs share the row equally */
   }
   </style>
+
+  <script>
+    function buildSubject() {
+      const topicEl = document.getElementById('topic') as HTMLInputElement;
+      const firstnameEl = document.getElementById('firstname') as HTMLInputElement;
+      const lastnameEl = document.getElementById('lastname') as HTMLInputElement;
+      const organizationEl = document.getElementById('organization') as HTMLInputElement;
+      const subjectEl = document.getElementById('subject') as HTMLInputElement;
+
+      if (!topicEl || !firstnameEl || !lastnameEl || !organizationEl || !subjectEl) {
+        console.error('Form element not found');
+        return false;
+      }
+
+      const topic = topicEl.value;
+      const firstname = firstnameEl.value;
+      const lastname = lastnameEl.value;
+      const organization = organizationEl.value.trim();
+
+      let subject = `[${topic}] - Message from ${firstname} ${lastname}`;
+
+      if (organization) {
+        subject += `, ${organization}`;
+      }
+
+      subjectEl.value = subject;
+      console.log('Generated subject:', subject);
+      return true;
+    }
+  </script>
 </BaseLayout>
