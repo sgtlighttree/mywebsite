@@ -35,9 +35,15 @@ const pageTitle = "Contact";
       <input type="hidden" name="form-name" value="contact" />
       <input type="hidden" name="subject" id="subject-field" />
 
-      <div class="form-group">
-        <label for="fullname">Full Name*</label>
-        <input type="text" name="fullname" id="fullname" required>
+      <div class="name-group">
+        <div class="form-group">
+          <label for="firstname">First Name*</label>
+          <input type="text" name="firstname" id="firstname" required>
+        </div>
+        <div class="form-group">
+          <label for="lastname">Last Name*</label>
+          <input type="text" name="lastname" id="lastname" required>
+        </div>
       </div>
       <div class="form-group">
         <label for="email">Email*</label>
@@ -92,16 +98,18 @@ const pageTitle = "Contact";
     if (contactForm) {
       contactForm.addEventListener('submit', (event) => {
         const topicEl = document.getElementById('topic') as HTMLInputElement | null;
-        const fullnameEl = document.getElementById('fullname') as HTMLInputElement | null;
+        const firstnameEl = document.getElementById('firstname') as HTMLInputElement | null;
+        const lastnameEl = document.getElementById('lastname') as HTMLInputElement | null;
         const organizationEl = document.getElementById('organization') as HTMLInputElement | null;
         const subjectField = document.getElementById('subject-field') as HTMLInputElement | null;
 
-        if (topicEl && fullnameEl && subjectField) {
+        if (topicEl && firstnameEl && lastnameEl && subjectField) {
           const topic = topicEl.value;
-          const fullname = fullnameEl.value;
+          const firstname = firstnameEl.value;
+          const lastname = lastnameEl.value;
           const organization = organizationEl ? organizationEl.value.trim() : "";
 
-          let subject = `[${topic}] - Message from ${fullname}`;
+          let subject = `[${topic}] - Message from ${firstname} ${lastname}`;
 
           if (organization) {
             subject += `, ${organization}`;
