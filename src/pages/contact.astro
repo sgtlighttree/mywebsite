@@ -34,12 +34,16 @@ const pageTitle = "Contact";
       method="POST"
       data-netlify="true"
       data-netlify-subject="{{subject}}"
+      action="/success/"
       onsubmit="return buildSubject();"
     >
       <!-- This hidden input is still needed so Netlify knows the form's name -->
       <input type="hidden" name="form-name" value="contact" />
-      <!-- Hidden input for custom subject -->
-      <input type="hidden" name="subject" id="subject" value="" />
+      <!-- Temporary visible input for custom subject (make hidden after debugging) -->
+      <div class="form-group">
+        <label for="subject">Auto-Generated Subject (Hidden in production)</label>
+        <textarea name="subject" id="subject" rows="1"></textarea>
+      </div>
       <div class="name-group">
         <div class="form-group">
           <label for="firstname">First Name*</label>
@@ -107,13 +111,15 @@ const pageTitle = "Contact";
 
   <script>
     function buildSubject() {
+      alert('buildSubject function is running!');
       const topicEl = document.getElementById('topic') as HTMLInputElement;
       const firstnameEl = document.getElementById('firstname') as HTMLInputElement;
       const lastnameEl = document.getElementById('lastname') as HTMLInputElement;
       const organizationEl = document.getElementById('organization') as HTMLInputElement;
-      const subjectEl = document.getElementById('subject') as HTMLInputElement;
+      const subjectEl = document.getElementById('subject') as HTMLTextAreaElement;
 
       if (!topicEl || !firstnameEl || !lastnameEl || !organizationEl || !subjectEl) {
+        alert('Error: Form element not found!');
         console.error('Form element not found');
         return false;
       }
@@ -130,6 +136,7 @@ const pageTitle = "Contact";
       }
 
       subjectEl.value = subject;
+      alert('Generated subject: ' + subject);
       console.log('Generated subject:', subject);
       return true;
     }
