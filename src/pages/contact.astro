@@ -14,9 +14,6 @@ const pageTitle = "Contact";
     }
   </style>
   <div class="tile-container">
-    <!-- <div class="tile-item">
-      <a href="mailto:matthew.oyan@gmail.com">Email</a>
-    </div> -->
     {[
       { platform: "Facebook", username: "lighttree.gfx" },
       { platform: "LinkedIn", username: "in/matthewoyan/" },
@@ -33,17 +30,11 @@ const pageTitle = "Contact";
       name="contact"
       method="POST"
       data-netlify="true"
-      data-netlify-subject="{{subject}}"
       action="/success/"
-      onsubmit="return buildSubject();"
     >
-      <!-- This hidden input is still needed so Netlify knows the form's name -->
       <input type="hidden" name="form-name" value="contact" />
-      <!-- Temporary visible input for custom subject (make hidden after debugging) -->
-      <div class="form-group">
-        <label for="subject">Auto-Generated Subject (Hidden in production)</label>
-        <textarea name="subject" id="subject" rows="1"></textarea>
-      </div>
+      <input type="hidden" name="subject" id="subject-field" />
+
       <div class="name-group">
         <div class="form-group">
           <label for="firstname">First Name*</label>
@@ -67,7 +58,6 @@ const pageTitle = "Contact";
         <input type="tel" name="phone" id="phone">
       </div>
       <div class="form-group">
-        <!-- The input `name="topic"` corresponds to the {{topic}} placeholder -->
         <label for="topic">Subject*</label>
         <input type="text" name="topic" id="topic" required>
       </div>
@@ -75,12 +65,6 @@ const pageTitle = "Contact";
         <label for="message">Message*</label>
         <textarea name="message" id="message" rows="5" required></textarea>
       </div>
-      <!-- <div class="form-group">
-        <label>
-          <label for="file">Add File, max size 8 MB (Optional)</label>
-          <input name="file" type="file" />
-        </label>
-      </div> -->
       <button type="submit">Send</button>
     </form>
   </div>
@@ -110,35 +94,30 @@ const pageTitle = "Contact";
   </style>
 
   <script>
-    function buildSubject() {
-      alert('buildSubject function is running!');
-      const topicEl = document.getElementById('topic') as HTMLInputElement;
-      const firstnameEl = document.getElementById('firstname') as HTMLInputElement;
-      const lastnameEl = document.getElementById('lastname') as HTMLInputElement;
-      const organizationEl = document.getElementById('organization') as HTMLInputElement;
-      const subjectEl = document.getElementById('subject') as HTMLTextAreaElement;
+    const contactForm = document.querySelector('form[name="contact"]');
+    if (contactForm) {
+      contactForm.addEventListener('submit', (event) => {
+        const topicEl = document.getElementById('topic') as HTMLInputElement | null;
+        const firstnameEl = document.getElementById('firstname') as HTMLInputElement | null;
+        const lastnameEl = document.getElementById('lastname') as HTMLInputElement | null;
+        const organizationEl = document.getElementById('organization') as HTMLInputElement | null;
+        const subjectField = document.getElementById('subject-field') as HTMLInputElement | null;
 
-      if (!topicEl || !firstnameEl || !lastnameEl || !organizationEl || !subjectEl) {
-        alert('Error: Form element not found!');
-        console.error('Form element not found');
-        return false;
-      }
+        if (topicEl && firstnameEl && lastnameEl && subjectField) {
+          const topic = topicEl.value;
+          const firstname = firstnameEl.value;
+          const lastname = lastnameEl.value;
+          const organization = organizationEl ? organizationEl.value.trim() : "";
 
-      const topic = topicEl.value;
-      const firstname = firstnameEl.value;
-      const lastname = lastnameEl.value;
-      const organization = organizationEl.value.trim();
+          let subject = `[${topic}] - Message from ${firstname} ${lastname}`;
 
-      let subject = `[${topic}] - Message from ${firstname} ${lastname}`;
+          if (organization) {
+            subject += `, ${organization}`;
+          }
 
-      if (organization) {
-        subject += `, ${organization}`;
-      }
-
-      subjectEl.value = subject;
-      alert('Generated subject: ' + subject);
-      console.log('Generated subject:', subject);
-      return true;
+          subjectField.value = subject;
+        }
+      });
     }
   </script>
 </BaseLayout>
