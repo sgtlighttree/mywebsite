@@ -4,15 +4,6 @@ exports.handler = async function(event, context) {
   const { payload } = JSON.parse(event.body);
   const { data } = payload;
 
-  // Honeypot field: if this is filled, it's a bot.
-  if (data['bot-field']) {
-    console.log('Honeypot field filled, submission ignored.');
-    return {
-      statusCode: 200,
-      body: 'Honeypot triggered. Submission ignored.',
-    };
-  }
-
   // Create a transporter object using Maileroo SMTP transport
   let transporter = nodemailer.createTransport({
     host: process.env.MAILEROO_HOST,
