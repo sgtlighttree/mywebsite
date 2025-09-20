@@ -1,6 +1,0 @@
-[functions]
-  directory = "netlify/functions/"
-
-[functions."submission-created"]
-  # This ensures the function is triggered after a form submission.
-  # The name of the function must match the event.
