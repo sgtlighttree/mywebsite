@@ -77,6 +77,15 @@ Shared structure for content pages:
 
 ## Key Components
 
+### Contact Form (`src/pages/contact.astro`)
+A modern, serverless contact form with the following features:
+- **Netlify Forms**: Submissions are stored in the Netlify dashboard.
+- **Netlify Function**: A `submission-created` function at `netlify/functions/submission-created.js` intercepts submissions to send a custom-formatted email.
+- **Custom Email Delivery**: Uses `nodemailer` to send emails via a Maileroo SMTP relay for professional delivery.
+- **Dynamic Subject Line**: A client-side script generates a subject line based on user input (e.g., `[Topic] - Message from John Doe, Company Inc.`).
+- **Reply-To Header**: The notification email has the `replyTo` header set to the user's email, allowing for direct replies.
+- **Spam Protection**: Uses Netlify's built-in `netlify-honeypot` for efficient, server-side spam filtering.
+
 ### Navigation (Header + Navigation)
 - Responsive nav with **smart active highlighting** - "Writings" tab stays highlighted across `/writing/`, `/blog/`, and `/fiction/` paths
 - Theme switcher (saves to localStorage)
@@ -175,10 +184,10 @@ Common issues and fixes:
 ## Personal Notes & TODOs
 
 - [x] Merge BlogPostLayout and PortfolioPostLayout into generic version ✓ (Sep 2025)
+- [x] Implement a robust, serverless contact form backend ✓ (Sep 2025)
 - [ ] Add more OG images for social sharing
 - [ ] Consider migration to view transitions (Astro 3+)
 - [ ] Performance: Optimize Lottie animation loading
-- [ ] Future: Add contact form backend? (currently pure frontend)
 - [ ] Theme: Consistent design system across all components
 
 **Recent Changes:**
