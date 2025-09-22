@@ -1,0 +1,174 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+const pageTitle = "Privacy Policy";
+---
+
+<BaseLayout pageTitle={pageTitle} showFooterCta={false}>
+  <style>
+    .privacy-policy h1 {
+      border-bottom: 3px solid var(--border-dark);
+      padding-bottom: 0.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .privacy-policy h2 {
+      border-bottom: 1px solid var(--border-light);
+      padding-bottom: 0.25rem;
+      margin-top: 2rem;
+      margin-bottom: 1rem;
+    }
+
+    .privacy-policy h3 {
+      margin-top: 1.5rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .privacy-policy p {
+      margin-bottom: 1rem;
+    }
+
+    .privacy-policy ul, .privacy-policy ol {
+      margin-bottom: 1rem;
+      padding-left: 2rem;
+    }
+
+    .privacy-policy li {
+      margin-bottom: 0.5rem;
+    }
+
+    .privacy-policy .summary-box {
+      background-color: var(--bg-secondary);
+      border: 1px solid var(--border-light);
+      padding: 1.5rem;
+      margin: 2rem 0;
+    }
+
+    .privacy-policy .summary-box strong {
+      display: block;
+    }
+
+    .privacy-policy .contact-info {
+      background-color: var(--bg-secondary);
+      padding: 1rem;
+      border: 1px solid var(--border-light);
+      margin: 1rem 0;
+    }
+
+    /* Print styles */
+    @media print {
+      .privacy-policy {
+        max-width: none;
+        margin: 0;
+      }
+
+      .privacy-policy .summary-box,
+      .privacy-policy .contact-info {
+        border: 1px solid #000;
+        break-inside: avoid;
+      }
+    }
+
+    /* High contrast mode */
+    @media (prefers-contrast: high) {
+      .privacy-policy .summary-box,
+      .privacy-policy .contact-info {
+        border-width: 2px;
+      }
+    }
+  </style>
+
+  <div class="privacy-policy">
+    <p><em>Last updated: September 22, 2025</em></p>
+
+    <div class="summary-box">
+      <strong>Quick Overview</strong>
+      <p>Before reading the full Privacy Policy, here's a quick overview of what happens when you submit a message through the contact form on this site:</p>
+      <ul>
+        <li><strong>Step 1:</strong> Your form input (name, email, message, etc.) is sent securely to <b>Netlify</b> (servers in the United States), which stores a copy of the submission so the site owner can view/download it.</li>
+        <li><strong>Step 2:</strong> A serverless function (also running in the US) processes the submission and forwards it to <b>Maileroo</b> (servers in Germany).</li>
+        <li><strong>Step 3:</strong> Maileroo relays the message as an email to the site owner's <b>Gmail account</b> (Google servers, typically located in the US or nearest data center).</li>
+        <li><strong>Step 4:</strong> The site owner accesses the message in Gmail and may reply directly.</li>
+      </ul>
+      <p>At every stage, data is transmitted over secure, encrypted channels (TLS/SSL).</p>
+    </div>
+
+    <h2>1. Who We Are</h2>
+    <p>This website (<code>531102.xyz</code> and associated subdomains) is operated by <strong>Matthew Oyan</strong>, based in the Philippines. For the purposes of the Philippines <strong>Data Privacy Act of 2012 (RA 10173)</strong>, EU <strong>General Data Protection Regulation (GDPR)</strong>, UK <strong>GDPR</strong>, and other applicable privacy laws, I am the <strong>data controller</strong> for personal data collected via this site.</p>
+
+    <h2>2. What Data We Collect</h2>
+    <p>When you use the contact form, I may collect:</p>
+    <ul>
+      <li>First and last name</li>
+      <li>Email address</li>
+      <li>Organization (optional)</li>
+      <li>Phone number (optional)</li>
+      <li>Topic and message content</li>
+    </ul>
+    <p>No sensitive personal information (such as financial or medical data) is requested or required.</p>
+
+    <h2>3. How Your Data Is Used</h2>
+    <p>Your information is used solely to:</p>
+    <ul>
+      <li>Receive and respond to inquiries</li>
+      <li>Maintain records of correspondence</li>
+      <li>Improve the communication process</li>
+    </ul>
+    <p>I do not and will not sell or share your personal data with third parties for marketing.</p>
+
+    <h2>4. Where and How Your Data Is Processed</h2>
+    <ul>
+      <li><strong>Netlify (United States):</strong> stores the submission and triggers processing.</li>
+      <li><strong>Maileroo (Germany):</strong> relays the message via email.</li>
+      <li><strong>Google Gmail (United States or nearest data center):</strong> receives and stores the message.</li>
+    </ul>
+
+    <h3>Third-Party Privacy Policies</h3>
+    <p>For more details on how these services handle data, you may review their respective privacy policies:</p>
+    <ul>
+      <li><strong>Netlify:</strong> <a href="https://www.netlify.com/privacy/" target="_blank" rel="noopener noreferrer">Privacy Policy</a></li>
+      <li><strong>Maileroo:</strong> <a href="https://maileroo.com/privacy-policy" target="_blank" rel="noopener noreferrer">Privacy Policy</a></li>
+      <li><strong>Google:</strong> <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer">Privacy Policy</a></li>
+    </ul>
+    <p><em>Note: These links open in new windows and will show the most current version of each company's privacy policy.</em></p>
+
+    <h2>5. Legal Basis for Processing</h2>
+    <ul>
+      <li><strong>Philippines (RA 10173):</strong> Processing is based on your consent, given when you submit the form.</li>
+      <li><strong>EU/UK (GDPR/UK GDPR):</strong> Processing is based on consent (Article 6(1)(a)) or legitimate interests (Article 6(1)(f)) for responding to inquiries.</li>
+      <li><strong>Other regions:</strong> Processing is based on your consent, consistent with local privacy law.</li>
+    </ul>
+
+    <h2>6. Data Retention</h2>
+    <ul>
+      <li>Form submissions stored in Netlify may be exported and periodically deleted.</li>
+      <li>Emails relayed to Gmail may be retained in correspondence records as long as reasonably necessary to maintain professional communications.</li>
+      <li>You may request deletion at any time (see Section 8).</li>
+    </ul>
+
+    <h2>7. Security</h2>
+    <p>Data is encrypted in transit (HTTPS/TLS). Netlify, Maileroo, and Google provide industry-standard security measures. However, no system is 100% secure, and I cannot guarantee absolute protection.</p>
+
+    <h2>8. Your Rights</h2>
+    <p>Depending on your jurisdiction, you may have rights to:</p>
+    <ul>
+      <li>Access the personal data I hold about you</li>
+      <li>Correct inaccurate information</li>
+      <li>Request deletion of your data</li>
+      <li>Withdraw consent to processing</li>
+      <li>File a complaint with a relevant data protection authority</li>
+    </ul>
+
+    <div class="contact-info">
+      <p><strong>To exercise these rights, please send an email to dataprivacy[at]531102.xyz.</strong></p>
+    </div>
+
+    <h2>9. Cross-Border Data Transfers</h2>
+    <p>Because this site uses services in the US and Germany, your data may be transferred internationally. By submitting the contact form, you consent to this transfer. Safeguards such as encryption and trusted third-party providers are used to protect your information.</p>
+
+    <h2>10. Updates</h2>
+    <p>This Privacy Policy may be updated from time to time. The "last updated" date at the top will reflect any changes.</p>
+
+    <h2>11. Contact</h2>
+    <p>If you have questions about this Privacy Policy or how your data is handled, please contact me at <a href="mailto:matthew@531102.xyz">matthew@531102.xyz</a>.</p>
+  </div>
+</BaseLayout>

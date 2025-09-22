@@ -25,53 +25,141 @@ const pageTitle = "Contact";
     ))}
   </div>
   <div class="contact-form">
-    <h2>Get In Touch</h2>
+    <h2 id="contact-form-heading">Get In Touch</h2>
     <form
       name="contact"
       method="POST"
       data-netlify="true"
       netlify-honeypot="bot-field"
       action="/success/"
+      aria-labelledby="contact-form-heading"
+      novalidate
     >
       <input type="hidden" name="form-name" value="contact" />
       <input type="hidden" name="subject" id="subject-field" />
-      
+
       <!-- Honeypot field for spam prevention -->
-      <p class="hidden" style="display:none;">
+      <p class="hidden" style="display:none;" aria-hidden="true">
         <label>Don’t fill this out if you’re human: <input name="bot-field" /></label>
       </p>
 
-      <div class="name-group">
+      <!-- Error message container -->
+      <div id="form-errors" class="error-message" role="alert" aria-live="polite" style="display: none;"></div>
+
+      <fieldset class="name-group">
+        <legend class="visually-hidden">Personal Information</legend>
         <div class="form-group">
-          <label for="firstname">First Name*</label>
-          <input type="text" name="firstname" id="firstname" required>
+          <label for="firstname">
+            First Name
+            <span class="required" aria-label="required">*</span>
+          </label>
+          <input
+            type="text"
+            name="firstname"
+            id="firstname"
+            required
+            aria-describedby="firstname-error"
+            aria-invalid="false"
+          >
+          <div id="firstname-error" class="error-message" role="alert" aria-live="polite"></div>
         </div>
         <div class="form-group">
-          <label for="lastname">Last Name*</label>
-          <input type="text" name="lastname" id="lastname" required>
+          <label for="lastname">
+            Last Name
+            <span class="required" aria-label="required">*</span>
+          </label>
+          <input
+            type="text"
+            name="lastname"
+            id="lastname"
+            required
+            aria-describedby="lastname-error"
+            aria-invalid="false"
+          >
+          <div id="lastname-error" class="error-message" role="alert" aria-live="polite"></div>
         </div>
-      </div>
+      </fieldset>
+
       <div class="form-group">
-        <label for="email">Email*</label>
-        <input type="email" name="email" id="email" required>
+        <label for="email">
+          Email Address
+          <span class="required" aria-label="required">*</span>
+        </label>
+        <input
+          type="email"
+          name="email"
+          id="email"
+          required
+          aria-describedby="email-error email-help"
+          aria-invalid="false"
+        >
+        <div id="email-help" class="help-text">We'll use this to respond to your inquiry</div>
+        <div id="email-error" class="error-message" role="alert" aria-live="polite"></div>
       </div>
+
       <div class="form-group">
         <label for="organization">Organization/Company/Agency</label>
-        <input type="text" name="organization" id="organization">
+        <input
+          type="text"
+          name="organization"
+          id="organization"
+          aria-describedby="organization-help"
+        >
+        <div id="organization-help" class="help-text">Optional - let us know if you're contacting from a company or organization</div>
       </div>
+
       <div class="form-group">
         <label for="phone">Phone Number</label>
-        <input type="tel" name="phone" id="phone">
+        <input
+          type="tel"
+          name="phone"
+          id="phone"
+          aria-describedby="phone-help"
+        >
+        <div id="phone-help" class="help-text">"Optional - please include country code for international calls (e.g., +63 Philippines, +65 Singapore, +1 US/Canada, +44 UK, +61 Australia)"</div>
       </div>
+
       <div class="form-group">
-        <label for="topic">Subject*</label>
-        <input type="text" name="topic" id="topic" required>
+        <label for="topic">
+          Subject
+          <span class="required" aria-label="required">*</span>
+        </label>
+        <input
+          type="text"
+          name="topic"
+          id="topic"
+          required
+          aria-describedby="topic-error topic-help"
+          aria-invalid="false"
+        >
+        <div id="topic-help" class="help-text">Brief description of your inquiry</div>
+        <div id="topic-error" class="error-message" role="alert" aria-live="polite"></div>
       </div>
+
       <div class="form-group">
-        <label for="message">Message*</label>
-        <textarea name="message" id="message" rows="5" required></textarea>
+        <label for="message">
+          Message
+          <span class="required" aria-label="required">*</span>
+        </label>
+        <textarea
+          name="message"
+          id="message"
+          rows="5"
+          required
+          aria-describedby="message-error message-help"
+          aria-invalid="false"
+        ></textarea>
+        <div id="message-help" class="help-text">Please provide details about your inquiry</div>
+        <div id="message-error" class="error-message" role="alert" aria-live="polite"></div>
       </div>
-      <button type="submit">Send</button>
+
+      <div class="privacy-notice" role="note" aria-label="Privacy information">
+        <p>By submitting this form, you agree to our <a href="/privacy-policy" target="_blank" rel="noopener noreferrer">Privacy Policy</a>.</p>
+      </div>
+
+      <button type="submit" id="submit-button">
+        <span>Send Message</span>
+      </button>
     </form>
   </div>
   <style>
@@ -97,23 +185,357 @@ const pageTitle = "Contact";
   .name-group .form-group {
     flex: 1; /* This will make both inputs share the row equally */
   }
+
+  /* Accessibility Styles */
+  .visually-hidden {
+    position: absolute !important;
+    width: 1px !important;
+    height: 1px !important;
+    padding: 0 !important;
+    margin: -1px !important;
+    overflow: hidden !important;
+    clip: rect(0, 0, 0, 0) !important;
+    white-space: nowrap !important;
+    border: 0 !important;
+  }
+
+  .required {
+    color: #e74c3c;
+    font-weight: bold;
+  }
+
+  .error-message {
+    color: #e74c3c;
+    font-size: 0.875rem;
+    margin-top: 0.25rem;
+    min-height: 1.25rem;
+    display: block;
+  }
+
+  .help-text {
+    color: #666;
+    font-size: 0.875rem;
+    margin-top: 0.25rem;
+    font-style: italic;
+  }
+
+  /* Focus styles for better accessibility */
+  input:focus,
+  textarea:focus,
+  button:focus {
+    outline: 2px solid #3498db;
+    outline-offset: 2px;
+    border-color: #3498db;
+  }
+
+  /* Error state styles */
+  input[aria-invalid="true"],
+  textarea[aria-invalid="true"] {
+    border-color: #e74c3c;
+    background-color: #fdf2f2;
+  }
+
+  input[aria-invalid="true"]:focus,
+  textarea[aria-invalid="true"]:focus {
+    border-color: #e74c3c;
+    background-color: #fef5f5;
+  }
+
+  /* Button accessibility */
+  button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+
+  button:hover {
+    background-color: #2980b9;
+  }
+
+  /* High contrast mode support */
+  @media (prefers-contrast: high) {
+    .error-message {
+      color: #000;
+      font-weight: bold;
+    }
+
+    .help-text {
+      color: #333;
+    }
+  }
+
+  /* Reduced motion support */
+  @media (prefers-reduced-motion: reduce) {
+    * {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+
+  /* Form fieldset styling */
+  fieldset {
+    border: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  legend {
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+  }
+
+  /* Privacy notice styling */
+  .privacy-notice {
+    background-color: var(--bg-secondary);
+    border: 1px solid var(--border-light);
+    padding: 1rem;
+    margin: 1.5rem 0;
+    font-size: 0.9rem;
+  }
+
+  .privacy-notice p {
+    margin: 0;
+    color: var(--text-primary);
+  }
+
+  .privacy-notice a {
+    color: var(--text-primary);
+    text-decoration: underline;
+    font-weight: 500;
+  }
+
+  .privacy-notice a:hover,
+  .privacy-notice a:focus {
+    color: var(--hover-text);
+    background-color: var(--hover-bg);
+    padding: 2px 4px;
+    text-decoration: none;
+  }
+
+  /* High contrast mode for privacy notice */
+  @media (prefers-contrast: high) {
+    .privacy-notice {
+      border-width: 2px;
+      font-weight: bold;
+    }
+  }
   </style>
 
   <script>
-    const contactForm = document.querySelector('form[name="contact"]');
-    if (contactForm) {
-      contactForm.addEventListener('submit', (event) => {
-        const topicEl = document.getElementById('topic') as HTMLInputElement | null;
-        const firstnameEl = document.getElementById('firstname') as HTMLInputElement | null;
-        const lastnameEl = document.getElementById('lastname') as HTMLInputElement | null;
-        const organizationEl = document.getElementById('organization') as HTMLInputElement | null;
-        const subjectField = document.getElementById('subject-field') as HTMLInputElement | null;
+    // Accessible Form Validation
+    class AccessibleContactForm {
+      private form: HTMLFormElement;
+      private submitButton: HTMLButtonElement | null;
+      private formErrors: HTMLElement | null;
+      private validationRules: Record<string, {
+        required?: boolean;
+        minLength?: number;
+        pattern?: RegExp;
+        message: string;
+      }>;
+
+      constructor(form: HTMLFormElement) {
+        this.form = form;
+        this.submitButton = form.querySelector('#submit-button') as HTMLButtonElement | null;
+        this.formErrors = form.querySelector('#form-errors');
+
+        this.validationRules = {
+          firstname: {
+            required: true,
+            minLength: 2,
+            pattern: /^[a-zA-Z\s'-]+$/,
+            message: 'First name must be at least 2 characters and contain only letters'
+          },
+          lastname: {
+            required: true,
+            minLength: 2,
+            pattern: /^[a-zA-Z\s'-]+$/,
+            message: 'Last name must be at least 2 characters and contain only letters'
+          },
+          email: {
+            required: true,
+            pattern: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+            message: 'Please enter a valid email address'
+          },
+          topic: {
+            required: true,
+            minLength: 5,
+            message: 'Subject must be at least 5 characters long'
+          },
+          message: {
+            required: true,
+            minLength: 10,
+            message: 'Message must be at least 10 characters long'
+          }
+        };
+
+        this.init();
+      }
+
+      init() {
+        // Add event listeners
+        this.form.addEventListener('submit', (e: Event) => this.handleSubmit(e));
+
+        // Add real-time validation on blur
+        Object.keys(this.validationRules).forEach((fieldName: string) => {
+          const field = this.form.querySelector(`#${fieldName}`) as HTMLInputElement | HTMLTextAreaElement | null;
+          if (field) {
+            field.addEventListener('blur', () => this.validateField(fieldName));
+            field.addEventListener('input', () => this.clearFieldError(fieldName));
+          }
+        });
+
+        // Handle form reset
+        this.form.addEventListener('reset', () => this.clearAllErrors());
+      }
+
+      handleSubmit(event: Event) {
+        event.preventDefault();
+
+        // Clear previous errors
+        this.clearAllErrors();
+
+        // Validate all fields
+        const isValid = this.validateForm();
+
+        if (isValid) {
+          // Generate subject line
+          this.generateSubject();
+
+          // Show loading state
+          this.setLoadingState(true);
+
+          // Submit the form
+          this.form.submit();
+        } else {
+          // Focus first error field
+          this.focusFirstError();
+
+          // Announce errors to screen readers
+          this.announceErrors();
+        }
+      }
+
+      validateForm(): boolean {
+        let isValid = true;
+        const errors: string[] = [];
+
+        Object.keys(this.validationRules).forEach((fieldName: string) => {
+          const field = this.form.querySelector(`#${fieldName}`) as HTMLInputElement | HTMLTextAreaElement | null;
+          if (field) {
+            const fieldValid = this.validateField(fieldName);
+            if (!fieldValid) {
+              isValid = false;
+              const errorElement = this.form.querySelector(`#${fieldName}-error`);
+              if (errorElement) {
+                errors.push(`${fieldName}: ${errorElement.textContent}`);
+              }
+            }
+          }
+        });
+
+        // Show summary of errors
+        if (errors.length > 0) {
+          this.showFormErrors(errors);
+        }
+
+        return isValid;
+      }
+
+      validateField(fieldName: string): boolean {
+        const field = this.form.querySelector(`#${fieldName}`) as HTMLInputElement | HTMLTextAreaElement | null;
+        const rules = this.validationRules[fieldName];
+        const errorElement = this.form.querySelector(`#${fieldName}-error`);
+
+        if (!field || !rules || !errorElement) return true;
+
+        const value = field.value.trim();
+        let isValid = true;
+        let errorMessage = '';
+
+        // Check required fields
+        if (rules.required && !value) {
+          isValid = false;
+          errorMessage = `${this.getFieldLabel(fieldName)} is required`;
+        }
+        // Check minimum length
+        else if (value && rules.minLength && value.length < rules.minLength) {
+          isValid = false;
+          errorMessage = rules.message;
+        }
+        // Check pattern
+        else if (value && rules.pattern && !rules.pattern.test(value)) {
+          isValid = false;
+          errorMessage = rules.message;
+        }
+
+        this.setFieldError(fieldName, errorMessage, !isValid);
+        return isValid;
+      }
+
+      setFieldError(fieldName: string, message: string, hasError: boolean): void {
+        const field = this.form.querySelector(`#${fieldName}`) as HTMLInputElement | HTMLTextAreaElement | null;
+        const errorElement = this.form.querySelector(`#${fieldName}-error`);
+
+        if (!field || !errorElement) return;
+
+        field.setAttribute('aria-invalid', hasError.toString());
+        errorElement.textContent = message;
+
+        if (hasError) {
+          field.classList.add('error');
+        } else {
+          field.classList.remove('error');
+        }
+      }
+
+      clearFieldError(fieldName: string): void {
+        this.setFieldError(fieldName, '', false);
+      }
+
+      clearAllErrors(): void {
+        Object.keys(this.validationRules).forEach((fieldName: string) => {
+          this.clearFieldError(fieldName);
+        });
+        this.hideFormErrors();
+      }
+
+      showFormErrors(errors: string[]): void {
+        if (!this.formErrors) return;
+
+        const errorList = errors.map((error: string) => `<li>${error}</li>`).join('');
+        this.formErrors.innerHTML = `
+          <p>Please correct the following errors:</p>
+          <ul>${errorList}</ul>
+        `;
+        this.formErrors.style.display = 'block';
+        this.formErrors.setAttribute('aria-live', 'assertive');
+      }
+
+      hideFormErrors(): void {
+        if (this.formErrors) {
+          this.formErrors.style.display = 'none';
+          this.formErrors.setAttribute('aria-live', 'polite');
+        }
+      }
+
+      getFieldLabel(fieldName: string): string {
+        const label = this.form.querySelector(`label[for="${fieldName}"]`);
+        return label ? label.textContent.replace('*', '').trim() : fieldName;
+      }
+
+      generateSubject(): void {
+        const topicEl = this.form.querySelector('#topic') as HTMLInputElement | null;
+        const firstnameEl = this.form.querySelector('#firstname') as HTMLInputElement | null;
+        const lastnameEl = this.form.querySelector('#lastname') as HTMLInputElement | null;
+        const organizationEl = this.form.querySelector('#organization') as HTMLInputElement | null;
+        const subjectField = this.form.querySelector('#subject-field') as HTMLInputElement | null;
 
         if (topicEl && firstnameEl && lastnameEl && subjectField) {
-          const topic = topicEl.value;
-          const firstname = firstnameEl.value;
-          const lastname = lastnameEl.value;
-          const organization = organizationEl ? organizationEl.value.trim() : "";
+          const topic = topicEl.value.trim();
+          const firstname = firstnameEl.value.trim();
+          const lastname = lastnameEl.value.trim();
+          const organization = organizationEl ? organizationEl.value.trim() : '';
 
           let subject = `[${topic}] - Message from ${firstname} ${lastname}`;
 
@@ -123,7 +545,56 @@ const pageTitle = "Contact";
 
           subjectField.value = subject;
         }
-      });
+      }
+
+      setLoadingState(loading: boolean): void {
+        if (!this.submitButton) return;
+
+        this.submitButton.disabled = loading;
+        const buttonText = this.submitButton.querySelector('span');
+
+        if (loading) {
+          this.submitButton.setAttribute('aria-busy', 'true');
+          if (buttonText) buttonText.textContent = 'Sending...';
+        } else {
+          this.submitButton.setAttribute('aria-busy', 'false');
+          if (buttonText) buttonText.textContent = 'Send Message';
+        }
+      }
+
+      focusFirstError(): void {
+        const firstErrorField = this.form.querySelector('[aria-invalid="true"]') as HTMLElement | null;
+        if (firstErrorField) {
+          firstErrorField.focus();
+        }
+      }
+
+      announceErrors(): void {
+        const errorCount = this.form.querySelectorAll('[aria-invalid="true"]').length;
+        if (errorCount > 0) {
+          // Create a temporary element for screen reader announcement
+          const announcement = document.createElement('div');
+          announcement.setAttribute('aria-live', 'assertive');
+          announcement.setAttribute('aria-atomic', 'true');
+          announcement.className = 'visually-hidden';
+          announcement.textContent = `Form has ${errorCount} error${errorCount > 1 ? 's' : ''} that need${errorCount > 1 ? '' : 's'} to be corrected`;
+
+          document.body.appendChild(announcement);
+
+          // Remove after announcement
+          setTimeout(() => {
+            document.body.removeChild(announcement);
+          }, 1000);
+        }
+      }
     }
+
+    // Initialize the form when DOM is loaded
+    document.addEventListener('DOMContentLoaded', () => {
+      const contactForm = document.querySelector('form[name="contact"]') as HTMLFormElement | null;
+      if (contactForm) {
+        new AccessibleContactForm(contactForm);
+      }
+    });
   </script>
 </BaseLayout>
