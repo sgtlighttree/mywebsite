@@ -116,7 +116,7 @@ const pageTitle = "Contact";
           id="phone"
           aria-describedby="phone-help"
         >
-        <div id="phone-help" class="help-text">"Optional - please include country code for international calls (e.g., +63 Philippines, +65 Singapore, +1 US/Canada, +44 UK, +61 Australia)"</div>
+        <div id="phone-help" class="help-text">Optional - please include country code for international calls (e.g., +63 Philippines, +65 Singapore, +1 US/Canada, +44 UK, +61 Australia)</div>
       </div>
 
       <div class="form-group">
@@ -232,13 +232,26 @@ const pageTitle = "Contact";
   input[aria-invalid="true"],
   textarea[aria-invalid="true"] {
     border-color: #e74c3c;
-    background-color: #fdf2f2;
+    background-color: rgba(231, 76, 60, 0.1);
   }
 
   input[aria-invalid="true"]:focus,
   textarea[aria-invalid="true"]:focus {
     border-color: #e74c3c;
-    background-color: #fef5f5;
+    background-color: rgba(231, 76, 60, 0.15);
+  }
+
+  /* Dark mode error state adjustments */
+  html.dark input[aria-invalid="true"],
+  html.dark textarea[aria-invalid="true"] {
+    background-color: rgba(231, 76, 60, 0.15);
+    border-color: #ff6b6b;
+  }
+
+  html.dark input[aria-invalid="true"]:focus,
+  html.dark textarea[aria-invalid="true"]:focus {
+    background-color: rgba(231, 76, 60, 0.2);
+    border-color: #ff6b6b;
   }
 
   /* Button accessibility */

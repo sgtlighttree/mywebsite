@@ -159,7 +159,7 @@ const pageTitle = "Privacy Policy";
     </ul>
 
     <div class="contact-info">
-      <p><strong>To exercise these rights, please send an email to dataprivacy[at]531102.xyz.</strong></p>
+      <p><strong>To exercise these rights, please send an email to <span class="dpo-email">dataprivacy[at]531102.xyz</span>.</strong></p>
     </div>
 
     <h2>9. Cross-Border Data Transfers</h2>
@@ -169,6 +169,28 @@ const pageTitle = "Privacy Policy";
     <p>This Privacy Policy may be updated from time to time. The "last updated" date at the top will reflect any changes.</p>
 
     <h2>11. Contact</h2>
-    <p>If you have questions about this Privacy Policy or how your data is handled, please contact me at <a href="mailto:matthew@531102.xyz">matthew@531102.xyz</a>.</p>
+    <p>If you have questions about this Privacy Policy, to exercise your data rights, or how your data is handled, please contact me at <span class="dpo-email">dataprivacy[at]531102.xyz</span>.</p>
   </div>
+  <script>
+      // Wait for DOM to be ready
+      document.addEventListener('DOMContentLoaded', function() {
+          // Get all email span elements
+          const emailSpans = document.querySelectorAll('.dpo-email');
+          
+          // Process each email span
+          emailSpans.forEach(function(emailSpan) {
+              // Only proceed if element has a parent
+              if (emailSpan && emailSpan.parentNode) {
+                  // Create the proper email link
+                  const emailAddress = 'dataprivacy@531102.xyz';
+                  const emailLink = document.createElement('a');
+                  emailLink.href = 'mailto:' + emailAddress;
+                  emailLink.textContent = emailAddress;
+                  
+                  // Replace the obfuscated text with the clickable link
+                  emailSpan.parentNode.replaceChild(emailLink, emailSpan);
+              }
+          });
+      });
+  </script>
 </BaseLayout>
