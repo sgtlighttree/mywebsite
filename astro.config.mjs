@@ -9,6 +9,7 @@ import sitemap from '@astrojs/sitemap';
 export default defineConfig({
   site: 'https://staging-mattoyan.netlify.app/', // Replace with your actual site URL
   integrations: [preact(), mdx(), sitemap()],
+
   vite: {
     resolve: {
       alias: {
