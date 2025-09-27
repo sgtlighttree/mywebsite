@@ -1,5 +1,6 @@
 ---
 import ObfuscatedEmail from './ObfuscatedEmail.astro';
+import VideoPlayer from '../components/VideoPlayer.astro';
 
 export interface Props {
   showCta?: boolean;
@@ -20,20 +21,14 @@ const { showCta = true } = Astro.props;
   <hr style="border: .5px solid var(--portfolio-border); margin-top: 2em; margin-bottom: 1em">
   <div>
     <div>
-      <video
+      <!-- <VideoPlayer src="../../../videos/MatthewOyan_MonogramAnimation_hq.mp4" /> -->
+      <img
+        src="/images/MatthewOyan_MonogramAnimation_hq.gif"
+        alt="Logo Animation"
         width="50"
         height="30"
-        autoplay
-        loop
-        muted
-        playsinline
-        preload="metadata"
-        style="display: block; margin-bottom: 10px; background: transparent;"
+        style="display: block; margin-bottom: 10px;"
       >
-        <source src="/videos/MatthewOyan_MonogramAnimation_vp9.webm" type="video/webm">
-        <source src="/videos/MatthewOyan_MonogramAnimation_h264-50k.mp4" type="video/mp4">
-        Your browser does not support the video tag.
-      </video>
     <!-- <div>
       <canvas id="dotLottie-canvas" style="width: 50px; height: 30px;"></canvas>
 
