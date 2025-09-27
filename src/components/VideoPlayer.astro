@@ -6,10 +6,19 @@ const {
   loop = true,
   muted = true,
   controls = false,
+  width = '100%',
+  height,
+  aspectRatio = '16 / 9',
 } = Astro.props;
+
+const containerStyle = {
+  width: width,
+  height: height || 'auto',
+  'aspect-ratio': height ? undefined : aspectRatio,
+};
 ---
 
-<div class="video-container">
+<div class="video-container" style={Object.entries(containerStyle).filter(([_, v]) => v !== undefined).map(([k, v]) => `${k}: ${v}`).join(';')}>
   <div class="loading-overlay">
     <div class="loading-text">Loading Video...</div>
     <div class="progress-bar">
@@ -26,10 +35,10 @@ const {
 <style>
   .video-container {
     position: relative;
-    width: 100%;
-    aspect-ratio: 16 / 9;
+    /* width and aspect-ratio are now set by inline styles */
     background-color: var(--bg-secondary);
     margin-bottom: 1rem;
+    overflow: hidden; /* Ensures video stays within container bounds */
   }
 
   .loading-overlay {
@@ -108,46 +117,44 @@ const {
 </style>
 
 <script>
-  document.addEventListener('DOMContentLoaded', () => {
-    const videoContainers = document.querySelectorAll('.video-container');
-    videoContainers.forEach(container => {
-      const video = container.querySelector('video');
-      const loadingOverlay = container.querySelector('.loading-overlay');
-      const bufferProgress = container.querySelector<HTMLElement>('.progress-buffer');
-      const loadingText = container.querySelector<HTMLElement>('.loading-text');
+  const initVideoPlayer = (container: Element) => {
+    const video = container.querySelector('video');
+    const loadingOverlay = container.querySelector('.loading-overlay') as HTMLElement;
+    const bufferProgress = container.querySelector('.progress-buffer') as HTMLElement;
+    const loadingText = container.querySelector('.loading-text') as HTMLElement;
 
-      if (video && loadingOverlay && bufferProgress && loadingText) {
-        const hideLoader = () => {
-          if (!loadingOverlay.classList.contains('hidden')) {
-            video.classList.add('loaded');
-            loadingOverlay.classList.add('hidden');
-          }
-        };
-
-        const onProgress = () => {
-          if (video.duration > 0) {
-            const bufferedEnd = video.buffered.length > 0 ? video.buffered.end(video.buffered.length - 1) : 0;
-            const bufferedPercent = (bufferedEnd / video.duration) * 100;
-            bufferProgress.style.width = `${bufferedPercent}%`;
-          }
-        };
-
-        // Always listen to progress
-        video.addEventListener('progress', onProgress);
-
-        // If video is already loaded enough (e.g. from cache), hide loader
-        if (video.readyState >= 4) { // HAVE_ENOUGH_DATA
-          hideLoader();
-          return;
+    if (video && loadingOverlay && bufferProgress && loadingText) {
+      const hideLoader = () => {
+        if (!loadingOverlay.classList.contains('hidden')) {
+          video.classList.add('loaded');
+          loadingOverlay.classList.add('hidden');
         }
+      };
 
-        // Otherwise, choose the best event to hide the loader
-        if (video.autoplay) {
-          video.addEventListener('playing', hideLoader, { once: true });
-        } else {
-          video.addEventListener('canplaythrough', hideLoader, { once: true });
+      const onProgress = () => {
+        if (video.duration > 0) {
+          const bufferedEnd = video.buffered.length > 0 ? video.buffered.end(video.buffered.length - 1) : 0;
+          const bufferedPercent = (bufferedEnd / video.duration) * 100;
+          bufferProgress.style.width = `${bufferedPercent}%`;
         }
+      };
+
+      video.addEventListener('progress', onProgress);
+
+      if (video.readyState >= 4) {
+        hideLoader();
+        return;
       }
-    });
-  });
+
+      const eventToListen = video.autoplay ? 'playing' : 'canplaythrough';
+      video.addEventListener(eventToListen, hideLoader, { once: true });
+
+      // Fallback timeout
+      setTimeout(() => {
+        hideLoader();
+      }, 5000); // Hide loader after 5s regardless
+    }
+  };
+
+  document.querySelectorAll('.video-container').forEach(initVideoPlayer);
 </script>
