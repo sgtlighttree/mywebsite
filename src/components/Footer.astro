@@ -27,12 +27,13 @@ const { showCta = true } = Astro.props;
         loop
         muted
         playsinline
-        style="display: block; margin-bottom: 10px;"
+        preload="metadata"
+        style="display: block; margin-bottom: 10px; background: transparent;"
       >
-        <source src="../../../videos/MatthewOyan_MonogramAnimation_h264-50k.mp4" type="video/mp4">
+        <source src="/videos/MatthewOyan_MonogramAnimation_vp9.webm" type="video/webm">
+        <source src="/videos/MatthewOyan_MonogramAnimation_h264-50k.mp4" type="video/mp4">
         Your browser does not support the video tag.
       </video>
-    </div>
     <!-- <div>
       <canvas id="dotLottie-canvas" style="width: 50px; height: 30px;"></canvas>
 
