@@ -132,7 +132,7 @@ npm run preview      # Preview production build
 npm run build && npm run dev -- --host # combined build and then expose
 ```
 
-### Image Optimization
+### Image Optimization + Conversion Cheatsheet
 Convert to AVIF for size (95% quality):
 ```bash
 # Rec.709 video sources
@@ -140,6 +140,10 @@ magick input.png -gamma 0.917 -quality 95 output.avif
 
 # Standard sRGB images
 magick input.png -quality 95 output.avif
+
+# Converting animated videos to animated WebP
+ffmpeg -i MatthewOyan_MonogramAnimation.mov -vf "fps=60,scale=100:60" -c:v libwebp -lossless 0 -q:v 75 -loop 0 -preset default -an MatthewOyan_MonogramAnimation.webp
+
 ```
 
 ### Wikitest Development

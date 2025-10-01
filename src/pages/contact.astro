@@ -1,7 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Social from '../components/Social.astro';
-const pageTitle = "Contact";
+const pageTitle = "Get In Touch";
 ---
 <BaseLayout pageTitle={pageTitle} showFooterCta={false}>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
@@ -13,19 +13,9 @@ const pageTitle = "Contact";
       }
     }
   </style>
-  <div class="tile-container">
-    {[
-      { platform: "Facebook", username: "lighttree.gfx" },
-      { platform: "LinkedIn", username: "in/matthewoyan/" },
-      { platform: "Instagram", username: "sgtlighttree" },
-    ].map((item) => (
-      <div class="tile-item">
-        <Social platform={item.platform} username={item.username} />
-      </div>
-    ))}
-  </div>
+  <p>Have a project in mind? I'd love to hear about it. Fill out the form below and I'll get back to you as soon as possible.</p>
   <div class="contact-form">
-    <h2 id="contact-form-heading">Get In Touch</h2>
+    <!-- <h2 id="contact-form-heading">Get In Touch</h2> -->
     <form
       name="contact"
       method="POST"
@@ -161,6 +151,20 @@ const pageTitle = "Contact";
         <span>Send Message</span>
       </button>
     </form>
+    <br>
+    <hr style="border-top: 1px dashed var(--border-light)">
+    <br>
+    <div class="tile-container">
+      {[
+        { platform: "Facebook", username: "lighttree.gfx" },
+        { platform: "LinkedIn", username: "in/matthewoyan/" },
+        { platform: "Instagram", username: "sgtlighttree" },
+      ].map((item) => (
+        <div class="tile-item">
+          <Social platform={item.platform} username={item.username} />
+        </div>
+      ))}
+    </div>
   </div>
   <style>
       /* Contact Form Styling */
