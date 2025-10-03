@@ -99,14 +99,32 @@ const pageTitle = "Get In Touch";
       </div>
 
       <div class="form-group">
-        <label for="phone">Phone Number</label>
-        <input
-          type="tel"
-          name="phone"
-          id="phone"
-          aria-describedby="phone-help"
-        >
-        <div id="phone-help" class="help-text">Optional - please include country code for international calls (e.g., +63 Philippines, +65 Singapore, +1 US/Canada, +44 UK, +61 Australia)</div>
+        <label for="phone-input">Phone Number</label>
+        <div class="phone-selector-container">
+          <button type="button" class="country-selector" aria-expanded="false" aria-haspopup="listbox" aria-controls="country-dropdown">
+            <span class="flag">🇵🇭</span>
+            <span class="country-code">PH</span>
+            <span class="dropdown-arrow">▼</span>
+          </button>
+          <div class="dial-code-display">+63</div>
+          <input
+            type="tel"
+            class="phone-input"
+            id="phone-input"
+            placeholder="912 345 6789"
+            aria-describedby="phone-help"
+            inputmode="numeric"
+            pattern="[0-9]*"
+          >
+          <input type="hidden" name="phone" class="phone-hidden-input">
+          <div class="country-dropdown" id="country-dropdown" role="listbox" aria-label="Country selection">
+            <input type="text" class="country-search" placeholder="Search country or code" aria-label="Search countries">
+            <div class="country-list" role="listbox">
+              <!-- Countries will be populated by JavaScript -->
+            </div>
+          </div>
+        </div>
+        <div id="phone-help" class="help-text">Optional - select your country and enter your phone number</div>
       </div>
 
       <div class="form-group">
@@ -151,9 +169,7 @@ const pageTitle = "Get In Touch";
         <span>Send Message</span>
       </button>
     </form>
-    <br>
-    <hr style="border-top: 1px dashed var(--border-light)">
-    <br>
+    <br><hr style="border-top: 1px dashed var(--border-light)"><br>
     <div class="tile-container">
       {[
         { platform: "Facebook", username: "lighttree.gfx" },
@@ -174,7 +190,6 @@ const pageTitle = "Get In Touch";
   }
 
   .contact-form button {
-    width: 100%;
   }
 
   .form-group {
@@ -334,6 +349,242 @@ const pageTitle = "Get In Touch";
     .privacy-notice {
       border-width: 2px;
       font-weight: bold;
+    }
+  }
+
+  /*────────────────────────────────────────────────────────────────────────────
+     Phone Selector Styles
+  ────────────────────────────────────────────────────────────────────────────*/
+  .phone-selector-container {
+    position: relative;
+    display: flex;
+    align-items: stretch;
+    width: 100%;
+  }
+
+  .country-selector {
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.75rem;
+    background-color: var(--form-bg);
+    border: 1px solid var(--form-border);
+    border-right: none;
+    color: var(--form-text);
+    font-family: inherit;
+    font-size: 1rem;
+    cursor: pointer;
+    width: 100px;
+    height: 3rem;
+    transition: border-color 0.3s, box-shadow 0.3s;
+    flex-shrink: 0;
+  }
+
+  .country-selector:hover {
+    background-color: var(--hover-bg);
+    color: var(--hover-text);
+  }
+
+  .country-selector:focus {
+    border-color: var(--form-border-focus);
+    box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.1);
+    outline: none;
+    z-index: 1;
+  }
+
+  .country-selector[aria-expanded="true"] {
+    border-color: var(--form-border-focus);
+    box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.1);
+  }
+
+  .flag {
+    font-size: 1.2em;
+    line-height: 1;
+  }
+
+  .country-code {
+    font-weight: 500;
+    letter-spacing: 0.5px;
+  }
+
+  .dropdown-arrow {
+    font-size: 0.8em;
+    transition: transform 0.3s ease;
+  }
+
+  .country-selector[aria-expanded="true"] .dropdown-arrow {
+    transform: rotate(180deg);
+  }
+
+  .dial-code-display {
+    display: flex;
+    align-items: center;
+    padding: 0.75rem;
+    background-color: var(--form-bg);
+    border: 1px solid var(--form-border);
+    border-right: none;
+    border-left: none;
+    color: var(--form-text);
+    font-family: 'Geist Mono Variable', monospace;
+    font-size: 1rem;
+    font-weight: 500;
+    white-space: nowrap;
+    min-width: 50px;
+    width: 50px;
+    height: 3rem;
+    justify-content: center;
+  }
+
+  .phone-input {
+    flex: 1;
+    padding: 0.75rem;
+    border: 1px solid var(--form-border);
+    border-left: none;
+    background-color: var(--form-bg);
+    color: var(--form-text);
+    font-family: inherit;
+    font-size: 1rem;
+    transition: border-color 0.3s, box-shadow 0.3s;
+    height: 3rem;
+  }
+
+  .phone-input:focus {
+    border-color: var(--form-border-focus);
+    box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.1);
+    outline: none;
+  }
+
+  .phone-input::placeholder {
+    color: var(--text-muted);
+  }
+
+  .country-dropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background-color: var(--form-bg);
+    border: 1px solid var(--form-border);
+    border-top: none;
+    border-radius: 0 0 0.25rem 0.25rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    max-height: 300px;
+    overflow: hidden;
+    z-index: 1000;
+    display: none;
+  }
+
+  .country-dropdown[aria-expanded="true"] {
+    display: block;
+  }
+
+  .country-search {
+    width: 100%;
+    padding: 0.75rem;
+    border: none;
+    background-color: var(--bg-secondary);
+    color: var(--form-text);
+    font-family: inherit;
+    font-size: 1rem;
+    border-bottom: 1px solid var(--form-border);
+    box-sizing: border-box;
+  }
+
+  .country-search:focus {
+    outline: none;
+    background-color: var(--hover-bg);
+    color: var(--hover-text);
+  }
+
+  .country-search::placeholder {
+    color: var(--text-muted);
+  }
+
+  .country-list {
+    max-height: 240px;
+    overflow-y: auto;
+    margin: 0;
+    padding: 0;
+  }
+
+  .country-option {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    border-bottom: 1px solid var(--form-border);
+  }
+
+  .country-option:hover,
+  .country-option:focus {
+    background-color: var(--hover-bg);
+    color: var(--hover-text);
+    outline: none;
+  }
+
+  .country-option:last-child {
+    border-bottom: none;
+  }
+
+  .country-option .flag {
+    font-size: 1.2em;
+    width: 24px;
+    text-align: center;
+  }
+
+  .country-option .country-name {
+    flex: 1;
+    font-weight: 400;
+  }
+
+  .country-option .dial-code {
+    font-weight: 500;
+    color: var(--text-secondary);
+    font-family: 'Geist Mono Variable', monospace;
+  }
+
+  /* Dark mode adjustments for phone selector */
+  html.dark .country-dropdown {
+    border-color: var(--border-light);
+    background-color: var(--bg-secondary);
+  }
+
+  html.dark .country-search {
+    background-color: var(--bg-primary);
+    border-color: var(--border-light);
+  }
+
+  html.dark .country-option {
+    border-color: var(--border-light);
+  }
+
+  /* Mobile responsiveness */
+  @media (max-width: 600px) {
+    .country-selector {
+      width: 120px;
+    }
+  }
+
+  /* High contrast mode for phone selector */
+  @media (prefers-contrast: high) {
+    .country-selector,
+    .phone-input,
+    .country-dropdown {
+      border-width: 2px;
+    }
+
+    .country-option {
+      border-bottom-width: 2px;
+    }
+  }
+
+  /* Reduced motion support */
+  @media (prefers-reduced-motion: reduce) {
+    .dropdown-arrow,
+    .country-option {
+      transition: none;
     }
   }
   </style>
@@ -606,11 +857,358 @@ const pageTitle = "Get In Touch";
       }
     }
 
-    // Initialize the form when DOM is loaded
+    // Phone Selector Functionality
+    class PhoneSelector {
+      private container: HTMLElement;
+      private selector: HTMLButtonElement;
+      private dropdown: HTMLElement;
+      private searchInput: HTMLInputElement;
+      private countryList: HTMLElement;
+      private phoneInput: HTMLInputElement;
+      private hiddenInput: HTMLInputElement;
+      private dialCodeDisplay: HTMLElement;
+      private countries: Country[];
+      private currentCountry: Country;
+      private isOpen: boolean = false;
+
+      constructor(container: HTMLElement) {
+        this.container = container;
+        this.selector = container.querySelector('.country-selector') as HTMLButtonElement;
+        this.dropdown = container.querySelector('.country-dropdown') as HTMLElement;
+        this.searchInput = container.querySelector('.country-search') as HTMLInputElement;
+        this.countryList = container.querySelector('.country-list') as HTMLElement;
+        this.phoneInput = container.querySelector('.phone-input') as HTMLInputElement;
+        this.hiddenInput = container.querySelector('.phone-hidden-input') as HTMLInputElement;
+        this.dialCodeDisplay = container.querySelector('.dial-code-display') as HTMLElement;
+
+        this.countries = this.getCountries();
+        this.currentCountry = this.countries[0]; // Default to Philippines
+
+        this.init();
+      }
+
+      private getCountries(): Country[] {
+        const countries: Country[] = [
+          { name: "Philippines", code: "PH", dialCode: "+63", flag: "🇵🇭" },
+          { name: "United States", code: "US", dialCode: "+1", flag: "🇺🇸" },
+          { name: "United Kingdom", code: "GB", dialCode: "+44", flag: "🇬🇧" },
+          { name: "Singapore", code: "SG", dialCode: "+65", flag: "🇸🇬" },
+          { name: "Australia", code: "AU", dialCode: "+61", flag: "🇦🇺" },
+          { name: "Afghanistan", code: "AF", dialCode: "+93", flag: "🇦🇫" },
+          { name: "Albania", code: "AL", dialCode: "+355", flag: "🇦🇱" },
+          { name: "Algeria", code: "DZ", dialCode: "+213", flag: "🇩🇿" },
+          { name: "Argentina", code: "AR", dialCode: "+54", flag: "🇦🇷" },
+          { name: "Austria", code: "AT", dialCode: "+43", flag: "🇦🇹" },
+          { name: "Bangladesh", code: "BD", dialCode: "+880", flag: "🇧🇩" },
+          { name: "Belgium", code: "BE", dialCode: "+32", flag: "🇧🇪" },
+          { name: "Brazil", code: "BR", dialCode: "+55", flag: "🇧🇷" },
+          { name: "Canada", code: "CA", dialCode: "+1", flag: "🇨🇦" },
+          { name: "China", code: "CN", dialCode: "+86", flag: "🇨🇳" },
+          { name: "Denmark", code: "DK", dialCode: "+45", flag: "🇩🇰" },
+          { name: "Egypt", code: "EG", dialCode: "+20", flag: "🇪🇬" },
+          { name: "Finland", code: "FI", dialCode: "+358", flag: "🇫🇮" },
+          { name: "France", code: "FR", dialCode: "+33", flag: "🇫🇷" },
+          { name: "Germany", code: "DE", dialCode: "+49", flag: "🇩🇪" },
+          { name: "Greece", code: "GR", dialCode: "+30", flag: "🇬🇷" },
+          { name: "Hong Kong", code: "HK", dialCode: "+852", flag: "🇭🇰" },
+          { name: "India", code: "IN", dialCode: "+91", flag: "🇮🇳" },
+          { name: "Indonesia", code: "ID", dialCode: "+62", flag: "🇮🇩" },
+          { name: "Iran", code: "IR", dialCode: "+98", flag: "🇮🇷" },
+          { name: "Iraq", code: "IQ", dialCode: "+964", flag: "🇮🇶" },
+          { name: "Ireland", code: "IE", dialCode: "+353", flag: "🇮🇪" },
+          { name: "Israel", code: "IL", dialCode: "+972", flag: "🇮🇱" },
+          { name: "Italy", code: "IT", dialCode: "+39", flag: "🇮🇹" },
+          { name: "Japan", code: "JP", dialCode: "+81", flag: "🇯🇵" },
+          { name: "Jordan", code: "JO", dialCode: "+962", flag: "🇯🇴" },
+          { name: "Kenya", code: "KE", dialCode: "+254", flag: "🇰🇪" },
+          { name: "Kuwait", code: "KW", dialCode: "+965", flag: "🇰🇼" },
+          { name: "Lebanon", code: "LB", dialCode: "+961", flag: "🇱🇧" },
+          { name: "Malaysia", code: "MY", dialCode: "+60", flag: "🇲🇾" },
+          { name: "Mexico", code: "MX", dialCode: "+52", flag: "🇲🇽" },
+          { name: "Netherlands", code: "NL", dialCode: "+31", flag: "🇳🇱" },
+          { name: "New Zealand", code: "NZ", dialCode: "+64", flag: "🇳🇿" },
+          { name: "Nigeria", code: "NG", dialCode: "+234", flag: "🇳🇬" },
+          { name: "Norway", code: "NO", dialCode: "+47", flag: "🇳🇴" },
+          { name: "Pakistan", code: "PK", dialCode: "+92", flag: "🇵🇰" },
+          { name: "Poland", code: "PL", dialCode: "+48", flag: "🇵🇱" },
+          { name: "Portugal", code: "PT", dialCode: "+351", flag: "🇵🇹" },
+          { name: "Qatar", code: "QA", dialCode: "+974", flag: "🇶🇦" },
+          { name: "Russia", code: "RU", dialCode: "+7", flag: "🇷🇺" },
+          { name: "Saudi Arabia", code: "SA", dialCode: "+966", flag: "🇸🇦" },
+          { name: "South Africa", code: "ZA", dialCode: "+27", flag: "🇿🇦" },
+          { name: "South Korea", code: "KR", dialCode: "+82", flag: "🇰🇷" },
+          { name: "Spain", code: "ES", dialCode: "+34", flag: "🇪🇸" },
+          { name: "Sweden", code: "SE", dialCode: "+46", flag: "🇸🇪" },
+          { name: "Switzerland", code: "CH", dialCode: "+41", flag: "🇨🇭" },
+          { name: "Taiwan", code: "TW", dialCode: "+886", flag: "🇹🇼" },
+          { name: "Thailand", code: "TH", dialCode: "+66", flag: "🇹🇭" },
+          { name: "Turkey", code: "TR", dialCode: "+90", flag: "🇹🇷" },
+          { name: "Ukraine", code: "UA", dialCode: "+380", flag: "🇺🇦" },
+          { name: "United Arab Emirates", code: "AE", dialCode: "+971", flag: "🇦🇪" },
+          { name: "Vietnam", code: "VN", dialCode: "+84", flag: "🇻🇳" }
+        ];
+
+        return countries;
+      }
+
+      private init(): void {
+        this.updateSelectorDisplay();
+        this.populateCountries();
+        this.bindEvents();
+      }
+
+      private populateCountries(): void {
+        this.countryList.innerHTML = '';
+
+        this.countries.forEach((country, index) => {
+          const option = document.createElement('div');
+          option.className = 'country-option';
+          option.setAttribute('role', 'option');
+          option.setAttribute('aria-selected', 'false');
+          option.setAttribute('data-index', index.toString());
+
+          option.innerHTML = `
+            <span class="flag">${country.flag}</span>
+            <span class="country-name">${country.name}</span>
+            <span class="dial-code">${country.dialCode}</span>
+          `;
+
+          option.addEventListener('click', () => this.selectCountry(country, option));
+          option.addEventListener('keydown', (e) => this.handleOptionKeydown(e, country, option));
+
+          this.countryList.appendChild(option);
+        });
+      }
+
+      private bindEvents(): void {
+        // Toggle dropdown
+        this.selector.addEventListener('click', () => this.toggleDropdown());
+
+        // Search functionality
+        this.searchInput.addEventListener('input', (e) => this.handleSearch(e));
+        this.searchInput.addEventListener('keydown', (e) => this.handleSearchKeydown(e));
+
+        // Close dropdown when clicking outside
+        document.addEventListener('click', (e) => this.handleOutsideClick(e));
+
+        // Keyboard navigation
+        this.selector.addEventListener('keydown', (e) => this.handleSelectorKeydown(e));
+
+        // Phone input validation (numeric only)
+        this.phoneInput.addEventListener('input', (e) => this.handlePhoneInput(e));
+        this.phoneInput.addEventListener('keydown', (e) => this.handlePhoneKeydown(e));
+      }
+
+      private toggleDropdown(): void {
+        if (this.isOpen) {
+          this.closeDropdown();
+        } else {
+          this.openDropdown();
+        }
+      }
+
+      private openDropdown(): void {
+        this.isOpen = true;
+        this.selector.setAttribute('aria-expanded', 'true');
+        this.dropdown.setAttribute('aria-expanded', 'true');
+        this.searchInput.focus();
+
+        // Announce to screen readers
+        this.announceDropdown('Country selector opened');
+      }
+
+      private closeDropdown(): void {
+        this.isOpen = false;
+        this.selector.setAttribute('aria-expanded', 'false');
+        this.dropdown.setAttribute('aria-expanded', 'false');
+        this.searchInput.value = '';
+
+        // Clear search filter
+        const options = this.countryList.querySelectorAll('.country-option');
+        options.forEach(option => {
+          (option as HTMLElement).style.display = 'flex';
+        });
+
+        // Only focus selector if keyboard was used to close it
+        // Don't focus if closed by clicking outside to avoid stealing focus from other form fields
+        this.announceDropdown('Country selector closed');
+      }
+
+      private handleSearch(e: Event): void {
+        const query = (e.target as HTMLInputElement).value.toLowerCase().trim();
+        const options = this.countryList.querySelectorAll('.country-option');
+
+        options.forEach(option => {
+          const countryName = option.querySelector('.country-name')?.textContent?.toLowerCase() || '';
+          const dialCode = option.querySelector('.dial-code')?.textContent?.toLowerCase() || '';
+
+          if (countryName.includes(query) || dialCode.includes(query)) {
+            (option as HTMLElement).style.display = 'flex';
+          } else {
+            (option as HTMLElement).style.display = 'none';
+          }
+        });
+      }
+
+      private handleSearchKeydown(e: KeyboardEvent): void {
+        if (e.key === 'Escape') {
+          this.closeDropdown();
+        } else if (e.key === 'ArrowDown') {
+          e.preventDefault();
+          const firstVisibleOption = this.countryList.querySelector('.country-option[style*="flex"]') as HTMLElement;
+          if (firstVisibleOption) {
+            firstVisibleOption.focus();
+          }
+        }
+      }
+
+      private handleSelectorKeydown(e: KeyboardEvent): void {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          this.toggleDropdown();
+        } else if (e.key === 'ArrowDown' && !this.isOpen) {
+          e.preventDefault();
+          this.openDropdown();
+        }
+      }
+
+      private handleOptionKeydown(e: KeyboardEvent, country: Country, option: HTMLElement): void {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          this.selectCountry(country, option);
+        } else if (e.key === 'ArrowDown') {
+          e.preventDefault();
+          this.focusNextOption(option);
+        } else if (e.key === 'ArrowUp') {
+          e.preventDefault();
+          this.focusPreviousOption(option);
+        } else if (e.key === 'Escape') {
+          this.closeDropdown();
+        }
+      }
+
+      private focusNextOption(currentOption: HTMLElement): void {
+        const visibleOptions = Array.from(this.countryList.querySelectorAll('.country-option[style*="flex"]')) as HTMLElement[];
+        const currentIndex = visibleOptions.indexOf(currentOption);
+        const nextIndex = (currentIndex + 1) % visibleOptions.length;
+        visibleOptions[nextIndex].focus();
+      }
+
+      private focusPreviousOption(currentOption: HTMLElement): void {
+        const visibleOptions = Array.from(this.countryList.querySelectorAll('.country-option[style*="flex"]')) as HTMLElement[];
+        const currentIndex = visibleOptions.indexOf(currentOption);
+        const prevIndex = currentIndex === 0 ? visibleOptions.length - 1 : currentIndex - 1;
+        visibleOptions[prevIndex].focus();
+      }
+
+      private handleOutsideClick(e: Event): void {
+        if (!this.container.contains(e.target as Node)) {
+          this.closeDropdown();
+        }
+      }
+
+      private handlePhoneInput(e: Event): void {
+        const input = e.target as HTMLInputElement;
+        // Remove any non-numeric characters
+        input.value = input.value.replace(/[^\d]/g, '');
+        this.updateHiddenInput();
+      }
+
+      private handlePhoneKeydown(e: KeyboardEvent): void {
+        // Allow backspace, delete, tab, escape, enter, arrows
+        if (['Backspace', 'Delete', 'Tab', 'Escape', 'Enter', 'ArrowLeft', 'ArrowRight'].includes(e.key)) {
+          return;
+        }
+
+        // Prevent input if it's not a number
+        if (!/[0-9]/.test(e.key)) {
+          e.preventDefault();
+        }
+      }
+
+      private selectCountry(country: Country, option: HTMLElement): void {
+        this.currentCountry = country;
+        this.updateSelectorDisplay();
+        this.updateHiddenInput();
+        this.closeDropdown();
+
+        // Clear previous selection
+        const allOptions = this.countryList.querySelectorAll('.country-option');
+        allOptions.forEach(opt => opt.setAttribute('aria-selected', 'false'));
+
+        // Set new selection
+        option.setAttribute('aria-selected', 'true');
+
+        // Announce selection to screen readers
+        this.announceSelection(country);
+      }
+
+      private updateSelectorDisplay(): void {
+        const flagEl = this.selector.querySelector('.flag');
+        const codeEl = this.selector.querySelector('.country-code');
+
+        if (flagEl) flagEl.textContent = this.currentCountry.flag;
+        if (codeEl) codeEl.textContent = this.currentCountry.code;
+        if (this.dialCodeDisplay) this.dialCodeDisplay.textContent = this.currentCountry.dialCode;
+      }
+
+      private updateHiddenInput(): void {
+        const phoneNumber = this.phoneInput.value.trim();
+        if (phoneNumber) {
+          this.hiddenInput.value = `${this.currentCountry.dialCode} ${phoneNumber}`;
+        } else {
+          this.hiddenInput.value = '';
+        }
+      }
+
+      private announceDropdown(state: string): void {
+        const announcement = document.createElement('div');
+        announcement.setAttribute('aria-live', 'polite');
+        announcement.setAttribute('aria-atomic', 'true');
+        announcement.className = 'visually-hidden';
+        announcement.textContent = state;
+
+        document.body.appendChild(announcement);
+
+        setTimeout(() => {
+          document.body.removeChild(announcement);
+        }, 1000);
+      }
+
+      private announceSelection(country: Country): void {
+        const announcement = document.createElement('div');
+        announcement.setAttribute('aria-live', 'polite');
+        announcement.setAttribute('aria-atomic', 'true');
+        announcement.className = 'visually-hidden';
+        announcement.textContent = `Selected country: ${country.name}, dial code: ${country.dialCode}`;
+
+        document.body.appendChild(announcement);
+
+        setTimeout(() => {
+          document.body.removeChild(announcement);
+        }, 1000);
+      }
+    }
+
+    // Country interface
+    interface Country {
+      name: string;
+      code: string;
+      dialCode: string;
+      flag: string;
+    }
+
+    // Initialize the form and phone selector when DOM is loaded
     document.addEventListener('DOMContentLoaded', () => {
       const contactForm = document.querySelector('form[name="contact"]') as HTMLFormElement | null;
       if (contactForm) {
         new AccessibleContactForm(contactForm);
+      }
+
+      // Initialize phone selector
+      const phoneContainer = document.querySelector('.phone-selector-container') as HTMLElement | null;
+      if (phoneContainer) {
+        new PhoneSelector(phoneContainer);
       }
     });
   </script>
