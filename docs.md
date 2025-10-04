@@ -125,6 +125,7 @@ Anti-spam email protection:
 
 ### Building & Previewing
 ```bash
+netlify dev           # use Netlify features
 npm run dev           # Local dev with hot reload
 npm run dev -- --host # Expose to network
 npm run build        # Production build
