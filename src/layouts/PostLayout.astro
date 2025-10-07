@@ -3,9 +3,10 @@ import BaseLayout from './BaseLayout.astro';
 const { frontmatter } = Astro.props;
 
 // Auto-detect layout behavior based on URL path
-const isBlogPost = Astro.url.pathname.startsWith('/posts/');
+const isBlogPost = Astro.url.pathname.startsWith('/blog/');
+const isFiction = Astro.url.pathname.startsWith('/fiction/');
 const isPortfolio = Astro.url.pathname.startsWith('/portfolio/');
-const showFooterCta = isPortfolio && !isBlogPost;
+const showFooterCta = isPortfolio && !(isBlogPost || isFiction);
 ---
 <BaseLayout
   pageTitle={frontmatter.title}
@@ -20,7 +21,7 @@ const showFooterCta = isPortfolio && !isBlogPost;
     <p>Written by: {frontmatter.author}</p>
   )}
 
-  {isBlogPost && !isPortfolio && (
+  {(isBlogPost || isFiction) && !isPortfolio && frontmatter?.tags?.length > 0 && (
     <div class="tags">
       {frontmatter.tags.map((tag: string) => (
         <p class="tag"><a href={`/tags/${tag}`}>{tag}</a></p>

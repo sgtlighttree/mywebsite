@@ -1,8 +1,9 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-const blogPosts = Object.values(import.meta.glob('../posts/*.md', { eager: true }));
+const blogPosts = Object.values(import.meta.glob('../blog/*.md', { eager: true }));
 const writingPosts = Object.values(import.meta.glob('../writing/*.md', { eager: true }));
-const allPosts = [...blogPosts, ...writingPosts];
+const fictionPosts = Object.values(import.meta.glob('../fiction/*.md', { eager: true }));
+const allPosts = [...blogPosts, ...writingPosts, ...fictionPosts];
 const tags = [...new Set(allPosts.map((post: any) => post.frontmatter.tags).flat())];
 const pageTitle = "Tag Index";
 ---

@@ -10,43 +10,75 @@ For when I need to set up or remind myself of the basics:
 ```bash
 cd /Users/matthewoyan/mywebsite
 npm install
-npm run dev
+# Use Netlify dev so Image CDN transforms (/.netlify/images) work locally
+netlify dev
+# If the Netlify CLI isn’t installed:
+# npx netlify-cli dev
 ```
 
 ### Project Overview
 This is my personal portfolio site built with:
-- **Astro**: Static site generator with component support
-- **Preact**: For interactive components (PhotoGallery, etc.)
-- **MDX**: Blog posts and portfolio items
-- **Sitemap**: Auto-generated via @astrojs/sitemap
-- **Staging URL**: Currently set to `https://staging-mattoyan.netlify.app/` - update in astro.config.mjs for production
+- Astro 5 with islands
+- Preact islands; React/ReactDOM are aliased to @preact/compat in package.json (React-style imports render via Preact)
+- MD and MDX content
+- Sitemap auto-generated via @astrojs/sitemap
+- Netlify for deploy and local dev (required for Netlify Image CDN)
+- Canonical site URL set in astro.config.mjs (update when switching staging → production)
 
 ### Dependencies to Watch
-- Astro 5.9.0 (latest)
-- Preact integration for components
-- MDX for content
-- FontSource for custom fonts
-- DotLottie for animations (footer monogram)
+- Astro 5.9.x
+- Preact integration (@astrojs/preact) and MDX (@astrojs/mdx)
+- @preact/compat (React alias) — verify compatibility of new React libraries with Preact
+- @fontsource-variable/* for hosted fonts
+- @lottiefiles/dotlottie-web (via Vite alias to dist entry)
+
+### Netlify Image CDN (local image transforms)
+Home grid (src/pages/index.astro) uses Netlify Image CDN to generate responsive images at runtime.
+- Use netlify dev locally; npm run preview will not render /.netlify/images URLs.
+- Images are sourced from frontmatter.image and converted to avif/webp/png via CDN.
+
+Helpers from index.astro:
+```ts
+function createNetlifyImageUrl(imagePath: string, width: number = 400, format: string = 'avif') {
+  if (!imagePath) return '';
+  const cleanPath = imagePath.replace(/^(\.\.\/)+/, '/');
+  return `/.netlify/images/?url=${encodeURIComponent(cleanPath)}&w=${width}&q=85&f=${format}`;
+}
+
+function getBestImageFormat(image: any): string | null {
+  // Prefer PNG, then WebP, then AVIF (for best conversion quality)
+  return image?.png || image?.webp || image?.avif || null;
+}
+```
+Frontmatter example for portfolio entries:
+```yaml
+image:
+  png: "../../../images/example.png"   # or webp/avif; CDN will convert to requested format
+  alt: "Descriptive alt text"
+```
 
 ## Project Structure
 
 ```
 src/
 ├── components/    # Reusable UI components (.astro, .jsx)
-├── layouts/       # Page templates (BaseLayout, PostLayouts)
-├── pages/         # Routes (.astro files, .md posts)
-│   ├── writing/   # Main writings index page
-│   ├── blog/      # Technical blog posts
-│   ├── fiction/   # Creative writing pieces
-│   ├── portfolio/ # Project work
-│   └── ...        # Other pages
+├── layouts/       # BaseLayout, PostLayout (+ archive/ old layouts)
+├── pages/         # File-based routes
+│   ├── blog/      # Blog posts (.md)
+│   ├── fiction/   # Creative writing (.md)
+│   ├── portfolio/ # Portfolio entries (.md/.mdx)
+│   ├── tags/      # Tag index and tag detail pages
+│   └── ...        # Other pages (contact, resume, privacy-policy, 404)
 ├── styles/        # Global CSS
-└── scripts/       # JavaScript files
 
 public/            # Static assets, images, videos
-├── images/        # Optimized webp/avif images
-├── videos/        # MP4 files
-└── wiki/         # Separate wiki section
+├── images/
+├── videos/
+└── wiki/          # Static wiki with live-reload command
+
+netlify/
+└── functions/
+    └── submission-created.js  # Serverless function for Netlify Forms email delivery
 ```
 
 ## Layouts
@@ -66,14 +98,12 @@ Props:
 - `pageDescription` (optional): SEO description
 - `showFooterCta` (optional): Toggle footer CTA
 
-### PostLayouts (Blog & Portfolio)
-Shared structure for content pages:
-- Frontmatter: title, description, pubDate, tags
-- SEO integration with BaseLayout
-- Tag links (disabled for portfolio)
-- Linked from `/posts/` or `/portfolio/`
-
-**Note:** Consider merging BlogPostLayout and PortfolioPostLayout into a generic PostLayout with props to reduce duplication.
+### PostLayout.astro
+- Wraps content with BaseLayout; derives metadata from frontmatter
+- Auto-detects route by path: blog, fiction, or portfolio
+- Shows tags for blog and fiction posts; portfolio hides tags
+- Footer CTA shows only for portfolio entries
+- Old layouts retained under src/layouts/archive/
 
 ## Key Components
 
@@ -87,7 +117,7 @@ A modern, serverless contact form with the following features:
 - **Spam Protection**: Uses Netlify's built-in `netlify-honeypot` for efficient, server-side spam filtering.
 
 ### Navigation (Header + Navigation)
-- Responsive nav with **smart active highlighting** - "Writings" tab stays highlighted across `/writing/`, `/blog/`, and `/fiction/` paths
+- Responsive nav with smart active highlighting — "Writings" tab stays highlighted across `/writing/`, `/blog/`, and `/fiction/`
 - Theme switcher (saves to localStorage)
 - Clean, simple structure
 
@@ -125,12 +155,9 @@ Anti-spam email protection:
 
 ### Building & Previewing
 ```bash
-netlify dev           # use Netlify features
-npm run dev           # Local dev with hot reload
-npm run dev -- --host # Expose to network
-npm run build        # Production build
-npm run preview      # Preview production build
-npm run build && npm run dev -- --host # combined build and then expose
+netlify dev         # Local dev with Netlify features (required for /.netlify/images)
+npm run build       # Production build
+npm run preview     # Preview static build (CDN images will NOT render locally)
 ```
 
 ### Image Optimization + Conversion Cheatsheet
@@ -152,19 +179,39 @@ ffmpeg -i MatthewOyan_MonogramAnimation.mov -vf "fps=60,scale=100:60" -c:v libwe
 npm run dev:wiki     # Develop wiki section with browser-sync
 ```
 
+## Tags
+- Tag index and detail pages aggregate across blog, writing, and fiction
+- To tag a post, add a tags array in frontmatter; PostLayout renders tags on blog/fiction
+- Tag styles can be adjusted in src/styles/global.css
+
+Example frontmatter:
+```yaml
+---
+layout: ../../layouts/PostLayout.astro
+title: Example Post
+pubDate: 2025-10-01
+tags: [design, process]
+---
+```
+
 ## Build & Deployment
 
-Configured for production builds:
-- Static generation via Astro
-- Sitemap auto-generation
-- Optimized assets
-- Staging currently set in config
-
-Deploy to Netlify/GitHub Pages by pushing to main branch. Update site URL in astro.config.mjs when deploying.
+- Static generation via Astro; sitemap via @astrojs/sitemap
+- Netlify is the target platform (see README badge and astro.config.mjs site)
+- For a production-like preview with working images, use a Netlify draft deploy:
+  ```bash
+  netlify deploy --build --draft --open
+  ```
+- Update the site field in astro.config.mjs when switching from staging to production to ensure correct canonical URLs
 
 ## Troubleshooting
 
 Common issues and fixes:
+
+### Images don’t render locally
+- Ensure you are running `netlify dev` (not `npm run preview`)
+- Verify frontmatter.image paths are correct (relative paths that resolve to /public via the helper)
+- Make sure at least one of png/webp/avif is present in frontmatter.image
 
 ### Build Errors
 - Check frontmatter in `.md` files (YAML valid?)
