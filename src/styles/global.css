@@ -487,10 +487,6 @@ header nav {
   color: var(--text-primary);
 }
 
-.contact-info .material-symbols-outlined {
-  margin-right: 0.75rem;
-}
-
 .contact-info a {
   color: var(--text-primary);
   border-bottom: 1px solid transparent;

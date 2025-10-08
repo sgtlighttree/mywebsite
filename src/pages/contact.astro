@@ -17,12 +17,14 @@ const pageTitle = "Get In Touch";
   <div class="contact-form">
     <!-- <h2 id="contact-form-heading">Get In Touch</h2> -->
     <form
+      id="contact-form"
       name="contact"
       method="POST"
       data-netlify="true"
       netlify-honeypot="bot-field"
       action="/success/"
       aria-labelledby="contact-form-heading"
+      autocomplete="on"
       novalidate
     >
       <input type="hidden" name="form-name" value="contact" />
@@ -50,6 +52,8 @@ const pageTitle = "Get In Touch";
             required
             aria-describedby="firstname-error"
             aria-invalid="false"
+            autocomplete="given-name"
+            maxlength="100"
           >
           <div id="firstname-error" class="error-message" role="alert" aria-live="polite"></div>
         </div>
@@ -65,6 +69,8 @@ const pageTitle = "Get In Touch";
             required
             aria-describedby="lastname-error"
             aria-invalid="false"
+            autocomplete="family-name"
+            maxlength="100"
           >
           <div id="lastname-error" class="error-message" role="alert" aria-live="polite"></div>
         </div>
@@ -82,6 +88,9 @@ const pageTitle = "Get In Touch";
           required
           aria-describedby="email-error email-help"
           aria-invalid="false"
+          autocomplete="email"
+          inputmode="email"
+          maxlength="254"
         >
         <div id="email-help" class="help-text">We'll use this to respond to your inquiry</div>
         <div id="email-error" class="error-message" role="alert" aria-live="polite"></div>
@@ -94,6 +103,8 @@ const pageTitle = "Get In Touch";
           name="organization"
           id="organization"
           aria-describedby="organization-help"
+          autocomplete="organization"
+          maxlength="150"
         >
         <div id="organization-help" class="help-text">Optional - let us know if you're contacting from a company or organization</div>
       </div>
@@ -101,10 +112,10 @@ const pageTitle = "Get In Touch";
       <div class="form-group">
         <label for="phone-input">Phone Number</label>
         <div class="phone-selector-container">
-          <button type="button" class="country-selector" aria-expanded="false" aria-haspopup="listbox" aria-controls="country-dropdown">
-            <span class="flag">🇵🇭</span>
-            <span class="country-code">PH</span>
-            <span class="dropdown-arrow">▼</span>
+          <button type="button" class="country-selector" aria-expanded="false" aria-haspopup="listbox" aria-controls="country-dropdown" aria-label="Select country">
+            <span class="flag" aria-hidden="true">🇵🇭</span>
+            <span class="country-code" aria-live="polite">PH</span>
+            <span class="dropdown-arrow" aria-hidden="true">▼</span>
           </button>
           <div class="dial-code-display">+63</div>
           <input
@@ -115,6 +126,8 @@ const pageTitle = "Get In Touch";
             aria-describedby="phone-help"
             inputmode="numeric"
             pattern="[0-9]*"
+            autocomplete="tel-national"
+            maxlength="32"
           >
           <input type="hidden" name="phone" class="phone-hidden-input">
           <div class="country-dropdown" id="country-dropdown" role="listbox" aria-label="Country selection">
@@ -139,6 +152,9 @@ const pageTitle = "Get In Touch";
           required
           aria-describedby="topic-error topic-help"
           aria-invalid="false"
+          autocomplete="off"
+          minlength="3"
+          maxlength="100"
         >
         <div id="topic-help" class="help-text">Brief description of your inquiry</div>
         <div id="topic-error" class="error-message" role="alert" aria-live="polite"></div>
@@ -156,6 +172,8 @@ const pageTitle = "Get In Touch";
           required
           aria-describedby="message-error message-help"
           aria-invalid="false"
+          minlength="10"
+          maxlength="5000"
         ></textarea>
         <div id="message-help" class="help-text">Please provide details about your inquiry</div>
         <div id="message-error" class="error-message" role="alert" aria-live="polite"></div>
@@ -184,7 +202,6 @@ const pageTitle = "Get In Touch";
     </div>
   </div>
   <style>
-  /* Contact Form Styling */
   .contact-form {
     max-width: 100%;
     margin: 2rem 0;
@@ -578,6 +595,7 @@ const pageTitle = "Get In Touch";
       transition: none;
     }
   }
+
   </style>
 
   <script>
@@ -663,6 +681,7 @@ const pageTitle = "Get In Touch";
 
           // Show loading state
           this.setLoadingState(true);
+          this.form.setAttribute('aria-busy', 'true');
 
           // Submit the form
           this.form.submit();
@@ -791,18 +810,18 @@ const pageTitle = "Get In Touch";
         const subjectField = this.form.querySelector('#subject-field') as HTMLInputElement | null;
 
         if (topicEl && firstnameEl && lastnameEl && subjectField) {
-          const topic = topicEl.value.trim();
-          const firstname = firstnameEl.value.trim();
-          const lastname = lastnameEl.value.trim();
-          const organization = organizationEl ? organizationEl.value.trim() : '';
+          const sanitize = (s: string, max = 150) => (s || '').replace(/[\r\n]+/g, ' ').trim().slice(0, max);
+          const topic = sanitize(topicEl.value, 100);
+          const firstname = sanitize(firstnameEl.value, 100);
+          const lastname = sanitize(lastnameEl.value, 100);
+          const organization = organizationEl ? sanitize(organizationEl.value, 150) : '';
 
-          let subject = `[${topic}] - Message from ${firstname} ${lastname}`;
+          const base = topic ? `[${topic}]` : '[Contact]';
+          const name = [firstname, lastname].filter(Boolean).join(' ');
+          const suffix = [name, organization ? `, ${organization}` : ''].filter(Boolean).join('');
+          const subject = [base, suffix ? ` - Message from ${suffix}` : ''].join('');
 
-          if (organization) {
-            subject += `, ${organization}`;
-          }
-
-          subjectField.value = subject;
+          subjectField.value = subject.slice(0, 200);
         }
       }
 
