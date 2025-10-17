@@ -7,17 +7,21 @@ export interface Props {
   metaTitle?: string; // different title for tabs
   pageDescription?: string;
   showFooterCta?: boolean;
+  ogImage?: string; // Custom OG image for the page
 }
-const { pageTitle, metaTitle, pageDescription, showFooterCta = true } = Astro.props;
+const { pageTitle, metaTitle, pageDescription, showFooterCta = true, ogImage } = Astro.props;
 const siteName = "Matthew Oyan";
 const finalTabTitle = metaTitle ? metaTitle : `${siteName} - ${pageTitle}`;
+const defaultOgImage = "/images/MatthewOyan_Monogram3D_Blue1_render01-8bit.png";
+const finalOgImage = ogImage || defaultOgImage;
 ---
 <html lang="en">
   <head>
     <meta charset="utf-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta name="viewport" content="width=device-width" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="generator" content={Astro.generator} />
+    <link rel="canonical" href={Astro.url.href} />
     <title>{finalTabTitle}</title>
     {pageDescription && <meta name="description" content={pageDescription} />}
 
@@ -26,14 +30,16 @@ const finalTabTitle = metaTitle ? metaTitle : `${siteName} - ${pageTitle}`;
     <meta property="og:url" content={Astro.url.href} />
     <meta property="og:title" content={finalTabTitle} />
     {pageDescription && <meta property="og:description" content={pageDescription} />}
-    <meta property="og:image" content="/images/dti25pa_heroImage.png" />
+    <meta property="og:image" content={finalOgImage} />
+    <meta property="og:image:alt" content={pageTitle} />
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image" />
     <meta property="twitter:url" content={Astro.url.href} />
     <meta property="twitter:title" content={finalTabTitle} />
     {pageDescription && <meta property="twitter:description" content={pageDescription} />}
-    <meta property="twitter:image" content="/images/dti25pa_heroImage.png" />
+    <meta property="twitter:image" content={finalOgImage} />
+    <meta property="twitter:image:alt" content={pageTitle} />
 
   </head>
   <body>

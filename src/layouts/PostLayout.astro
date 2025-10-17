@@ -7,12 +7,24 @@ const isBlogPost = Astro.url.pathname.startsWith('/blog/');
 const isFiction = Astro.url.pathname.startsWith('/fiction/');
 const isPortfolio = Astro.url.pathname.startsWith('/portfolio/');
 const showFooterCta = isPortfolio && !(isBlogPost || isFiction);
+
+// Get OG image from frontmatter if available (portfolio entries)
+let ogImage: string | undefined;
+if (frontmatter.image) {
+  // Prefer AVIF, then WebP, then PNG for optimization
+  const imagePath = frontmatter.image.avif || frontmatter.image.webp || frontmatter.image.png;
+  if (imagePath) {
+    // Convert relative path to absolute path
+    ogImage = imagePath.replace(/^(\.\.\/)+/, '/');
+  }
+}
 ---
 <BaseLayout
   pageTitle={frontmatter.title}
   metaTitle={frontmatter.title}
   pageDescription={frontmatter.description}
   showFooterCta={showFooterCta}
+  ogImage={ogImage}
 >
   <p><em>{frontmatter.description}</em></p>
   <p>{new Date(frontmatter.pubDate).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}</p>
@@ -30,3 +42,22 @@ const showFooterCta = isPortfolio && !(isBlogPost || isFiction);
   )}
   <slot />
 </BaseLayout>
+
+{(isBlogPost || isFiction) && (
+  <script type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": frontmatter.title,
+    "description": frontmatter.description,
+    "datePublished": new Date(frontmatter.pubDate).toISOString(),
+    "author": {
+      "@type": "Person",
+      "name": frontmatter.author || "Matthew Oyan"
+    },
+    "url": Astro.url.href,
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": Astro.url.href
+    }
+  })}></script>
+)}

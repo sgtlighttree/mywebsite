@@ -78,14 +78,13 @@ function getBestImageFormat(image: any): string | null {
   </div>
 </BaseLayout>
 
-<script type="application/ld+json">
-{
+<script type="application/ld+json" set:html={JSON.stringify({
   "@context": "https://schema.org",
   "@type": "CollectionPage",
-  "name": "{metaTitle}",
-  "description": "{pageDescription}",
-  "url": "{Astro.url.href}",
-  "image": "/images//MatthewOyan_2025_headshot_optimized_65.webp",
+  "name": metaTitle,
+  "description": pageDescription,
+  "url": Astro.url.href,
+  "image": "/images/MatthewOyan_2025_headshot_optimized_65.webp",
   "publisher": {
     "@type": "Organization",
     "name": "Matthew Oyan",
@@ -94,5 +93,4 @@ function getBestImageFormat(image: any): string | null {
       "url": "/favicon.svg"
     }
   }
-}
-</script>
+})}></script>
