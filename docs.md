@@ -112,9 +112,20 @@ A modern, serverless contact form with the following features:
 - **Netlify Forms**: Submissions are stored in the Netlify dashboard.
 - **Netlify Function**: A `submission-created` function at `netlify/functions/submission-created.js` intercepts submissions to send a custom-formatted email.
 - **Custom Email Delivery**: Uses `nodemailer` to send emails via a Maileroo SMTP relay for professional delivery.
-- **Dynamic Subject Line**: A client-side script generates a subject line based on user input (e.g., `[Topic] - Message from John Doe, Company Inc.`).
+- **Subject Line Generation**: Subject is auto-generated client-side from Topic, Name, and optional Organization; sanitized (no CR/LF) and capped (200 chars) before submit.
 - **Reply-To Header**: The notification email has the `replyTo` header set to the user's email, allowing for direct replies.
 - **Spam Protection**: Uses Netlify's built-in `netlify-honeypot` for efficient, server-side spam filtering.
+- **Client UX**: On submit, the form sets `aria-busy` and disables the button with a “Sending…” label to prevent duplicates. Inputs include autocomplete and length limits (firstname/lastname max 100, email max 254, organization max 150, topic 3–100, message 10–5000, phone max 32).
+- **Phone Selector A11y**: Country picker is keyboard-accessible with ARIA roles; the submitted `phone` hidden field consolidates dial code + number.
+
+#### Environment Variables (serverless function)
+- `MAILEROO_HOST`, `MAILEROO_PORT`, `MAILEROO_USER`, `MAILEROO_PASS`
+- `MAIL_TO` (recipient address)
+
+#### Function hardening
+- Sanitizes `subject` and `replyTo` headers (strips CR/LF, trims, length-caps)
+- Caps message/field lengths (e.g., message ≤ 5000)
+- Simple best-effort rate limit: 1 submission per 30 seconds per email (per warm container)
 
 ### Navigation (Header + Navigation)
 - Responsive nav with smart active highlighting — "Writings" tab stays highlighted across `/writing/`, `/blog/`, and `/fiction/`
@@ -198,6 +209,8 @@ tags: [design, process]
 
 - Static generation via Astro; sitemap via @astrojs/sitemap
 - Netlify is the target platform (see README badge and astro.config.mjs site)
+- Headers/CSP via `netlify.toml`:
+  - Allows Fontsource via jsDelivr in `font-src`; permits inline styles/scripts for now (can tighten later by removing inline CSS/JS)
 - For a production-like preview with working images, use a Netlify draft deploy:
   ```bash
   netlify deploy --build --draft --open
@@ -212,6 +225,12 @@ Common issues and fixes:
 - Ensure you are running `netlify dev` (not `npm run preview`)
 - Verify frontmatter.image paths are correct (relative paths that resolve to /public via the helper)
 - Make sure at least one of png/webp/avif is present in frontmatter.image
+
+### Submission rate-limited (HTTP 429)
+- The serverless function throttles repeat submissions (per warm container): wait ~30 seconds and try again.
+
+### Email subject or reply-to malformed
+- The function sanitizes CR/LF and caps lengths; ensure Email is valid and Topic is present. The client auto-generates a safe subject.
 
 ### Build Errors
 - Check frontmatter in `.md` files (YAML valid?)
@@ -266,6 +285,9 @@ Personal workflow:
 - Push to staging for testing
 - Merge via PR for deployments
 - Tag releases for major updates
+
+## Housekeeping
+- `.gitignore` ignores editor swap files (`*.swp`, `*.swo`, `*~`) to keep the repo clean
 
 ## Useful Links
 - [Astro Docs](https://docs.astro.build)

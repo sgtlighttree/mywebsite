@@ -615,3 +615,398 @@ pre code {
     color: inherit !important; /* Inherit color from the pre element */
     border-radius: 0 !important;
 }
+
+/*────────────────────────────────────────────────────────────────────────────
+   Contact Page Styles
+────────────────────────────────────────────────────────────────────────────*/
+
+  .contact-form {
+    max-width: 100%;
+    margin: 2rem 0;
+  }
+
+  .form-group {
+    margin-bottom: 1.5rem;
+  }
+
+  .name-group {
+    display: flex;
+    gap: 0.75rem; /* Adjust the gap as needed */
+  }
+
+  .name-group .form-group {
+    flex: 1; /* This will make both inputs share the row equally */
+  }
+
+  /* Accessibility Styles */
+  .visually-hidden {
+    position: absolute !important;
+    width: 1px !important;
+    height: 1px !important;
+    padding: 0 !important;
+    margin: -1px !important;
+    overflow: hidden !important;
+    clip: rect(0, 0, 0, 0) !important;
+    white-space: nowrap !important;
+    border: 0 !important;
+  }
+
+  .required {
+    color: #e74c3c;
+    font-weight: bold;
+  }
+
+  .error-message {
+    color: #e74c3c;
+    font-size: 0.875rem;
+    margin-top: 0.25rem;
+    min-height: 1.25rem;
+    display: block;
+  }
+
+  .help-text {
+    color: #666;
+    font-size: 0.875rem;
+    margin-top: 0.25rem;
+    font-style: italic;
+  }
+
+  /* Focus styles for better accessibility */
+  input:focus,
+  textarea:focus,
+  button:focus {
+    outline: 2px solid #3498db;
+    outline-offset: 2px;
+    border-color: #3498db;
+  }
+
+  /* Error state styles */
+  input[aria-invalid="true"],
+  textarea[aria-invalid="true"] {
+    border-color: #e74c3c;
+    background-color: rgba(231, 76, 60, 0.1);
+  }
+
+  input[aria-invalid="true"]:focus,
+  textarea[aria-invalid="true"]:focus {
+    border-color: #e74c3c;
+    background-color: rgba(231, 76, 60, 0.15);
+  }
+
+  /* Dark mode error state adjustments */
+  html.dark input[aria-invalid="true"],
+  html.dark textarea[aria-invalid="true"] {
+    background-color: rgba(231, 76, 60, 0.15);
+    border-color: #ff6b6b;
+  }
+
+  html.dark input[aria-invalid="true"]:focus,
+  html.dark textarea[aria-invalid="true"]:focus {
+    background-color: rgba(231, 76, 60, 0.2);
+    border-color: #ff6b6b;
+  }
+
+  /* Button accessibility */
+  button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+
+  button:hover {
+    background-color: #2980b9;
+  }
+
+  /* High contrast mode support */
+  @media (prefers-contrast: high) {
+    .error-message {
+      color: #000;
+      font-weight: bold;
+    }
+
+    .help-text {
+      color: #333;
+    }
+  }
+
+  /* Reduced motion support */
+  @media (prefers-reduced-motion: reduce) {
+    * {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+
+  /* Form fieldset styling */
+  fieldset {
+    border: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  legend {
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+  }
+
+  /* Privacy notice styling */
+  .privacy-notice {
+    background-color: var(--bg-secondary);
+    border: 1px solid var(--border-light);
+    padding: 1rem;
+    margin: 1.5rem 0;
+    font-size: 0.9rem;
+  }
+
+  .privacy-notice p {
+    margin: 0;
+    color: var(--text-primary);
+  }
+
+  .privacy-notice a {
+    color: var(--text-primary);
+    text-decoration: underline;
+    font-weight: 500;
+  }
+
+  .privacy-notice a:hover,
+  .privacy-notice a:focus {
+    color: var(--hover-text);
+    background-color: var(--hover-bg);
+    padding: 2px 4px;
+    text-decoration: none;
+  }
+
+  /* High contrast mode for privacy notice */
+  @media (prefers-contrast: high) {
+    .privacy-notice {
+      border-width: 2px;
+      font-weight: bold;
+    }
+  }
+
+  /*────────────────────────────────────────────────────────────────────────────
+     Phone Selector Styles
+  ────────────────────────────────────────────────────────────────────────────*/
+  .phone-selector-container {
+    position: relative;
+    display: flex;
+    align-items: stretch;
+    width: 100%;
+  }
+
+  .country-selector {
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.75rem;
+    background-color: var(--form-bg);
+    border: 1px solid var(--form-border);
+    border-right: none;
+    color: var(--form-text);
+    font-family: inherit;
+    font-size: 1rem;
+    cursor: pointer;
+    width: 6em;
+    height: 3rem;
+    transition: border-color 0.3s, box-shadow 0.3s;
+    flex-shrink: 0;
+  }
+
+  .country-selector:hover {
+    background-color: var(--hover-bg);
+    color: var(--hover-text);
+  }
+
+  .country-selector:focus {
+    border-color: var(--form-border-focus);
+    box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.1);
+    outline: none;
+    z-index: 1;
+  }
+
+  .country-selector[aria-expanded="true"] {
+    border-color: var(--form-border-focus);
+    box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.1);
+  }
+
+  .flag {
+    font-size: 1.2em;
+    line-height: 1;
+  }
+
+  .country-code {
+    font-weight: 500;
+    letter-spacing: 0.5px;
+  }
+
+  .dropdown-arrow {
+    font-size: 0.8em;
+    transition: transform 0.3s ease;
+  }
+
+  .country-selector[aria-expanded="true"] .dropdown-arrow {
+    transform: rotate(180deg);
+  }
+
+  .dial-code-display {
+    display: flex;
+    align-items: center;
+    padding: 0.75rem;
+    padding-left: 1em;
+    background-color: var(--form-bg);
+    border: 1px solid var(--form-border);
+    border-right: none;
+    border-left: none;
+    color: var(--form-text);
+    font-family: 'Geist Mono Variable', monospace;
+    font-size: 1rem;
+    font-weight: 500;
+    white-space: nowrap;
+    min-width: 0px;
+    width: 50px;
+    height: 3rem;
+    justify-content: center;
+  }
+
+  .phone-input {
+    flex: 1;
+    padding: 0.75rem;
+    padding-left: .25rem;
+    border: 1px solid var(--form-border);
+    border-left: none;
+    background-color: var(--form-bg);
+    color: var(--form-text);
+    font-family: inherit;
+    font-size: 1rem;
+    transition: border-color 0.3s, box-shadow 0.3s;
+    height: 3rem;
+  }
+
+  .phone-input:focus {
+    border-color: var(--form-border-focus);
+    box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.1);
+    outline: none;
+  }
+
+  .phone-input::placeholder {
+    color: var(--text-muted);
+  }
+
+  .country-dropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background-color: var(--form-bg);
+    border: 1px solid var(--form-border);
+    border-top: none;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    max-height: 300px;
+    overflow: hidden;
+    z-index: 1000;
+    display: none;
+  }
+
+  .country-dropdown[aria-expanded="true"] {
+    display: block;
+  }
+
+  .country-search {
+    width: 100%;
+    padding: 0.75rem;
+    border: none;
+    background-color: var(--bg-secondary);
+    color: var(--form-text);
+    font-family: inherit;
+    font-size: 1rem;
+    border-top: 1px solid var(--form-border);
+    border-bottom: 1px solid var(--form-border);
+    box-sizing: border-box;
+  }
+
+  .country-search::placeholder {
+    color: var(--text-muted);
+  }
+
+  .country-list {
+    max-height: 240px;
+    overflow-y: auto;
+    margin: 0;
+    padding: .5em;
+    line-height: 2em;
+  }
+
+  .country-option {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    border-bottom: 1px solid var(--form-border);
+  }
+
+  .country-option:hover,
+  .country-option:focus {
+    background-color: var(--hover-bg);
+    color: var(--hover-text);
+    outline: none;
+  }
+
+  .country-option:last-child {
+    border-bottom: none;
+  }
+
+  .country-option .flag {
+    font-size: 1.2em;
+    width: 24px;
+    text-align: center;
+  }
+
+  .country-option .country-name {
+    flex: 1;
+    font-weight: 400;
+  }
+
+  .country-option .dial-code {
+    font-weight: 500;
+    color: var(--text-secondary);
+    font-family: 'Geist Mono Variable', monospace;
+  }
+
+  /* Dark mode adjustments for phone selector */
+  html.dark .country-dropdown {
+    border-color: var(--border-light);
+    background-color: var(--bg-secondary);
+  }
+
+  html.dark .country-search {
+    background-color: var(--bg-primary);
+    border-color: var(--border-light);
+  }
+
+  html.dark .country-option {
+    border-color: var(--border-light);
+  }
+
+  /* High contrast mode for phone selector */
+  @media (prefers-contrast: high) {
+    .country-selector,
+    .phone-input,
+    .country-dropdown {
+      border-width: 2px;
+    }
+
+    .country-option {
+      border-bottom-width: 2px;
+    }
+  }
+
+  /* Reduced motion support */
+  @media (prefers-reduced-motion: reduce) {
+    .dropdown-arrow,
+    .country-option {
+      transition: none;
+    }
+  }
