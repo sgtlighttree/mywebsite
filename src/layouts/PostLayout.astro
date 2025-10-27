@@ -26,6 +26,13 @@ if (frontmatter.image) {
   showFooterCta={showFooterCta}
   ogImage={ogImage}
 >
+  {(isBlogPost || isFiction) && (
+    <>
+      <meta property="article:published_time" content={new Date(frontmatter.pubDate).toISOString()} />
+      {frontmatter.modifiedDate && <meta property="article:modified_time" content={new Date(frontmatter.modifiedDate).toISOString()} />}
+      <meta property="article:author" content={frontmatter.author || "Matthew Oyan"} />
+    </>
+  )}
   <p><em>{frontmatter.description}</em></p>
   <p>{new Date(frontmatter.pubDate).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}</p>
 
@@ -59,5 +66,21 @@ if (frontmatter.image) {
       "@type": "WebPage",
       "@id": Astro.url.href
     }
+  })}></script>
+)}
+
+{isPortfolio && (
+  <script type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "CreativeWork",
+    "name": frontmatter.title,
+    "description": frontmatter.description,
+    "dateCreated": new Date(frontmatter.pubDate).toISOString(),
+    "creator": {
+      "@type": "Person",
+      "name": "Matthew Oyan"
+    },
+    "url": Astro.url.href,
+    ...(ogImage ? { "image": ogImage } : {})
   })}></script>
 )}

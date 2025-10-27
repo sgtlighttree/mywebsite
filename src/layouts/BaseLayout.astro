@@ -35,11 +35,13 @@ const finalOgImage = ogImage || defaultOgImage;
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:site" content="@lighttree_gfx" />
     <meta property="twitter:url" content={Astro.url.href} />
     <meta property="twitter:title" content={finalTabTitle} />
     {pageDescription && <meta property="twitter:description" content={pageDescription} />}
     <meta property="twitter:image" content={finalOgImage} />
     <meta property="twitter:image:alt" content={pageTitle} />
+    <meta property="twitter:creator" content="@lighttree_gfx" />
 
   </head>
   <body>
