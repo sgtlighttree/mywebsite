@@ -4,6 +4,46 @@ const pageTitle = "Resume";
 ---
 
 <BaseLayout pageTitle={pageTitle}>
+  <script type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Matthew Oyan",
+    "url": "https://matthewoyan.com",
+    "image": "/images/MatthewOyan_2025_headshot_optimized_65.webp",
+    "jobTitle": "Multimedia Creative / Motion Designer",
+    "description": "Multidisciplinary creative with 5+ years of experience delivering creative solutions for scripted and live productions. Skilled in motion design, color grading, graphic design, and branding across 2D/3D styles.",
+    "sameAs": [
+      "https://twitter.com/lighttree_gfx"
+    ],
+    "workLocation": [
+      {
+        "@type": "Place",
+        "address": {
+          "@type": "PostalAddress",
+          "addressCountry": "PH",
+          "addressLocality": "Quezon City"
+        }
+      },
+      {
+        "@type": "Place",
+        "name": "Remote"
+      }
+    ],
+    "worksFor": [
+      {
+        "@type": "Organization",
+        "name": "Business Unusual Media Solutions Inc"
+      },
+      {
+        "@type": "Organization",
+        "name": "Magnus PC"
+      },
+      {
+        "@type": "Organization",
+        "name": "Lighttree Graphics"
+      }
+    ]
+  })}></script>
   <div class="about-intro">
     <p>
         Matthew Oyan is a multidisciplinary creative with 5+ years of experience delivering creative solutions for scripted and live productions. Skilled in motion design, color grading, graphic design, and branding across 2D/3D styles, with proven ability to integrate cutting-edge generative AI tools into traditional workflows. Combines creative vision with practical execution to meet project deadlines and team objectives.

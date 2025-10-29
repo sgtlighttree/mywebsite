@@ -181,6 +181,66 @@ import BaseLayout from '../layouts/BaseLayout.astro'
 
 Routes to `/my-page`.
 
+## SEO & Social Sharing
+
+The site includes comprehensive SEO optimization and schema markup:
+
+### Core SEO Features
+- **Canonical URLs:** All pages have `<link rel="canonical">` to prevent duplicate content penalties
+- **Schema Markup:** JSON-LD schemas for BlogPosting, CreativeWork, CollectionPage, and Person
+- **Social Sharing:** Open Graph and Twitter cards with per-page OG images
+- **Structured Data:** Article timestamps, author metadata, work locations for the author profile
+
+### Per-Page OG Images
+- **Default:** `/images/MatthewOyan_Monogram3D_Blue1_render01-8bit.png`
+- **Portfolio items:** Use featured image from frontmatter (preference: AVIF → WebP → PNG)
+
+Pass `ogImage` prop to BaseLayout via PostLayout:
+```astro
+<BaseLayout ogImage={customImagePath} ... />
+```
+
+### Adding SEO Metadata
+
+**Blog/Fiction Frontmatter:**
+```yaml
+title: "Post Title"
+pubDate: 2025-10-27
+description: "SEO description (155 chars max)"
+tags: [tag1, tag2]
+modifiedDate: 2025-10-28  # Optional: enables article:modified_time
+author: "Your Name"       # Optional: defaults to Matthew Oyan
+```
+
+**Portfolio Frontmatter:**
+```yaml
+title: "Project Title"
+pubDate: 2025-10-27
+description: "Project description"
+image:
+  avif: "../../../images/project.avif"  # Preferred format
+  webp: "../../../images/project.webp"  # Fallback
+  png: "../../../images/project.png"    # Last resort
+  alt: "Descriptive alt text for SEO and accessibility"
+```
+
+### Schema Markup Details
+- **Homepage:** CollectionPage with portfolio grid metadata
+- **Blog/Fiction:** BlogPosting with headline, date published, author
+- **Portfolio:** CreativeWork with name, description, creator, image
+- **Resume:** Person schema with name, title, image, Twitter handle, work locations, organizations
+
+### PhotoGallery Component
+- Uses `client:visible` for lazy loading (performance optimization)
+- Requires descriptive `alt` text for each image (not generic "Image 1")
+- Example:
+```jsx
+<PhotoGallery client:visible images={[
+  { src: "../../../images/image1.avif", alt: "Detailed description of image 1" },
+  { src: "../../../images/image2.webp", alt: "Detailed description of image 2" }
+]} />
+```
+
 ## Deployment
 
 ### Build & Deploy

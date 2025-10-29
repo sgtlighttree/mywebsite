@@ -1,6 +1,6 @@
 # Website Documentation
 
-Personal docs for maintaining Matthew Oyan's Astro-based website. Updated last: September 2025.
+Personal docs for maintaining Matthew Oyan's Astro-based website. Updated last: October 2025.
 
 ## Getting Started
 
@@ -145,16 +145,116 @@ Responsive player with loading state:
 Props: src (required), type, autoplay, loop, muted, controls
 
 ### PhotoGallery
-React/Preact component with lightbox:
-- Uses yet-another-react-lightbox
-- Supports image arrays
-- Client-side interactive
+Preact component with lightbox (src/components/PhotoGallery.jsx):
+- Uses yet-another-react-lightbox with plugins (fullscreen, slideshow, thumbnails, zoom)
+- Lazy-loaded with `client:visible` for better performance
+- Supports descriptive alt text for accessibility and SEO
+- Responsive grid layout with click-to-open modal
+
+Usage in MDX:
+```jsx
+<PhotoGallery client:visible images={[
+  { src: "../../../images/image1.avif", alt: "Descriptive alt text" },
+  { src: "../../../images/image2.webp", alt: "Another description" }
+]} />
+```
+
+**Important:** Use descriptive alt text for each image (not generic "Image 1", "Image 2")
 
 ### ObfuscatedEmail
 Anti-spam email protection:
 - Data attributes for bot protection
 - Reconstructs mailto: via script
 - Fallback for no-JS users
+
+## SEO & Schema Markup
+
+The site is fully optimized for search engines and social sharing with comprehensive schema markup:
+
+### Core SEO Features
+- **Canonical URLs**: All pages include `<link rel="canonical">` to prevent duplicate content penalties
+- **Viewport meta**: Proper mobile scaling with `width=device-width, initial-scale=1`
+- **Sitemap**: Auto-generated `sitemap-index.xml` via @astrojs/sitemap
+- **Robots.txt**: Configured to guide search engine crawlers
+- **Open Graph & Twitter Cards**: Dynamic social preview images with alt text
+
+### Schema Markup (JSON-LD)
+
+#### HomePage (src/pages/index.astro)
+- `CollectionPage` schema with portfolio metadata
+- Variables properly interpolated for search engine parsing
+
+#### Blog Posts & Fiction (via PostLayout.astro)
+- `BlogPosting` schema with:
+  - Headline, description
+  - `datePublished` (ISO format)
+  - Author name
+  - URL and main entity reference
+- `article:published_time` meta tag
+- `article:author` meta tag
+
+#### Portfolio Items (via PostLayout.astro)
+- `CreativeWork` schema with:
+  - Name, description
+  - `dateCreated` (ISO format)
+  - Creator (Person type)
+  - Featured image
+
+#### Author Profile (src/pages/resume.astro)
+- `Person` schema with:
+  - Name: Matthew Oyan
+  - Title: Multimedia Creative / Motion Designer
+  - Image and description
+  - Twitter handle (@lighttree_gfx)
+  - Work locations: Quezon City, Philippines + Remote
+  - Organizations: Business Unusual Media Solutions, Magnus PC, Lighttree Graphics
+
+### Social Sharing
+- Default OG image: `/images/MatthewOyan_Monogram3D_Blue1_render01-8bit.png`
+- Portfolio entries use their featured image via frontmatter: `image.avif` → `image.webp` → `image.png` (preference order)
+- All images include alt text for accessibility
+- Twitter handle (@lighttree_gfx) automatically included in all shares
+
+### Adding SEO to New Content
+
+**Blog Post Frontmatter (minimum):**
+```yaml
+---
+layout: ../../layouts/PostLayout.astro
+title: "Post Title"
+pubDate: 2025-10-27
+description: "Brief SEO description (155 chars max)"
+tags: [tag1, tag2]
+---
+```
+
+**Portfolio Item Frontmatter (minimum):**
+```yaml
+---
+layout: ../../layouts/PostLayout.astro
+title: "Project Title"
+pubDate: 2025-10-27
+description: "Project description"
+image:
+  avif: "../../../images/project.avif"
+  webp: "../../../images/project.webp"
+  png: "../../../images/project.png"
+  alt: "Descriptive alt text for the project"
+---
+```
+
+**Optional but Recommended:**
+- Add `modifiedDate` to frontmatter if you update a post (enables `article:modified_time` tag)
+- Add `author` to frontmatter if different from default (Matthew Oyan)
+
+### Troubleshooting SEO Issues
+
+| Issue | Solution |
+|-------|----------|
+| OG image not showing in social preview | Verify image path in frontmatter; ensure at least one format (avif/webp/png) exists |
+| Structured data not validating | Check JSON syntax in schema.org markup; use [schema.org validator](https://validator.schema.org) |
+| Pages not indexed | Check robots.txt and sitemap; verify canonicals aren't blocking; check GSC (Google Search Console) |
+| Portfolio image alt text missing | Ensure all PhotoGallery images have descriptive `alt` prop; avoid generic "Image 1" text |
 
 ## Common Tasks Cheat Sheet
 
@@ -262,6 +362,14 @@ Common issues and fixes:
 - [ ] Theme: Consistent design system across all components
 
 **Recent Changes:**
+- **Comprehensive SEO Overhaul**: Full schema markup implementation with BlogPosting, CreativeWork, CollectionPage, and Person schemas ✓ (Oct 2025)
+  - Fixed homepage schema variable interpolation
+  - Added article timestamps and metadata
+  - Implemented per-page OG images with portfolio frontmatter support
+  - Added Twitter handle attribution
+  - Author profile schema on resume page
+- **PhotoGallery Optimization**: Switched from `client:load` to `client:visible` for lazy loading; added descriptive alt text ✓ (Oct 2025)
+- **Netlify Configuration Fixes**: Fixed CSP header multiline formatting in netlify.toml; converted serverless function to ES modules ✓ (Oct 2025)
 - **Layout Consolidation**: Merged separate BlogPost/Portfolio layouts into single auto-detecting PostLayout.astro ✓ (Sep 2025)
 - **Archive Old Code**: Moved old layout files to src/layouts/archive/ with timestamp for reference ✓ (Sep 2025)
 - **URL Consolidation**: Consolidated writings navigation - `/writing/` index now serves `/blog/` and `/fiction/` subdirectories ✓ (Sep 2025)
@@ -270,13 +378,20 @@ Common issues and fixes:
 ## Performance & Optimization
 
 Current best practices:
-- WebP/AVIF images
-- Lazy loading via Astro
-- Minimal JS bundles
-- Sitemap for crawlers
-- Robots.txt configuration
+- **Images**: WebP/AVIF with PNG fallback; lazy loading via Astro; Netlify Image CDN for runtime optimization
+- **JavaScript**: Minimal bundles via Preact islands; PhotoGallery uses `client:visible` for lazy loading
+- **SEO**: Canonical URLs, sitemap, robots.txt, comprehensive schema markup for crawlers
+- **Caching**: Netlify edge caching with proper headers; CSP policy configured
+- **Core Web Vitals**:
+  - LCP: Portfolio grid images optimized with srcset and lazy loading
+  - FID: No heavy JS bundles; form interactions optimized
+  - CLS: Proper spacing reservations in CSS; form error messages sized consistently
 
-Monitor bundle size with `npm run build` output.
+Monitor with:
+- `npm run build` for bundle size output
+- [Google PageSpeed Insights](https://pagespeed.web.dev) for Core Web Vitals
+- [Schema.org Validator](https://validator.schema.org) for structured data validation
+- [Google Search Console](https://search.google.com/search-console) for indexation and SERP performance
 
 ## Version Control
 
