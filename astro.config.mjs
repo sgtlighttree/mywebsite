@@ -7,7 +7,7 @@ import sitemap from '@astrojs/sitemap';
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://staging-mattoyan.netlify.app/', // Replace with your actual site URL
+  site: 'https://531102.xyz/', // Replace with your actual site URL
   integrations: [preact(), mdx(), sitemap()],
 
   vite: {
