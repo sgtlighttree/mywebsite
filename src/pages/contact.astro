@@ -19,6 +19,7 @@ const pageTitle = "Get In Touch";
       id="contact-form"
       name="contact"
       method="POST"
+      data-netlify-recaptcha="true"
       data-netlify="true"
       netlify-honeypot="bot-field"
       action="/success/"
@@ -179,8 +180,10 @@ const pageTitle = "Get In Touch";
       </div>
 
       <div class="privacy-notice" role="note" aria-label="Privacy information">
-        <p>By submitting this form, you agree to our <a href="/privacy-policy" target="_blank" rel="noopener noreferrer">Privacy Policy</a>.</p>
+        <p>By submitting this form, you agree to our <a href="/privacy-policy" target="_blank" rel="noopener noreferrer">Privacy Policy and the </a>.</p>
       </div>
+
+      <div data-netlify-recaptcha="true"></div>
 
       <button type="submit" id="submit-button">
         <span>Send Message</span>
