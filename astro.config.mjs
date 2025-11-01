@@ -10,9 +10,7 @@ const sitemapOptions = {
   filter: (page) => {
     const url = page || '';
     return !url.includes('/blog-drafts/') && !url.includes('/portfolio-drafts/');
-  },
-  filenameBase: 'sitemap',
-  entryLimit: 50000
+  }
 };
 
 // https://astro.build/config
