@@ -20,9 +20,12 @@ const otherWriting = (allWritingPosts as (PostWithPubDate & PostWithTags)[]).fil
 ).sort((a, b) => new Date(b.frontmatter.pubDate).valueOf() - new Date(a.frontmatter.pubDate).valueOf());
 
 const pageTitle = "Writings";
+const metaTitle = "Matthew Oyan - Resume";
+const pageDescription = "Writings of Matthew Oyan, including blogs and fiction.";
+
 ---
 
-<BaseLayout pageTitle={pageTitle} showFooterCta={false}>
+<BaseLayout pageTitle={pageTitle} metaTitle={metaTitle} pageDescription={pageDescription}>
 
   <h2>Blog</h2>
   <div class="tile-container">

@@ -1,9 +1,13 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+
 const pageTitle = "Resume";
+const metaTitle = "Matthew Oyan - Resume";
+const pageDescription = "Resume of Matthew Oyan, a 5+ years experienced multimedia artist working in various digital media and live events, based in the Philippines.";
+
 ---
 
-<BaseLayout pageTitle={pageTitle}>
+<BaseLayout pageTitle={pageTitle} metaTitle={metaTitle} pageDescription={pageDescription}>
   <script type="application/ld+json" set:html={JSON.stringify({
     "@context": "https://schema.org",
     "@type": "Person",
