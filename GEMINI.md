@@ -20,8 +20,22 @@ netlify dev
 | **Local development (with images)**      | `netlify dev`                            |
 | Production build                         | `npm run build`                          |
 | Preview build with live CDN              | `netlify deploy --build --draft --open`  |
+| **Preview production build locally**     | `netlify serve` (or `npm run preview`)   |
 | Wiki development (live-reload)           | `npm run dev:wiki`                       |
 | Astro diagnostics                        | `npm run astro -- check`                 |
+
+## Drafts Workflow
+
+- **Development (`netlify dev`)**: Drafts are **VISIBLE**. This allows you to preview and edit content before it goes live.
+- **Production (`npm run build`)**: Drafts are **HIDDEN**. They will not be generated in the final site.
+- **Previewing Production**: To see exactly what will be deployed (without drafts), run:
+  ```bash
+  netlify serve
+  ```
+  or
+  ```bash
+  npm run build && npm run preview
+  ```
 
 ## Tech Stack
 

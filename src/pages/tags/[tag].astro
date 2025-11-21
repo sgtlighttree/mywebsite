@@ -4,10 +4,12 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 import BlogPost from "../../components/BlogPost.astro";
 
 export async function getStaticPaths() {
-  const blogEntries = await getCollection("blog");
-  const fictionPosts = Object.values(
-    import.meta.glob("../fiction/*.md", { eager: true }),
-  );
+  const blogEntries = await getCollection("blog", ({ data }) => {
+    return import.meta.env.PROD ? data.draft !== true : true;
+  });
+  const fictionEntries = await getCollection("fiction", ({ data }) => {
+    return import.meta.env.PROD ? data.draft !== true : true;
+  });
 
   // Normalize entries to a common format
   const normalizedBlog = blogEntries.map((entry) => ({
@@ -17,11 +19,11 @@ export async function getStaticPaths() {
     date: entry.data.pubDate,
   }));
 
-  const normalizedFiction = fictionPosts.map((post: any) => ({
-    title: post.frontmatter.title,
-    url: post.url,
-    tags: post.frontmatter.tags || [],
-    date: post.frontmatter.pubDate,
+  const normalizedFiction = fictionEntries.map((entry) => ({
+    title: entry.data.title,
+    url: `/fiction/${entry.slug}`,
+    tags: entry.data.tags || [],
+    date: entry.data.pubDate,
   }));
 
   const allPosts = [...normalizedBlog, ...normalizedFiction];

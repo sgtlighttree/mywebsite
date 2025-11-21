@@ -8,7 +8,9 @@ const pageDescription =
   "Selected work and projects by Matthew Oyan, a multimedia artist working in various digital media and live events, based in the Philippines.";
 
 // Fetch all portfolio entries
-const portfolioEntries = await getCollection("portfolio");
+const portfolioEntries = await getCollection("portfolio", ({ data }) => {
+  return import.meta.env.PROD ? data.draft !== true : true;
+});
 
 // Sort entries by date in descending order (most recent first)
 portfolioEntries.sort(

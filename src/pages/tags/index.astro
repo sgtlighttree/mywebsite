@@ -2,18 +2,20 @@
 import { getCollection } from "astro:content";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 
-const blogEntries = await getCollection("blog");
-const fictionPosts = Object.values(
-  import.meta.glob("../fiction/*.md", { eager: true }),
-);
+const blogEntries = await getCollection("blog", ({ data }) => {
+  return import.meta.env.PROD ? data.draft !== true : true;
+});
+const fictionEntries = await getCollection("fiction", ({ data }) => {
+  return import.meta.env.PROD ? data.draft !== true : true;
+});
 
 // Normalize entries
 const normalizedBlog = blogEntries.map((entry) => ({
   tags: entry.data.tags,
 }));
 
-const normalizedFiction = fictionPosts.map((post: any) => ({
-  tags: post.frontmatter.tags || [],
+const normalizedFiction = fictionEntries.map((entry) => ({
+  tags: entry.data.tags || [],
 }));
 
 const allPosts = [...normalizedBlog, ...normalizedFiction];

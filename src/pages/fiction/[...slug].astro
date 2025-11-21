@@ -3,10 +3,8 @@ import { getCollection } from "astro:content";
 import PostLayout from "../../layouts/PostLayout.astro";
 
 export async function getStaticPaths() {
-    const portfolioEntries = await getCollection("portfolio", ({ data }) => {
-        return import.meta.env.PROD ? data.draft !== true : true;
-    });
-    return portfolioEntries.map((entry) => ({
+    const fictionEntries = await getCollection("fiction");
+    return fictionEntries.map((entry) => ({
         params: { slug: entry.slug },
         props: { entry },
     }));

@@ -4,34 +4,24 @@ import BlogPost from "../../components/BlogPost.astro";
 
 import { getCollection } from "astro:content";
 
-const blogEntries = await getCollection("blog");
-const allWritingPosts = Object.values(
-  import.meta.glob("../fiction/*.md", { eager: true }),
-);
-
-// Separate posts into categories
-// Define a type for posts with frontmatter containing pubDate
-interface PostWithPubDate {
-  frontmatter: { pubDate: string };
-}
-interface PostWithTags {
-  frontmatter: { tags?: string[] };
-}
+const blogEntries = await getCollection("blog", ({ data }) => {
+  return import.meta.env.PROD ? data.draft !== true : true;
+});
+const fictionEntries = await getCollection("fiction", ({ data }) => {
+  return import.meta.env.PROD ? data.draft !== true : true;
+});
 
 const blogPosts = blogEntries.sort(
   (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
 );
-const skyboundSaga = (allWritingPosts as PostWithTags[]).filter(
-  (post) =>
-    post.frontmatter.tags && post.frontmatter.tags.includes("Skybound Saga"),
+
+const skyboundSaga = fictionEntries.filter(
+  (entry) => entry.data.tags && entry.data.tags.includes("Skybound Saga"),
 );
-const otherWriting = (allWritingPosts as (PostWithPubDate & PostWithTags)[])
-  .filter((post) => !post.frontmatter.tags?.includes("Skybound Saga"))
-  .sort(
-    (a, b) =>
-      new Date(b.frontmatter.pubDate).valueOf() -
-      new Date(a.frontmatter.pubDate).valueOf(),
-  );
+
+const otherWriting = fictionEntries
+  .filter((entry) => !entry.data.tags?.includes("Skybound Saga"))
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 
 const pageTitle = "Writings";
 const metaTitle = "Matthew Oyan - Resume";
@@ -79,11 +69,11 @@ const pageDescription =
   </a>
   <div class="tile-container">
     {
-      skyboundSaga.map((post: any) => (
+      skyboundSaga.map((entry) => (
         <BlogPost
-          url={post.url}
-          title={post.frontmatter.title}
-          date={post.frontmatter.pubDate}
+          url={`/fiction/${entry.slug}`}
+          title={entry.data.title}
+          date={entry.data.pubDate}
         />
       ))
     }
@@ -92,11 +82,11 @@ const pageDescription =
   <h2>Other Writing</h2>
   <div class="tile-container">
     {
-      otherWriting.map((post: any) => (
+      otherWriting.map((entry) => (
         <BlogPost
-          url={post.url}
-          title={post.frontmatter.title}
-          date={post.frontmatter.pubDate}
+          url={`/fiction/${entry.slug}`}
+          title={entry.data.title}
+          date={entry.data.pubDate}
         />
       ))
     }

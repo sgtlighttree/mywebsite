@@ -10,7 +10,9 @@ For when I need to set up or remind myself of the basics:
 ```bash
 cd /Users/matthewoyan/mywebsite
 npm install
-# Use Netlify dev so Image CDN transforms (/.netlify/images) work locally
+# Use Netlify serve so Image CDN transforms (/.netlify/images) work locally
+netlify serve
+# Use Netlify dev to include draft pages
 netlify dev
 # If the Netlify CLI isn’t installed:
 # npx netlify-cli dev
