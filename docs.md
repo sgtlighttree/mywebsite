@@ -62,11 +62,15 @@ image:
 ```
 src/
 ├── components/    # Reusable UI components (.astro, .jsx)
+├── content/       # Content Collections
+│   ├── blog/      # Blog posts (.md)
+│   ├── portfolio/ # Portfolio entries (.md/.mdx)
+│   └── config.ts  # Content collection schemas
 ├── layouts/       # BaseLayout, PostLayout (+ archive/ old layouts)
 ├── pages/         # File-based routes
-│   ├── blog/      # Blog posts (.md)
-│   ├── fiction/   # Creative writing (.md)
-│   ├── portfolio/ # Portfolio entries (.md/.mdx)
+│   ├── blog/      # Blog post dynamic route ([...slug].astro)
+│   ├── fiction/   # Creative writing (.md) - *Legacy file-based routing*
+│   ├── portfolio/ # Portfolio dynamic route ([...slug].astro)
 │   ├── tags/      # Tag index and tag detail pages
 │   └── ...        # Other pages (contact, resume, privacy-policy, 404)
 ├── styles/        # Global CSS
@@ -220,7 +224,6 @@ The site is fully optimized for search engines and social sharing with comprehen
 **Blog Post Frontmatter (minimum):**
 ```yaml
 ---
-layout: ../../layouts/PostLayout.astro
 title: "Post Title"
 pubDate: 2025-10-27
 description: "Brief SEO description (155 chars max)"
@@ -231,7 +234,6 @@ tags: [tag1, tag2]
 **Portfolio Item Frontmatter (minimum):**
 ```yaml
 ---
-layout: ../../layouts/PostLayout.astro
 title: "Project Title"
 pubDate: 2025-10-27
 description: "Project description"
@@ -259,9 +261,9 @@ image:
 ## Common Tasks Cheat Sheet
 
 ### Adding New Content
-1. **Blog Post**: Create `.md` in `src/pages/blog/` with frontmatter (title, pubDate, etc.) - URLs: `/blog/post-slug`
-2. **Fiction/Creative Writing**: Create `.md` in `src/pages/fiction/` - URLs: `/fiction/story-slug`
-3. **Portfolio Item**: Create `.md` or `.mdx` in `src/pages/portfolio/` - URLs: `/portfolio/project-slug`
+1. **Blog Post**: Create `.md` in `src/content/blog/` with frontmatter (title, pubDate, etc.) - URLs: `/blog/post-slug`
+2. **Fiction/Creative Writing**: Create `.md` in `src/pages/fiction/` - URLs: `/fiction/story-slug` (*Legacy*)
+3. **Portfolio Item**: Create `.md` or `.mdx` in `src/content/portfolio/` - URLs: `/portfolio/project-slug`
 4. **Page**: Create `.astro` in `src/pages/` following file-based routing
 
 ### Building & Previewing
@@ -298,7 +300,6 @@ npm run dev:wiki     # Develop wiki section with browser-sync
 Example frontmatter:
 ```yaml
 ---
-layout: ../../layouts/PostLayout.astro
 title: Example Post
 pubDate: 2025-10-01
 tags: [design, process]

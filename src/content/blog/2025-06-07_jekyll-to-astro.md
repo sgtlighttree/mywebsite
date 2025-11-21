@@ -1,5 +1,4 @@
 ---
-layout: ../../layouts/PostLayout.astro
 title: 'From Jekyll to Astro'
 pubDate: 2025-06-07
 description: 'This is the first post after migrating to Astro.'

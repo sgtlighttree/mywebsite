@@ -1,5 +1,4 @@
 ---
-layout: ../../layouts/PostLayout.astro
 title: 'Replacing the Earpads on my Anker Soundcore Q45 ANC Headphones'
 pubDate: 2024-09-23
 description: 'About repairing my headphones'

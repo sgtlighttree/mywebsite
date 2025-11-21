@@ -1,22 +1,29 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro';
+import { getCollection } from "astro:content";
+import BaseLayout from "../layouts/BaseLayout.astro";
 
 const pageTitle = "Selected Work";
 const metaTitle = "Matthew Oyan - Multimedia Artist Portfolio";
-const pageDescription = "Selected work and projects by Matthew Oyan, a multimedia artist working in various digital media and live events, based in the Philippines.";
+const pageDescription =
+  "Selected work and projects by Matthew Oyan, a multimedia artist working in various digital media and live events, based in the Philippines.";
 
-// Fetch all markdown files from the portfolio directory
-const portfolioFiles = import.meta.glob('../pages/portfolio/*.{md,mdx}', { eager: true });
-const portfolioEntries = Object.values(portfolioFiles);
+// Fetch all portfolio entries
+const portfolioEntries = await getCollection("portfolio");
 
 // Sort entries by date in descending order (most recent first)
-portfolioEntries.sort((a: any, b: any) => new Date(b.frontmatter.pubDate).valueOf() - new Date(a.frontmatter.pubDate).valueOf());
+portfolioEntries.sort(
+  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
+);
 
 // Helper function to create Netlify Image CDN URLs with specific format
-function createNetlifyImageUrl(imagePath: string, width: number = 400, format: string = 'avif'): string {
-  if (!imagePath) return '';
+function createNetlifyImageUrl(
+  imagePath: string,
+  width: number = 400,
+  format: string = "avif",
+): string {
+  if (!imagePath) return "";
   // Remove the leading '../../../' from the path
-  const cleanPath = imagePath.replace(/^(\.\.\/)+/, '/');
+  const cleanPath = imagePath.replace(/^(\.\.\/)+/, "/");
   return `/.netlify/images/?url=${encodeURIComponent(cleanPath)}&w=${width}&q=85&f=${format}`;
 }
 
@@ -26,71 +33,81 @@ function getBestImageFormat(image: any): string | null {
   return image?.png || image?.webp || image?.avif || null;
 }
 ---
-<BaseLayout pageTitle={pageTitle} metaTitle={metaTitle} pageDescription={pageDescription}>
-  <div class="portfolio-grid">
-    {portfolioEntries.map((entry: any) => (
-      <a href={entry.url} class="portfolio-item">
-        <div class="portfolio-thumbnail-container">
-          {(() => {
-            const bestImage = getBestImageFormat(entry.frontmatter.image);
-            if (!bestImage) return null;
 
-            // Generate srcset for each format
-            const createSrcset = (format: string) => `
+<BaseLayout
+  pageTitle={pageTitle}
+  metaTitle={metaTitle}
+  pageDescription={pageDescription}
+>
+  <div class="portfolio-grid">
+    {
+      portfolioEntries.map((entry) => (
+        <a href={`/portfolio/${entry.slug}`} class="portfolio-item">
+          <div class="portfolio-thumbnail-container">
+            {(() => {
+              const bestImage = getBestImageFormat(entry.data.image);
+              if (!bestImage) return null;
+
+              // Generate srcset for each format
+              const createSrcset = (format: string) => `
               ${createNetlifyImageUrl(bestImage, 300, format)} 300w,
               ${createNetlifyImageUrl(bestImage, 400, format)} 400w,
               ${createNetlifyImageUrl(bestImage, 600, format)} 600w,
               ${createNetlifyImageUrl(bestImage, 800, format)} 800w
             `;
 
-            return (
-              <picture class="portfolio-thumbnail">
-                {/* AVIF format - best compression */}
-                <source
-                  srcset={createSrcset('avif')}
-                  sizes="(max-width: 768px) 300px, (max-width: 1200px) 400px, 600px"
-                  type="image/avif"
-                />
-                {/* WebP format - good compression */}
-                <source
-                  srcset={createSrcset('webp')}
-                  sizes="(max-width: 768px) 300px, (max-width: 1200px) 400px, 600px"
-                  type="image/webp"
-                />
-                {/* PNG format - fallback */}
-                <img
-                  src={createNetlifyImageUrl(bestImage, 400, 'png')}
-                  srcset={createSrcset('png')}
-                  sizes="(max-width: 768px) 300px, (max-width: 1200px) 400px, 600px"
-                  alt={entry.frontmatter.image.alt}
-                  class="portfolio-thumbnail"
-                  loading="lazy"
-                />
-              </picture>
-            );
-          })()}
-          <div class="portfolio-title-overlay">
-            <h3>{entry.frontmatter.title}</h3>
+              return (
+                <picture class="portfolio-thumbnail">
+                  {/* AVIF format - best compression */}
+                  <source
+                    srcset={createSrcset("avif")}
+                    sizes="(max-width: 768px) 300px, (max-width: 1200px) 400px, 600px"
+                    type="image/avif"
+                  />
+                  {/* WebP format - good compression */}
+                  <source
+                    srcset={createSrcset("webp")}
+                    sizes="(max-width: 768px) 300px, (max-width: 1200px) 400px, 600px"
+                    type="image/webp"
+                  />
+                  {/* PNG format - fallback */}
+                  <img
+                    src={createNetlifyImageUrl(bestImage, 400, "png")}
+                    srcset={createSrcset("png")}
+                    sizes="(max-width: 768px) 300px, (max-width: 1200px) 400px, 600px"
+                    alt={entry.data.image?.alt || ""}
+                    class="portfolio-thumbnail"
+                    loading="lazy"
+                  />
+                </picture>
+              );
+            })()}
+            <div class="portfolio-title-overlay">
+              <h3>{entry.data.title}</h3>
+            </div>
           </div>
-        </div>
-      </a>
-    ))}
+        </a>
+      ))
+    }
   </div>
 </BaseLayout>
 
-<script type="application/ld+json" set:html={JSON.stringify({
-  "@context": "https://schema.org",
-  "@type": "CollectionPage",
-  "name": metaTitle,
-  "description": pageDescription,
-  "url": Astro.url.href,
-  "image": "/images/MatthewOyan_2025_headshot_optimized_65.webp",
-  "publisher": {
-    "@type": "Organization",
-    "name": "Matthew Oyan",
-    "logo": {
-      "@type": "ImageObject",
-      "url": "/favicon.svg"
-    }
-  }
-})}></script>
+<script
+  type="application/ld+json"
+  set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    name: metaTitle,
+    description: pageDescription,
+    url: Astro.url.href,
+    image: "/images/MatthewOyan_2025_headshot_optimized_65.webp",
+    publisher: {
+      "@type": "Organization",
+      name: "Matthew Oyan",
+      logo: {
+        "@type": "ImageObject",
+        url: "/favicon.svg",
+      },
+    },
+  })}
+/>

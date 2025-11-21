@@ -35,12 +35,11 @@ netlify dev
 
 ### Create a Blog Post
 
-1.  Create a new `.md` file in `src/pages/blog/`.
+1.  Create a new `.md` file in `src/content/blog/`.
 2.  Add the following frontmatter:
 
 ```yaml
 ---
-layout: ../../layouts/PostLayout.astro
 title: "Your Post Title"
 pubDate: YYYY-MM-DD
 description: "A brief SEO description for the post."
@@ -52,12 +51,11 @@ Your content starts here.
 
 ### Create a Portfolio Entry
 
-1.  Create a new `.md` or `.mdx` file in `src/pages/portfolio/`.
+1.  Create a new `.md` or `.mdx` file in `src/content/portfolio/`.
 2.  Add the following frontmatter, ensuring the image path is correct:
 
 ```yaml
 ---
-layout: ../../layouts/PostLayout.astro
 title: "Your Project Title"
 pubDate: YYYY-MM-DD
 description: "A brief SEO description for the project."

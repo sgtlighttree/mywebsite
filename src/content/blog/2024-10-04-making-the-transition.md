@@ -1,5 +1,4 @@
 ---
-layout: ../../layouts/PostLayout.astro
 title: 'Making the Transition to Jekyll'
 pubDate: 2024-10-04
 description: 'From HTML to a proper framework.'

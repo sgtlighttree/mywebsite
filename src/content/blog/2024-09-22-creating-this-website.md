@@ -1,5 +1,4 @@
 ---
-layout: ../../layouts/PostLayout.astro
 title: 'Creating This Website'
 pubDate: 2024-09-22
 description: 'First ever blog post from website V1'
