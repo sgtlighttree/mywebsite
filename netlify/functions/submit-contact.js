@@ -38,7 +38,7 @@ export const handler = async function (event, context) {
         const siteUrl = process.env.URL || 'http://localhost:8888';
 
         // We must ensure 'form-name' is present (it should be in event.body already)
-        await fetch(siteUrl, {
+        await fetch(`${siteUrl}/contact/`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
             body: event.body
