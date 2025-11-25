@@ -4,6 +4,9 @@
   command = "npm run build"
   publish = "dist"
 
+[build.environment]
+  SECRETS_SCAN_OMIT_KEYS = "SITE_RECAPTCHA_KEY"
+
 [[headers]]
   for = "/*"
   [headers.values]
