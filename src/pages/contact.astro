@@ -1125,7 +1125,10 @@ const pageTitle = "Get In Touch";
             "Enter",
             "ArrowLeft",
             "ArrowRight",
-          ].includes(e.key)
+          ].includes(e.key) ||
+          // Allow: Ctrl+A, Ctrl+C, Ctrl+V, Command+A, etc.
+          e.ctrlKey === true ||
+          e.metaKey === true
         ) {
           return;
         }
