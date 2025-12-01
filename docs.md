@@ -114,24 +114,24 @@ Props:
 ## Key Components
 
 ### Contact Form (`src/pages/contact.astro`)
-A modern, serverless contact form with the following features:
-- **Netlify Forms**: Submissions are stored in the Netlify dashboard.
-- **Netlify Function**: A `submission-created` function at `netlify/functions/submission-created.js` intercepts submissions to send a custom-formatted email.
-- **Custom Email Delivery**: Uses `nodemailer` to send emails via a Maileroo SMTP relay for professional delivery.
-- **Subject Line Generation**: Subject is auto-generated client-side from Topic, Name, and optional Organization; sanitized (no CR/LF) and capped (200 chars) before submit.
-- **Reply-To Header**: The notification email has the `replyTo` header set to the user's email, allowing for direct replies.
-- **Spam Protection**: Uses Netlify's built-in `netlify-honeypot` for efficient, server-side spam filtering.
-- **Client UX**: On submit, the form sets `aria-busy` and disables the button with a “Sending…” label to prevent duplicates. Inputs include autocomplete and length limits (firstname/lastname max 100, email max 254, organization max 150, topic 3–100, message 10–5000, phone max 32).
-- **Phone Selector A11y**: Country picker is keyboard-accessible with ARIA roles; the submitted `phone` hidden field consolidates dial code + number.
-
-#### Environment Variables (serverless function)
-- `MAILEROO_HOST`, `MAILEROO_PORT`, `MAILEROO_USER`, `MAILEROO_PASS`
-- `MAIL_TO` (recipient address)
-
-#### Function hardening
-- Sanitizes `subject` and `replyTo` headers (strips CR/LF, trims, length-caps)
-- Caps message/field lengths (e.g., message ≤ 5000)
-- Simple best-effort rate limit: 1 submission per 30 seconds per email (per warm container)
+A modern, serverless contact form with **hCaptcha** protection:
+- **Architecture**: "Gatekeeper" pattern.
+    1.  **Frontend**: Form posts to `/.netlify/functions/submit-contact`.
+    2.  **Gatekeeper Function** (`netlify/functions/submit-contact.js`):
+        - Verifies hCaptcha token with `hcaptcha.com`.
+        - **Sends Email Directly**: Uses `nodemailer` + Maileroo to ensure reliable delivery.
+        - **Proxies to Netlify**: Attempts to save to Netlify Forms (dashboard) as a backup/archive.
+- **Spam Protection**: **hCaptcha** (replaced reCAPTCHA).
+- **Client UX**:
+    - `aria-busy` state and "Sending..." label.
+    - **Phone Input**: Custom country picker with copy-paste support (Ctrl/Cmd+V) while enforcing numeric input.
+- **Environment Variables**:
+    - `PUBLIC_HCAPTCHA_SITE_KEY`: Frontend site key.
+    - `SITE_RECAPTCHA_SECRET`: Backend secret key (Netlify standard name).
+    - `MAILEROO_*`: SMTP credentials.
+- **Function Hardening**:
+    - Sanitizes headers (CR/LF stripping).
+    - Rate limiting (best-effort in-memory).
 
 ### Navigation (Header + Navigation)
 - Responsive nav with smart active highlighting — "Writings" tab stays highlighted across `/writing/`, `/blog/`, and `/fiction/`
