@@ -4,10 +4,13 @@
   command = "npm run build"
   publish = "dist"
 
+[build.environment]
+  SECRETS_SCAN_OMIT_KEYS = "SITE_RECAPTCHA_KEY"
+
 [[headers]]
   for = "/*"
   [headers.values]
-  Content-Security-Policy = "default-src 'self'; img-src 'self' data: https:; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; font-src 'self' https://cdn.jsdelivr.net data:; connect-src 'self'; form-action 'self'; base-uri 'self'; object-src 'none'; frame-src 'self' https://www.youtube-nocookie.com https://www.youtube.com; frame-ancestors 'none'; upgrade-insecure-requests;"
+  Content-Security-Policy = "default-src 'self'; img-src 'self' data: https:; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://js.hcaptcha.com https://hcaptcha.com; style-src 'self' 'unsafe-inline' https://hcaptcha.com https://newassets.hcaptcha.com; font-src 'self' https://cdn.jsdelivr.net data:; connect-src 'self' https://hcaptcha.com https://newassets.hcaptcha.com; form-action 'self'; base-uri 'self'; object-src 'none'; frame-src 'self' https://www.youtube-nocookie.com https://www.youtube.com https://newassets.hcaptcha.com https://hcaptcha.com; frame-ancestors 'none'; upgrade-insecure-requests;"
   Referrer-Policy = "no-referrer"
   X-Content-Type-Options = "nosniff"
   Permissions-Policy = "camera=(), microphone=(), geolocation=()"

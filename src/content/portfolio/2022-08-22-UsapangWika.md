@@ -1,5 +1,4 @@
 ---
-layout: ../../layouts/PostLayout.astro
 title: 'Usapang Wika (2022)'
 pubDate: 2022-08-16
 image:

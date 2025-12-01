@@ -1,5 +1,4 @@
 ---
-layout: ../../layouts/PostLayout.astro
 title: 'Board of Investments "Make it Happen in the Philippines" Campaign (2023)'
 pubDate: 2023-07-18
 image:

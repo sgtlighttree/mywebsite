@@ -20,8 +20,22 @@ netlify dev
 | **Local development (with images)**      | `netlify dev`                            |
 | Production build                         | `npm run build`                          |
 | Preview build with live CDN              | `netlify deploy --build --draft --open`  |
+| **Preview production build locally**     | `netlify serve` (or `npm run preview`)   |
 | Wiki development (live-reload)           | `npm run dev:wiki`                       |
 | Astro diagnostics                        | `npm run astro -- check`                 |
+
+## Drafts Workflow
+
+- **Development (`netlify dev`)**: Drafts are **VISIBLE**. This allows you to preview and edit content before it goes live.
+- **Production (`npm run build`)**: Drafts are **HIDDEN**. They will not be generated in the final site.
+- **Previewing Production**: To see exactly what will be deployed (without drafts), run:
+  ```bash
+  netlify serve
+  ```
+  or
+  ```bash
+  npm run build && npm run preview
+  ```
 
 ## Tech Stack
 
@@ -35,12 +49,11 @@ netlify dev
 
 ### Create a Blog Post
 
-1.  Create a new `.md` file in `src/pages/blog/`.
+1.  Create a new `.md` file in `src/content/blog/`.
 2.  Add the following frontmatter:
 
 ```yaml
 ---
-layout: ../../layouts/PostLayout.astro
 title: "Your Post Title"
 pubDate: YYYY-MM-DD
 description: "A brief SEO description for the post."
@@ -52,12 +65,11 @@ Your content starts here.
 
 ### Create a Portfolio Entry
 
-1.  Create a new `.md` or `.mdx` file in `src/pages/portfolio/`.
+1.  Create a new `.md` or `.mdx` file in `src/content/portfolio/`.
 2.  Add the following frontmatter, ensuring the image path is correct:
 
 ```yaml
 ---
-layout: ../../layouts/PostLayout.astro
 title: "Your Project Title"
 pubDate: YYYY-MM-DD
 description: "A brief SEO description for the project."

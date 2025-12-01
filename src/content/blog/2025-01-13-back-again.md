@@ -1,5 +1,4 @@
 ---
-layout: ../../layouts/PostLayout.astro
 title: 'Back Again'
 pubDate: 2025-01-13
 description: 'Going back to (AI-assisted) webdev.'

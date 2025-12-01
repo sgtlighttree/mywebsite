@@ -1,8 +1,9 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro';
-import Social from '../components/Social.astro';
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Social from "../components/Social.astro";
 const pageTitle = "Get In Touch";
 ---
+
 <BaseLayout pageTitle={pageTitle} showFooterCta={false}>
   <style>
     /* Contact form-specific styles */
@@ -12,17 +13,20 @@ const pageTitle = "Get In Touch";
       }
     }
   </style>
-  <p>Have a project in mind? I'd love to hear about it. Fill out the form below and I'll get back to you as soon as possible.</p>
+  <p>
+    Have a project in mind? I'd love to hear about it. Fill out the form below
+    and I'll get back to you as soon as possible.
+  </p>
   <div class="contact-form">
     <!-- <h2 id="contact-form-heading">Get In Touch</h2> -->
     <form
       id="contact-form"
       name="contact"
       method="POST"
-      data-netlify-recaptcha="true"
+      data-netlify-hcaptcha="true"
       data-netlify="true"
       netlify-honeypot="bot-field"
-      action="/success/"
+      action="/.netlify/functions/submit-contact"
       aria-labelledby="contact-form-heading"
       autocomplete="on"
       novalidate
@@ -32,11 +36,22 @@ const pageTitle = "Get In Touch";
 
       <!-- Honeypot field for spam prevention -->
       <p class="hidden" style="display:none;" aria-hidden="true">
-        <label>Don’t fill this out if you’re human: <input name="bot-field" /></label>
+        <label
+          >Don’t fill this out if you’re human: <input
+            name="bot-field"
+          /></label
+        >
       </p>
 
       <!-- Error message container -->
-      <div id="form-errors" class="error-message" role="alert" aria-live="polite" style="display: none;"></div>
+      <div
+        id="form-errors"
+        class="error-message"
+        role="alert"
+        aria-live="polite"
+        style="display: none;"
+      >
+      </div>
 
       <fieldset class="name-group">
         <legend class="visually-hidden">Personal Information</legend>
@@ -54,8 +69,14 @@ const pageTitle = "Get In Touch";
             aria-invalid="false"
             autocomplete="given-name"
             maxlength="100"
+          />
+          <div
+            id="firstname-error"
+            class="error-message"
+            role="alert"
+            aria-live="polite"
           >
-          <div id="firstname-error" class="error-message" role="alert" aria-live="polite"></div>
+          </div>
         </div>
         <div class="form-group">
           <label for="lastname">
@@ -71,8 +92,14 @@ const pageTitle = "Get In Touch";
             aria-invalid="false"
             autocomplete="family-name"
             maxlength="100"
+          />
+          <div
+            id="lastname-error"
+            class="error-message"
+            role="alert"
+            aria-live="polite"
           >
-          <div id="lastname-error" class="error-message" role="alert" aria-live="polite"></div>
+          </div>
         </div>
       </fieldset>
 
@@ -91,9 +118,17 @@ const pageTitle = "Get In Touch";
           autocomplete="email"
           inputmode="email"
           maxlength="254"
+        />
+        <div id="email-help" class="help-text">
+          We'll use this to respond to your inquiry
+        </div>
+        <div
+          id="email-error"
+          class="error-message"
+          role="alert"
+          aria-live="polite"
         >
-        <div id="email-help" class="help-text">We'll use this to respond to your inquiry</div>
-        <div id="email-error" class="error-message" role="alert" aria-live="polite"></div>
+        </div>
       </div>
 
       <div class="form-group">
@@ -105,14 +140,24 @@ const pageTitle = "Get In Touch";
           aria-describedby="organization-help"
           autocomplete="organization"
           maxlength="150"
-        >
-        <div id="organization-help" class="help-text">Optional - let us know if you're contacting from a company or organization</div>
+        />
+        <div id="organization-help" class="help-text">
+          Optional - let us know if you're contacting from a company or
+          organization
+        </div>
       </div>
 
       <div class="form-group">
         <label for="phone-input">Phone Number</label>
         <div class="phone-selector-container">
-          <button type="button" class="country-selector" aria-expanded="false" aria-haspopup="listbox" aria-controls="country-dropdown" aria-label="Select country">
+          <button
+            type="button"
+            class="country-selector"
+            aria-expanded="false"
+            aria-haspopup="listbox"
+            aria-controls="country-dropdown"
+            aria-label="Select country"
+          >
             <span class="flag" aria-hidden="true">🇵🇭</span>
             <span class="country-code" aria-live="polite">PH</span>
             <span class="dropdown-arrow" aria-hidden="true">▼</span>
@@ -128,16 +173,28 @@ const pageTitle = "Get In Touch";
             pattern="[0-9]*"
             autocomplete="tel-national"
             maxlength="32"
+          />
+          <input type="hidden" name="phone" class="phone-hidden-input" />
+          <div
+            class="country-dropdown"
+            id="country-dropdown"
+            role="listbox"
+            aria-label="Country selection"
           >
-          <input type="hidden" name="phone" class="phone-hidden-input">
-          <div class="country-dropdown" id="country-dropdown" role="listbox" aria-label="Country selection">
-            <input type="text" class="country-search" placeholder="Search country or code" aria-label="Search countries">
+            <input
+              type="text"
+              class="country-search"
+              placeholder="Search country or code"
+              aria-label="Search countries"
+            />
             <div class="country-list" role="listbox">
               <!-- Countries will be populated by JavaScript -->
             </div>
           </div>
         </div>
-        <div id="phone-help" class="help-text">Optional - select your country and enter your phone number</div>
+        <div id="phone-help" class="help-text">
+          Optional - select your country and enter your phone number
+        </div>
       </div>
 
       <div class="form-group">
@@ -155,9 +212,17 @@ const pageTitle = "Get In Touch";
           autocomplete="off"
           minlength="3"
           maxlength="100"
+        />
+        <div id="topic-help" class="help-text">
+          Brief description of your inquiry
+        </div>
+        <div
+          id="topic-error"
+          class="error-message"
+          role="alert"
+          aria-live="polite"
         >
-        <div id="topic-help" class="help-text">Brief description of your inquiry</div>
-        <div id="topic-error" class="error-message" role="alert" aria-live="polite"></div>
+        </div>
       </div>
 
       <div class="form-group">
@@ -173,34 +238,54 @@ const pageTitle = "Get In Touch";
           aria-describedby="message-error message-help"
           aria-invalid="false"
           minlength="10"
-          maxlength="5000"
-        ></textarea>
-        <div id="message-help" class="help-text">Please provide details about your inquiry</div>
-        <div id="message-error" class="error-message" role="alert" aria-live="polite"></div>
+          maxlength="5000"></textarea>
+        <div id="message-help" class="help-text">
+          Please provide details about your inquiry
+        </div>
+        <div
+          id="message-error"
+          class="error-message"
+          role="alert"
+          aria-live="polite"
+        >
+        </div>
       </div>
 
       <div class="privacy-notice" role="note" aria-label="Privacy information">
-        <p>By submitting this form, you agree to our <a href="/privacy-policy" target="_blank" rel="noopener noreferrer">Privacy Policy</a>.</p>
+        <p>
+          By submitting this form, you agree to our <a
+            href="/privacy-policy"
+            target="_blank"
+            rel="noopener noreferrer">Privacy Policy</a
+          >.
+        </p>
       </div>
 
-      <div data-netlify-recaptcha="true"></div>
+      <script src="https://js.hcaptcha.com/1/api.js" async defer></script>
+      <div
+        class="h-captcha"
+        data-sitekey={import.meta.env.PUBLIC_HCAPTCHA_SITE_KEY}
+      >
+      </div>
 
       <button type="submit" id="submit-button">
         <span>Send Message</span>
       </button>
     </form>
-    <br><hr style="border-top: 1px dashed var(--border-light)">
+    <br /><hr style="border-top: 1px dashed var(--border-light)" />
     <p>You may also contact me through these platforms:</p>
     <div class="tile-container">
-      {[
-        { platform: "Facebook", username: "lighttree.gfx" },
-        { platform: "LinkedIn", username: "in/matthewoyan/" },
-        { platform: "Instagram", username: "sgtlighttree" },
-      ].map((item) => (
-        <div class="tile-item">
-          <Social platform={item.platform} username={item.username} />
-        </div>
-      ))}
+      {
+        [
+          { platform: "Facebook", username: "lighttree.gfx" },
+          { platform: "LinkedIn", username: "in/matthewoyan/" },
+          { platform: "Instagram", username: "sgtlighttree" },
+        ].map((item) => (
+          <div class="tile-item">
+            <Social platform={item.platform} username={item.username} />
+          </div>
+        ))
+      }
     </div>
   </div>
 
@@ -210,46 +295,53 @@ const pageTitle = "Get In Touch";
       private form: HTMLFormElement;
       private submitButton: HTMLButtonElement | null;
       private formErrors: HTMLElement | null;
-      private validationRules: Record<string, {
-        required?: boolean;
-        minLength?: number;
-        pattern?: RegExp;
-        message: string;
-      }>;
+      private validationRules: Record<
+        string,
+        {
+          required?: boolean;
+          minLength?: number;
+          pattern?: RegExp;
+          message: string;
+        }
+      >;
 
       constructor(form: HTMLFormElement) {
         this.form = form;
-        this.submitButton = form.querySelector('#submit-button') as HTMLButtonElement | null;
-        this.formErrors = form.querySelector('#form-errors');
+        this.submitButton = form.querySelector(
+          "#submit-button",
+        ) as HTMLButtonElement | null;
+        this.formErrors = form.querySelector("#form-errors");
 
         this.validationRules = {
           firstname: {
             required: true,
             minLength: 2,
             pattern: /^[a-zA-Z\s'-]+$/,
-            message: 'First name must be at least 2 characters and contain only letters'
+            message:
+              "First name must be at least 2 characters and contain only letters",
           },
           lastname: {
             required: true,
             minLength: 2,
             pattern: /^[a-zA-Z\s'-]+$/,
-            message: 'Last name must be at least 2 characters and contain only letters'
+            message:
+              "Last name must be at least 2 characters and contain only letters",
           },
           email: {
             required: true,
             pattern: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
-            message: 'Please enter a valid email address'
+            message: "Please enter a valid email address",
           },
           topic: {
             required: true,
             minLength: 5,
-            message: 'Subject must be at least 5 characters long'
+            message: "Subject must be at least 5 characters long",
           },
           message: {
             required: true,
             minLength: 10,
-            message: 'Message must be at least 10 characters long'
-          }
+            message: "Message must be at least 10 characters long",
+          },
         };
 
         this.init();
@@ -257,19 +349,26 @@ const pageTitle = "Get In Touch";
 
       init() {
         // Add event listeners
-        this.form.addEventListener('submit', (e: Event) => this.handleSubmit(e));
+        this.form.addEventListener("submit", (e: Event) =>
+          this.handleSubmit(e),
+        );
 
         // Add real-time validation on blur
         Object.keys(this.validationRules).forEach((fieldName: string) => {
-          const field = this.form.querySelector(`#${fieldName}`) as HTMLInputElement | HTMLTextAreaElement | null;
+          const field = this.form.querySelector(`#${fieldName}`) as
+            | HTMLInputElement
+            | HTMLTextAreaElement
+            | null;
           if (field) {
-            field.addEventListener('blur', () => this.validateField(fieldName));
-            field.addEventListener('input', () => this.clearFieldError(fieldName));
+            field.addEventListener("blur", () => this.validateField(fieldName));
+            field.addEventListener("input", () =>
+              this.clearFieldError(fieldName),
+            );
           }
         });
 
         // Handle form reset
-        this.form.addEventListener('reset', () => this.clearAllErrors());
+        this.form.addEventListener("reset", () => this.clearAllErrors());
       }
 
       handleSubmit(event: Event) {
@@ -287,7 +386,7 @@ const pageTitle = "Get In Touch";
 
           // Show loading state
           this.setLoadingState(true);
-          this.form.setAttribute('aria-busy', 'true');
+          this.form.setAttribute("aria-busy", "true");
 
           // Submit the form
           this.form.submit();
@@ -305,12 +404,17 @@ const pageTitle = "Get In Touch";
         const errors: string[] = [];
 
         Object.keys(this.validationRules).forEach((fieldName: string) => {
-          const field = this.form.querySelector(`#${fieldName}`) as HTMLInputElement | HTMLTextAreaElement | null;
+          const field = this.form.querySelector(`#${fieldName}`) as
+            | HTMLInputElement
+            | HTMLTextAreaElement
+            | null;
           if (field) {
             const fieldValid = this.validateField(fieldName);
             if (!fieldValid) {
               isValid = false;
-              const errorElement = this.form.querySelector(`#${fieldName}-error`);
+              const errorElement = this.form.querySelector(
+                `#${fieldName}-error`,
+              );
               if (errorElement) {
                 errors.push(`${fieldName}: ${errorElement.textContent}`);
               }
@@ -327,7 +431,10 @@ const pageTitle = "Get In Touch";
       }
 
       validateField(fieldName: string): boolean {
-        const field = this.form.querySelector(`#${fieldName}`) as HTMLInputElement | HTMLTextAreaElement | null;
+        const field = this.form.querySelector(`#${fieldName}`) as
+          | HTMLInputElement
+          | HTMLTextAreaElement
+          | null;
         const rules = this.validationRules[fieldName];
         const errorElement = this.form.querySelector(`#${fieldName}-error`);
 
@@ -335,7 +442,7 @@ const pageTitle = "Get In Touch";
 
         const value = field.value.trim();
         let isValid = true;
-        let errorMessage = '';
+        let errorMessage = "";
 
         // Check required fields
         if (rules.required && !value) {
@@ -357,24 +464,31 @@ const pageTitle = "Get In Touch";
         return isValid;
       }
 
-      setFieldError(fieldName: string, message: string, hasError: boolean): void {
-        const field = this.form.querySelector(`#${fieldName}`) as HTMLInputElement | HTMLTextAreaElement | null;
+      setFieldError(
+        fieldName: string,
+        message: string,
+        hasError: boolean,
+      ): void {
+        const field = this.form.querySelector(`#${fieldName}`) as
+          | HTMLInputElement
+          | HTMLTextAreaElement
+          | null;
         const errorElement = this.form.querySelector(`#${fieldName}-error`);
 
         if (!field || !errorElement) return;
 
-        field.setAttribute('aria-invalid', hasError.toString());
+        field.setAttribute("aria-invalid", hasError.toString());
         errorElement.textContent = message;
 
         if (hasError) {
-          field.classList.add('error');
+          field.classList.add("error");
         } else {
-          field.classList.remove('error');
+          field.classList.remove("error");
         }
       }
 
       clearFieldError(fieldName: string): void {
-        this.setFieldError(fieldName, '', false);
+        this.setFieldError(fieldName, "", false);
       }
 
       clearAllErrors(): void {
@@ -387,45 +501,68 @@ const pageTitle = "Get In Touch";
       showFormErrors(errors: string[]): void {
         if (!this.formErrors) return;
 
-        const errorList = errors.map((error: string) => `<li>${error}</li>`).join('');
+        const errorList = errors
+          .map((error: string) => `<li>${error}</li>`)
+          .join("");
         this.formErrors.innerHTML = `
           <p>Please correct the following errors:</p>
           <ul>${errorList}</ul>
         `;
-        this.formErrors.style.display = 'block';
-        this.formErrors.setAttribute('aria-live', 'assertive');
+        this.formErrors.style.display = "block";
+        this.formErrors.setAttribute("aria-live", "assertive");
       }
 
       hideFormErrors(): void {
         if (this.formErrors) {
-          this.formErrors.style.display = 'none';
-          this.formErrors.setAttribute('aria-live', 'polite');
+          this.formErrors.style.display = "none";
+          this.formErrors.setAttribute("aria-live", "polite");
         }
       }
 
       getFieldLabel(fieldName: string): string {
         const label = this.form.querySelector(`label[for="${fieldName}"]`);
-        return label ? label.textContent.replace('*', '').trim() : fieldName;
+        return label ? label.textContent.replace("*", "").trim() : fieldName;
       }
 
       generateSubject(): void {
-        const topicEl = this.form.querySelector('#topic') as HTMLInputElement | null;
-        const firstnameEl = this.form.querySelector('#firstname') as HTMLInputElement | null;
-        const lastnameEl = this.form.querySelector('#lastname') as HTMLInputElement | null;
-        const organizationEl = this.form.querySelector('#organization') as HTMLInputElement | null;
-        const subjectField = this.form.querySelector('#subject-field') as HTMLInputElement | null;
+        const topicEl = this.form.querySelector(
+          "#topic",
+        ) as HTMLInputElement | null;
+        const firstnameEl = this.form.querySelector(
+          "#firstname",
+        ) as HTMLInputElement | null;
+        const lastnameEl = this.form.querySelector(
+          "#lastname",
+        ) as HTMLInputElement | null;
+        const organizationEl = this.form.querySelector(
+          "#organization",
+        ) as HTMLInputElement | null;
+        const subjectField = this.form.querySelector(
+          "#subject-field",
+        ) as HTMLInputElement | null;
 
         if (topicEl && firstnameEl && lastnameEl && subjectField) {
-          const sanitize = (s: string, max = 150) => (s || '').replace(/[\r\n]+/g, ' ').trim().slice(0, max);
+          const sanitize = (s: string, max = 150) =>
+            (s || "")
+              .replace(/[\r\n]+/g, " ")
+              .trim()
+              .slice(0, max);
           const topic = sanitize(topicEl.value, 100);
           const firstname = sanitize(firstnameEl.value, 100);
           const lastname = sanitize(lastnameEl.value, 100);
-          const organization = organizationEl ? sanitize(organizationEl.value, 150) : '';
+          const organization = organizationEl
+            ? sanitize(organizationEl.value, 150)
+            : "";
 
-          const base = topic ? `[${topic}]` : '[Contact]';
-          const name = [firstname, lastname].filter(Boolean).join(' ');
-          const suffix = [name, organization ? `, ${organization}` : ''].filter(Boolean).join('');
-          const subject = [base, suffix ? ` - Message from ${suffix}` : ''].join('');
+          const base = topic ? `[${topic}]` : "[Contact]";
+          const name = [firstname, lastname].filter(Boolean).join(" ");
+          const suffix = [name, organization ? `, ${organization}` : ""]
+            .filter(Boolean)
+            .join("");
+          const subject = [
+            base,
+            suffix ? ` - Message from ${suffix}` : "",
+          ].join("");
 
           subjectField.value = subject.slice(0, 200);
         }
@@ -435,33 +572,37 @@ const pageTitle = "Get In Touch";
         if (!this.submitButton) return;
 
         this.submitButton.disabled = loading;
-        const buttonText = this.submitButton.querySelector('span');
+        const buttonText = this.submitButton.querySelector("span");
 
         if (loading) {
-          this.submitButton.setAttribute('aria-busy', 'true');
-          if (buttonText) buttonText.textContent = 'Sending...';
+          this.submitButton.setAttribute("aria-busy", "true");
+          if (buttonText) buttonText.textContent = "Sending...";
         } else {
-          this.submitButton.setAttribute('aria-busy', 'false');
-          if (buttonText) buttonText.textContent = 'Send Message';
+          this.submitButton.setAttribute("aria-busy", "false");
+          if (buttonText) buttonText.textContent = "Send Message";
         }
       }
 
       focusFirstError(): void {
-        const firstErrorField = this.form.querySelector('[aria-invalid="true"]') as HTMLElement | null;
+        const firstErrorField = this.form.querySelector(
+          '[aria-invalid="true"]',
+        ) as HTMLElement | null;
         if (firstErrorField) {
           firstErrorField.focus();
         }
       }
 
       announceErrors(): void {
-        const errorCount = this.form.querySelectorAll('[aria-invalid="true"]').length;
+        const errorCount = this.form.querySelectorAll(
+          '[aria-invalid="true"]',
+        ).length;
         if (errorCount > 0) {
           // Create a temporary element for screen reader announcement
-          const announcement = document.createElement('div');
-          announcement.setAttribute('aria-live', 'assertive');
-          announcement.setAttribute('aria-atomic', 'true');
-          announcement.className = 'visually-hidden';
-          announcement.textContent = `Form has ${errorCount} error${errorCount > 1 ? 's' : ''} that need${errorCount > 1 ? '' : 's'} to be corrected`;
+          const announcement = document.createElement("div");
+          announcement.setAttribute("aria-live", "assertive");
+          announcement.setAttribute("aria-atomic", "true");
+          announcement.className = "visually-hidden";
+          announcement.textContent = `Form has ${errorCount} error${errorCount > 1 ? "s" : ""} that need${errorCount > 1 ? "" : "s"} to be corrected`;
 
           document.body.appendChild(announcement);
 
@@ -489,13 +630,27 @@ const pageTitle = "Get In Touch";
 
       constructor(container: HTMLElement) {
         this.container = container;
-        this.selector = container.querySelector('.country-selector') as HTMLButtonElement;
-        this.dropdown = container.querySelector('.country-dropdown') as HTMLElement;
-        this.searchInput = container.querySelector('.country-search') as HTMLInputElement;
-        this.countryList = container.querySelector('.country-list') as HTMLElement;
-        this.phoneInput = container.querySelector('.phone-input') as HTMLInputElement;
-        this.hiddenInput = container.querySelector('.phone-hidden-input') as HTMLInputElement;
-        this.dialCodeDisplay = container.querySelector('.dial-code-display') as HTMLElement;
+        this.selector = container.querySelector(
+          ".country-selector",
+        ) as HTMLButtonElement;
+        this.dropdown = container.querySelector(
+          ".country-dropdown",
+        ) as HTMLElement;
+        this.searchInput = container.querySelector(
+          ".country-search",
+        ) as HTMLInputElement;
+        this.countryList = container.querySelector(
+          ".country-list",
+        ) as HTMLElement;
+        this.phoneInput = container.querySelector(
+          ".phone-input",
+        ) as HTMLInputElement;
+        this.hiddenInput = container.querySelector(
+          ".phone-hidden-input",
+        ) as HTMLInputElement;
+        this.dialCodeDisplay = container.querySelector(
+          ".dial-code-display",
+        ) as HTMLElement;
 
         this.countries = this.getCountries();
         this.currentCountry = this.countries[0]; // Default to Philippines
@@ -518,7 +673,12 @@ const pageTitle = "Get In Touch";
           { name: "Algeria", code: "DZ", dialCode: "+213", flag: "🇩🇿" },
           { name: "Andorra", code: "AD", dialCode: "+376", flag: "🇦🇩" },
           { name: "Angola", code: "AO", dialCode: "+244", flag: "🇦🇴" },
-          { name: "Antigua and Barbuda", code: "AG", dialCode: "+1", flag: "🇦🇬" },
+          {
+            name: "Antigua and Barbuda",
+            code: "AG",
+            dialCode: "+1",
+            flag: "🇦🇬",
+          },
           { name: "Argentina", code: "AR", dialCode: "+54", flag: "🇦🇷" },
           { name: "Armenia", code: "AM", dialCode: "+374", flag: "🇦🇲" },
           { name: "Austria", code: "AT", dialCode: "+43", flag: "🇦🇹" },
@@ -533,7 +693,12 @@ const pageTitle = "Get In Touch";
           { name: "Benin", code: "BJ", dialCode: "+229", flag: "🇧🇯" },
           { name: "Bhutan", code: "BT", dialCode: "+975", flag: "🇧🇹" },
           { name: "Bolivia", code: "BO", dialCode: "+591", flag: "🇧🇴" },
-          { name: "Bosnia and Herzegovina", code: "BA", dialCode: "+387", flag: "🇧🇦" },
+          {
+            name: "Bosnia and Herzegovina",
+            code: "BA",
+            dialCode: "+387",
+            flag: "🇧🇦",
+          },
           { name: "Botswana", code: "BW", dialCode: "+267", flag: "🇧🇼" },
           { name: "Brazil", code: "BR", dialCode: "+55", flag: "🇧🇷" },
           { name: "Brunei", code: "BN", dialCode: "+673", flag: "🇧🇳" },
@@ -544,7 +709,12 @@ const pageTitle = "Get In Touch";
           { name: "Cameroon", code: "CM", dialCode: "+237", flag: "🇨🇲" },
           { name: "Canada", code: "CA", dialCode: "+1", flag: "🇨🇦" },
           { name: "Cape Verde", code: "CV", dialCode: "+238", flag: "🇨🇻" },
-          { name: "Central African Republic", code: "CF", dialCode: "+236", flag: "🇨🇫" },
+          {
+            name: "Central African Republic",
+            code: "CF",
+            dialCode: "+236",
+            flag: "🇨🇫",
+          },
           { name: "Chad", code: "TD", dialCode: "+235", flag: "🇹🇩" },
           { name: "Chile", code: "CL", dialCode: "+56", flag: "🇨🇱" },
           { name: "China", code: "CN", dialCode: "+86", flag: "🇨🇳" },
@@ -559,12 +729,22 @@ const pageTitle = "Get In Touch";
           { name: "Denmark", code: "DK", dialCode: "+45", flag: "🇩🇰" },
           { name: "Djibouti", code: "DJ", dialCode: "+253", flag: "🇩🇯" },
           { name: "Dominica", code: "DM", dialCode: "+1", flag: "🇩🇲" },
-          { name: "Dominican Republic", code: "DO", dialCode: "+1", flag: "🇩🇴" },
+          {
+            name: "Dominican Republic",
+            code: "DO",
+            dialCode: "+1",
+            flag: "🇩🇴",
+          },
           { name: "East Timor", code: "TL", dialCode: "+670", flag: "🇹🇱" },
           { name: "Ecuador", code: "EC", dialCode: "+593", flag: "🇪🇨" },
           { name: "Egypt", code: "EG", dialCode: "+20", flag: "🇪🇬" },
           { name: "El Salvador", code: "SV", dialCode: "+503", flag: "🇸🇻" },
-          { name: "Equatorial Guinea", code: "GQ", dialCode: "+240", flag: "🇬🇶" },
+          {
+            name: "Equatorial Guinea",
+            code: "GQ",
+            dialCode: "+240",
+            flag: "🇬🇶",
+          },
           { name: "Eritrea", code: "ER", dialCode: "+291", flag: "🇪🇷" },
           { name: "Estonia", code: "EE", dialCode: "+372", flag: "🇪🇪" },
           { name: "Eswatini", code: "SZ", dialCode: "+268", flag: "🇸🇿" },
@@ -620,7 +800,12 @@ const pageTitle = "Get In Touch";
           { name: "Maldives", code: "MV", dialCode: "+960", flag: "🇲🇻" },
           { name: "Mali", code: "ML", dialCode: "+223", flag: "🇲🇱" },
           { name: "Malta", code: "MT", dialCode: "+356", flag: "🇲🇹" },
-          { name: "Marshall Islands", code: "MH", dialCode: "+692", flag: "🇲🇭" },
+          {
+            name: "Marshall Islands",
+            code: "MH",
+            dialCode: "+692",
+            flag: "🇲🇭",
+          },
           { name: "Mauritania", code: "MR", dialCode: "+222", flag: "🇲🇷" },
           { name: "Mauritius", code: "MU", dialCode: "+230", flag: "🇲🇺" },
           { name: "Mexico", code: "MX", dialCode: "+52", flag: "🇲🇽" },
@@ -647,7 +832,12 @@ const pageTitle = "Get In Touch";
           { name: "Pakistan", code: "PK", dialCode: "+92", flag: "🇵🇰" },
           { name: "Palau", code: "PW", dialCode: "+680", flag: "🇵🇼" },
           { name: "Panama", code: "PA", dialCode: "+507", flag: "🇵🇦" },
-          { name: "Papua New Guinea", code: "PG", dialCode: "+675", flag: "🇵🇬" },
+          {
+            name: "Papua New Guinea",
+            code: "PG",
+            dialCode: "+675",
+            flag: "🇵🇬",
+          },
           { name: "Paraguay", code: "PY", dialCode: "+595", flag: "🇵🇾" },
           { name: "Peru", code: "PE", dialCode: "+51", flag: "🇵🇪" },
           { name: "Poland", code: "PL", dialCode: "+48", flag: "🇵🇱" },
@@ -656,12 +846,27 @@ const pageTitle = "Get In Touch";
           { name: "Romania", code: "RO", dialCode: "+40", flag: "🇷🇴" },
           { name: "Russia", code: "RU", dialCode: "+7", flag: "🇷🇺" },
           { name: "Rwanda", code: "RW", dialCode: "+250", flag: "🇷🇼" },
-          { name: "Saint Kitts and Nevis", code: "KN", dialCode: "+1", flag: "🇰🇳" },
+          {
+            name: "Saint Kitts and Nevis",
+            code: "KN",
+            dialCode: "+1",
+            flag: "🇰🇳",
+          },
           { name: "Saint Lucia", code: "LC", dialCode: "+1", flag: "🇱🇨" },
-          { name: "Saint Vincent and the Grenadines", code: "VC", dialCode: "+1", flag: "🇻🇨" },
+          {
+            name: "Saint Vincent and the Grenadines",
+            code: "VC",
+            dialCode: "+1",
+            flag: "🇻🇨",
+          },
           { name: "Samoa", code: "WS", dialCode: "+685", flag: "🇼🇸" },
           { name: "San Marino", code: "SM", dialCode: "+378", flag: "🇸🇲" },
-          { name: "Sao Tome and Principe", code: "ST", dialCode: "+239", flag: "🇸🇹" },
+          {
+            name: "Sao Tome and Principe",
+            code: "ST",
+            dialCode: "+239",
+            flag: "🇸🇹",
+          },
           { name: "Saudi Arabia", code: "SA", dialCode: "+966", flag: "🇸🇦" },
           { name: "Senegal", code: "SN", dialCode: "+221", flag: "🇸🇳" },
           { name: "Serbia", code: "RS", dialCode: "+381", flag: "🇷🇸" },
@@ -687,14 +892,24 @@ const pageTitle = "Get In Touch";
           { name: "Thailand", code: "TH", dialCode: "+66", flag: "🇹🇭" },
           { name: "Togo", code: "TG", dialCode: "+228", flag: "🇹🇬" },
           { name: "Tonga", code: "TO", dialCode: "+676", flag: "🇹🇴" },
-          { name: "Trinidad and Tobago", code: "TT", dialCode: "+1", flag: "🇹🇹" },
+          {
+            name: "Trinidad and Tobago",
+            code: "TT",
+            dialCode: "+1",
+            flag: "🇹🇹",
+          },
           { name: "Tunisia", code: "TN", dialCode: "+216", flag: "🇹🇳" },
           { name: "Turkey", code: "TR", dialCode: "+90", flag: "🇹🇷" },
           { name: "Turkmenistan", code: "TM", dialCode: "+993", flag: "🇹🇲" },
           { name: "Tuvalu", code: "TV", dialCode: "+688", flag: "🇹🇻" },
           { name: "Uganda", code: "UG", dialCode: "+256", flag: "🇺🇬" },
           { name: "Ukraine", code: "UA", dialCode: "+380", flag: "🇺🇦" },
-          { name: "United Arab Emirates", code: "AE", dialCode: "+971", flag: "🇦🇪" },
+          {
+            name: "United Arab Emirates",
+            code: "AE",
+            dialCode: "+971",
+            flag: "🇦🇪",
+          },
           { name: "Uruguay", code: "UY", dialCode: "+598", flag: "🇺🇾" },
           { name: "Uzbekistan", code: "UZ", dialCode: "+998", flag: "🇺🇿" },
           { name: "Vanuatu", code: "VU", dialCode: "+678", flag: "🇻🇺" },
@@ -703,7 +918,7 @@ const pageTitle = "Get In Touch";
           { name: "Vietnam", code: "VN", dialCode: "+84", flag: "🇻🇳" },
           { name: "Yemen", code: "YE", dialCode: "+967", flag: "🇾🇪" },
           { name: "Zambia", code: "ZM", dialCode: "+260", flag: "🇿🇲" },
-          { name: "Zimbabwe", code: "ZW", dialCode: "+263", flag: "🇿🇼" }
+          { name: "Zimbabwe", code: "ZW", dialCode: "+263", flag: "🇿🇼" },
         ];
 
         return countries;
@@ -716,14 +931,14 @@ const pageTitle = "Get In Touch";
       }
 
       private populateCountries(): void {
-        this.countryList.innerHTML = '';
+        this.countryList.innerHTML = "";
 
         this.countries.forEach((country, index) => {
-          const option = document.createElement('div');
-          option.className = 'country-option';
-          option.setAttribute('role', 'option');
-          option.setAttribute('aria-selected', 'false');
-          option.setAttribute('data-index', index.toString());
+          const option = document.createElement("div");
+          option.className = "country-option";
+          option.setAttribute("role", "option");
+          option.setAttribute("aria-selected", "false");
+          option.setAttribute("data-index", index.toString());
 
           option.innerHTML = `
             <span class="flag">${country.flag}</span>
@@ -731,8 +946,12 @@ const pageTitle = "Get In Touch";
             <span class="dial-code">${country.dialCode}</span>
           `;
 
-          option.addEventListener('click', () => this.selectCountry(country, option));
-          option.addEventListener('keydown', (e) => this.handleOptionKeydown(e, country, option));
+          option.addEventListener("click", () =>
+            this.selectCountry(country, option),
+          );
+          option.addEventListener("keydown", (e) =>
+            this.handleOptionKeydown(e, country, option),
+          );
 
           this.countryList.appendChild(option);
         });
@@ -740,21 +959,29 @@ const pageTitle = "Get In Touch";
 
       private bindEvents(): void {
         // Toggle dropdown
-        this.selector.addEventListener('click', () => this.toggleDropdown());
+        this.selector.addEventListener("click", () => this.toggleDropdown());
 
         // Search functionality
-        this.searchInput.addEventListener('input', (e) => this.handleSearch(e));
-        this.searchInput.addEventListener('keydown', (e) => this.handleSearchKeydown(e));
+        this.searchInput.addEventListener("input", (e) => this.handleSearch(e));
+        this.searchInput.addEventListener("keydown", (e) =>
+          this.handleSearchKeydown(e),
+        );
 
         // Close dropdown when clicking outside
-        document.addEventListener('click', (e) => this.handleOutsideClick(e));
+        document.addEventListener("click", (e) => this.handleOutsideClick(e));
 
         // Keyboard navigation
-        this.selector.addEventListener('keydown', (e) => this.handleSelectorKeydown(e));
+        this.selector.addEventListener("keydown", (e) =>
+          this.handleSelectorKeydown(e),
+        );
 
         // Phone input validation (numeric only)
-        this.phoneInput.addEventListener('input', (e) => this.handlePhoneInput(e));
-        this.phoneInput.addEventListener('keydown', (e) => this.handlePhoneKeydown(e));
+        this.phoneInput.addEventListener("input", (e) =>
+          this.handlePhoneInput(e),
+        );
+        this.phoneInput.addEventListener("keydown", (e) =>
+          this.handlePhoneKeydown(e),
+        );
       }
 
       private toggleDropdown(): void {
@@ -767,53 +994,59 @@ const pageTitle = "Get In Touch";
 
       private openDropdown(): void {
         this.isOpen = true;
-        this.selector.setAttribute('aria-expanded', 'true');
-        this.dropdown.setAttribute('aria-expanded', 'true');
+        this.selector.setAttribute("aria-expanded", "true");
+        this.dropdown.setAttribute("aria-expanded", "true");
         this.searchInput.focus();
 
         // Announce to screen readers
-        this.announceDropdown('Country selector opened');
+        this.announceDropdown("Country selector opened");
       }
 
       private closeDropdown(): void {
         this.isOpen = false;
-        this.selector.setAttribute('aria-expanded', 'false');
-        this.dropdown.setAttribute('aria-expanded', 'false');
-        this.searchInput.value = '';
+        this.selector.setAttribute("aria-expanded", "false");
+        this.dropdown.setAttribute("aria-expanded", "false");
+        this.searchInput.value = "";
 
         // Clear search filter
-        const options = this.countryList.querySelectorAll('.country-option');
-        options.forEach(option => {
-          (option as HTMLElement).style.display = 'flex';
+        const options = this.countryList.querySelectorAll(".country-option");
+        options.forEach((option) => {
+          (option as HTMLElement).style.display = "flex";
         });
 
         // Only focus selector if keyboard was used to close it
         // Don't focus if closed by clicking outside to avoid stealing focus from other form fields
-        this.announceDropdown('Country selector closed');
+        this.announceDropdown("Country selector closed");
       }
 
       private handleSearch(e: Event): void {
         const query = (e.target as HTMLInputElement).value.toLowerCase().trim();
-        const options = this.countryList.querySelectorAll('.country-option');
+        const options = this.countryList.querySelectorAll(".country-option");
 
-        options.forEach(option => {
-          const countryName = option.querySelector('.country-name')?.textContent?.toLowerCase() || '';
-          const dialCode = option.querySelector('.dial-code')?.textContent?.toLowerCase() || '';
+        options.forEach((option) => {
+          const countryName =
+            option.querySelector(".country-name")?.textContent?.toLowerCase() ||
+            "";
+          const dialCode =
+            option.querySelector(".dial-code")?.textContent?.toLowerCase() ||
+            "";
 
           if (countryName.includes(query) || dialCode.includes(query)) {
-            (option as HTMLElement).style.display = 'flex';
+            (option as HTMLElement).style.display = "flex";
           } else {
-            (option as HTMLElement).style.display = 'none';
+            (option as HTMLElement).style.display = "none";
           }
         });
       }
 
       private handleSearchKeydown(e: KeyboardEvent): void {
-        if (e.key === 'Escape') {
+        if (e.key === "Escape") {
           this.closeDropdown();
-        } else if (e.key === 'ArrowDown') {
+        } else if (e.key === "ArrowDown") {
           e.preventDefault();
-          const firstVisibleOption = this.countryList.querySelector('.country-option[style*="flex"]') as HTMLElement;
+          const firstVisibleOption = this.countryList.querySelector(
+            '.country-option[style*="flex"]',
+          ) as HTMLElement;
           if (firstVisibleOption) {
             firstVisibleOption.focus();
           }
@@ -821,41 +1054,50 @@ const pageTitle = "Get In Touch";
       }
 
       private handleSelectorKeydown(e: KeyboardEvent): void {
-        if (e.key === 'Enter' || e.key === ' ') {
+        if (e.key === "Enter" || e.key === " ") {
           e.preventDefault();
           this.toggleDropdown();
-        } else if (e.key === 'ArrowDown' && !this.isOpen) {
+        } else if (e.key === "ArrowDown" && !this.isOpen) {
           e.preventDefault();
           this.openDropdown();
         }
       }
 
-      private handleOptionKeydown(e: KeyboardEvent, country: Country, option: HTMLElement): void {
-        if (e.key === 'Enter' || e.key === ' ') {
+      private handleOptionKeydown(
+        e: KeyboardEvent,
+        country: Country,
+        option: HTMLElement,
+      ): void {
+        if (e.key === "Enter" || e.key === " ") {
           e.preventDefault();
           this.selectCountry(country, option);
-        } else if (e.key === 'ArrowDown') {
+        } else if (e.key === "ArrowDown") {
           e.preventDefault();
           this.focusNextOption(option);
-        } else if (e.key === 'ArrowUp') {
+        } else if (e.key === "ArrowUp") {
           e.preventDefault();
           this.focusPreviousOption(option);
-        } else if (e.key === 'Escape') {
+        } else if (e.key === "Escape") {
           this.closeDropdown();
         }
       }
 
       private focusNextOption(currentOption: HTMLElement): void {
-        const visibleOptions = Array.from(this.countryList.querySelectorAll('.country-option[style*="flex"]')) as HTMLElement[];
+        const visibleOptions = Array.from(
+          this.countryList.querySelectorAll('.country-option[style*="flex"]'),
+        ) as HTMLElement[];
         const currentIndex = visibleOptions.indexOf(currentOption);
         const nextIndex = (currentIndex + 1) % visibleOptions.length;
         visibleOptions[nextIndex].focus();
       }
 
       private focusPreviousOption(currentOption: HTMLElement): void {
-        const visibleOptions = Array.from(this.countryList.querySelectorAll('.country-option[style*="flex"]')) as HTMLElement[];
+        const visibleOptions = Array.from(
+          this.countryList.querySelectorAll('.country-option[style*="flex"]'),
+        ) as HTMLElement[];
         const currentIndex = visibleOptions.indexOf(currentOption);
-        const prevIndex = currentIndex === 0 ? visibleOptions.length - 1 : currentIndex - 1;
+        const prevIndex =
+          currentIndex === 0 ? visibleOptions.length - 1 : currentIndex - 1;
         visibleOptions[prevIndex].focus();
       }
 
@@ -868,13 +1110,26 @@ const pageTitle = "Get In Touch";
       private handlePhoneInput(e: Event): void {
         const input = e.target as HTMLInputElement;
         // Remove any non-numeric characters
-        input.value = input.value.replace(/[^\d]/g, '');
+        input.value = input.value.replace(/[^\d]/g, "");
         this.updateHiddenInput();
       }
 
       private handlePhoneKeydown(e: KeyboardEvent): void {
         // Allow backspace, delete, tab, escape, enter, arrows
-        if (['Backspace', 'Delete', 'Tab', 'Escape', 'Enter', 'ArrowLeft', 'ArrowRight'].includes(e.key)) {
+        if (
+          [
+            "Backspace",
+            "Delete",
+            "Tab",
+            "Escape",
+            "Enter",
+            "ArrowLeft",
+            "ArrowRight",
+          ].includes(e.key) ||
+          // Allow: Ctrl+A, Ctrl+C, Ctrl+V, Command+A, etc.
+          e.ctrlKey === true ||
+          e.metaKey === true
+        ) {
           return;
         }
 
@@ -891,23 +1146,24 @@ const pageTitle = "Get In Touch";
         this.closeDropdown();
 
         // Clear previous selection
-        const allOptions = this.countryList.querySelectorAll('.country-option');
-        allOptions.forEach(opt => opt.setAttribute('aria-selected', 'false'));
+        const allOptions = this.countryList.querySelectorAll(".country-option");
+        allOptions.forEach((opt) => opt.setAttribute("aria-selected", "false"));
 
         // Set new selection
-        option.setAttribute('aria-selected', 'true');
+        option.setAttribute("aria-selected", "true");
 
         // Announce selection to screen readers
         this.announceSelection(country);
       }
 
       private updateSelectorDisplay(): void {
-        const flagEl = this.selector.querySelector('.flag');
-        const codeEl = this.selector.querySelector('.country-code');
+        const flagEl = this.selector.querySelector(".flag");
+        const codeEl = this.selector.querySelector(".country-code");
 
         if (flagEl) flagEl.textContent = this.currentCountry.flag;
         if (codeEl) codeEl.textContent = this.currentCountry.code;
-        if (this.dialCodeDisplay) this.dialCodeDisplay.textContent = this.currentCountry.dialCode;
+        if (this.dialCodeDisplay)
+          this.dialCodeDisplay.textContent = this.currentCountry.dialCode;
       }
 
       private updateHiddenInput(): void {
@@ -915,15 +1171,15 @@ const pageTitle = "Get In Touch";
         if (phoneNumber) {
           this.hiddenInput.value = `${this.currentCountry.dialCode} ${phoneNumber}`;
         } else {
-          this.hiddenInput.value = '';
+          this.hiddenInput.value = "";
         }
       }
 
       private announceDropdown(state: string): void {
-        const announcement = document.createElement('div');
-        announcement.setAttribute('aria-live', 'polite');
-        announcement.setAttribute('aria-atomic', 'true');
-        announcement.className = 'visually-hidden';
+        const announcement = document.createElement("div");
+        announcement.setAttribute("aria-live", "polite");
+        announcement.setAttribute("aria-atomic", "true");
+        announcement.className = "visually-hidden";
         announcement.textContent = state;
 
         document.body.appendChild(announcement);
@@ -934,10 +1190,10 @@ const pageTitle = "Get In Touch";
       }
 
       private announceSelection(country: Country): void {
-        const announcement = document.createElement('div');
-        announcement.setAttribute('aria-live', 'polite');
-        announcement.setAttribute('aria-atomic', 'true');
-        announcement.className = 'visually-hidden';
+        const announcement = document.createElement("div");
+        announcement.setAttribute("aria-live", "polite");
+        announcement.setAttribute("aria-atomic", "true");
+        announcement.className = "visually-hidden";
         announcement.textContent = `Selected country: ${country.name}, dial code: ${country.dialCode}`;
 
         document.body.appendChild(announcement);
@@ -957,14 +1213,18 @@ const pageTitle = "Get In Touch";
     }
 
     // Initialize the form and phone selector when DOM is loaded
-    document.addEventListener('DOMContentLoaded', () => {
-      const contactForm = document.querySelector('form[name="contact"]') as HTMLFormElement | null;
+    document.addEventListener("DOMContentLoaded", () => {
+      const contactForm = document.querySelector(
+        'form[name="contact"]',
+      ) as HTMLFormElement | null;
       if (contactForm) {
         new AccessibleContactForm(contactForm);
       }
 
       // Initialize phone selector
-      const phoneContainer = document.querySelector('.phone-selector-container') as HTMLElement | null;
+      const phoneContainer = document.querySelector(
+        ".phone-selector-container",
+      ) as HTMLElement | null;
       if (phoneContainer) {
         new PhoneSelector(phoneContainer);
       }
