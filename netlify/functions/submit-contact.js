@@ -62,14 +62,14 @@ export const handler = async function (event, context) {
 
         // Format the email body (apply length limits)
         const emailBody = `
-            Name: ${cleanHeader(data.firstname, 100)} ${cleanHeader(data.lastname, 100)}
-            Email: ${replyTo || 'N/A'}
-            Organization: ${cleanHeader(data.organization, 150) || 'N/A'}
-            Phone: ${cleanHeader(data.phone, 32) || 'N/A'}
+Name: ${cleanHeader(data.firstname, 100)} ${cleanHeader(data.lastname, 100)}
+Email: ${replyTo || 'N/A'}
+Organization: ${cleanHeader(data.organization, 150) || 'N/A'}
+Phone: ${cleanHeader(data.phone, 32) || 'N/A'}
 
-            Message:
-            ${clip(data.message, 5000) || 'N/A'}
-        `;
+Message:
+${clip(data.message, 5000) || 'N/A'}
+`;
 
         // Setup email data
         let mailOptions = {
