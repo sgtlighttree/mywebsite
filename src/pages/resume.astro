@@ -1,95 +1,137 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro';
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { Image } from "astro:assets";
+import headshot from "../assets/images/MatthewOyan_2025_headshot_optimized_65.webp";
 
 const pageTitle = "Resume";
 const metaTitle = "Matthew Oyan - Resume";
-const pageDescription = "Resume of Matthew Oyan, a 5+ years experienced multimedia artist working in various digital media and live events, based in the Philippines.";
-
+const pageDescription =
+  "Resume of Matthew Oyan, a 5+ years experienced multimedia artist working in various digital media and live events, based in the Philippines.";
 ---
 
-<BaseLayout pageTitle={pageTitle} metaTitle={metaTitle} pageDescription={pageDescription}>
-  <script type="application/ld+json" set:html={JSON.stringify({
-    "@context": "https://schema.org",
-    "@type": "Person",
-    "name": "Matthew Oyan",
-    "url": "https://matthewoyan.com",
-    "image": "/images/MatthewOyan_2025_headshot_optimized_65.webp",
-    "jobTitle": "Multimedia Creative / Motion Designer",
-    "description": "Multidisciplinary creative with 5+ years of experience delivering creative solutions for scripted and live productions. Skilled in motion design, color grading, graphic design, and branding across 2D/3D styles.",
-    "sameAs": [
-      "https://twitter.com/lighttree_gfx"
-    ],
-    "workLocation": [
-      {
-        "@type": "Place",
-        "address": {
-          "@type": "PostalAddress",
-          "addressCountry": "PH",
-          "addressLocality": "Quezon City"
-        }
-      },
-      {
-        "@type": "Place",
-        "name": "Remote"
-      }
-    ],
-    "worksFor": [
-      {
-        "@type": "Organization",
-        "name": "Business Unusual Media Solutions Inc"
-      },
-      {
-        "@type": "Organization",
-        "name": "Magnus PC"
-      },
-      {
-        "@type": "Organization",
-        "name": "Lighttree Graphics"
-      }
-    ]
-  })}></script>
+<BaseLayout
+  pageTitle={pageTitle}
+  metaTitle={metaTitle}
+  pageDescription={pageDescription}
+>
+  <script
+    type="application/ld+json"
+    set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "Person",
+      name: "Matthew Oyan",
+      url: "https://matthewoyan.com",
+      image: "/images/MatthewOyan_2025_headshot_optimized_65.webp",
+      jobTitle: "Multimedia Creative / Motion Designer",
+      description:
+        "Multidisciplinary creative with 5+ years of experience delivering creative solutions for scripted and live productions. Skilled in motion design, color grading, graphic design, and branding across 2D/3D styles.",
+      sameAs: ["https://twitter.com/lighttree_gfx"],
+      workLocation: [
+        {
+          "@type": "Place",
+          address: {
+            "@type": "PostalAddress",
+            addressCountry: "PH",
+            addressLocality: "Quezon City",
+          },
+        },
+        {
+          "@type": "Place",
+          name: "Remote",
+        },
+      ],
+      worksFor: [
+        {
+          "@type": "Organization",
+          name: "Business Unusual Media Solutions Inc",
+        },
+        {
+          "@type": "Organization",
+          name: "Magnus PC",
+        },
+        {
+          "@type": "Organization",
+          name: "Lighttree Graphics",
+        },
+      ],
+    })}
+  />
   <div class="about-intro">
     <p>
-        Matthew Oyan is a multidisciplinary creative with 5+ years of experience delivering creative solutions for scripted and live productions. Skilled in motion design, color grading, graphic design, and branding across 2D/3D styles, with proven ability to integrate cutting-edge generative AI tools into traditional workflows. Combines creative vision with practical execution to meet project deadlines and team objectives.
-        <br><br>
-        He posseses a Diploma in Media Arts acquired from the Eugenio Lopez Jr. Center for Media Arts.
+      Matthew Oyan is a multidisciplinary creative with 5+ years of experience
+      delivering creative solutions for scripted and live productions. Skilled
+      in motion design, color grading, graphic design, and branding across 2D/3D
+      styles, with proven ability to integrate cutting-edge generative AI tools
+      into traditional workflows. Combines creative vision with practical
+      execution to meet project deadlines and team objectives.
+      <br /><br />
+      He posseses a Diploma in Media Arts acquired from the Eugenio Lopez Jr. Center
+      for Media Arts.
     </p>
-    <img src="/images/MatthewOyan_2025_headshot_optimized_65.webp" alt="Matthew Oyan headshot" loading="lazy" style="max-width: 200px; border: 1px solid var(--border-light); height: auto; display: block; margin: 1rem 0;" />
+    <Image
+      src={headshot}
+      alt="Matthew Oyan headshot"
+      loading="lazy"
+      style="max-width: 200px; border: 1px solid var(--border-light); height: auto; display: block; margin: 1rem 0;"
+    />
   </div>
 
   <h2>Professional Experience</h2>
 
   <h3>Video Editor</h3>
-  <p>Business Unusual Media Solutions Inc, BGC, Taguig | February 2021 - Present</p>
+  <p>
+    Business Unusual Media Solutions Inc, BGC, Taguig | February 2021 - Present
+  </p>
   <ul>
-    <li>Managed end-to-end multimedia production for live and scripted productions, including live event broadcast direction; LED screen content design; visual branding and graphics creation; video editing; motion graphics development; and color grading for a multitude of platforms.</li>
-    <li>Worked with a diverse array of corporate and government clients, including:
+    <li>
+      Managed end-to-end multimedia production for live and scripted
+      productions, including live event broadcast direction; LED screen content
+      design; visual branding and graphics creation; video editing; motion
+      graphics development; and color grading for a multitude of platforms.
+    </li>
+    <li>
+      Worked with a diverse array of corporate and government clients,
+      including:
       <ul>
-        <li>DENR-Biodiversity Management Bureau
+        <li>
+          DENR-Biodiversity Management Bureau
           <ul>
-            <li>Our Fragile Earth: Protected Areas of the Philippines, a documentary aired on ANC on 2021 (Season 3) and 2025 (Season 4)</li>
+            <li>
+              Our Fragile Earth: Protected Areas of the Philippines, a
+              documentary aired on ANC on 2021 (Season 3) and 2025 (Season 4)
+            </li>
           </ul>
         </li>
-        <li>National Commission for Culture and the Arts
+        <li>
+          National Commission for Culture and the Arts
           <ul>
-            <li>Usapang Wika (Language Talks), a documentary on the languages of the Philippines, aired on ANC on 2022</li>
+            <li>
+              Usapang Wika (Language Talks), a documentary on the languages of
+              the Philippines, aired on ANC on 2022
+            </li>
           </ul>
         </li>
         <li>Philippine Deposit Insurance Corporation (PDIC)</li>
-          <ul>
-            <li>PDIC Stakeholders' Appreciation Night 2024</li>
-          </ul>
+        <ul>
+          <li>PDIC Stakeholders' Appreciation Night 2024</li>
+        </ul>
         <li>Land Bank of the Philippines</li>
         <li>DTI-Board of Investments (Philippines)</li>
-          <ul>
-            <li>"Make It Happen in The Philippines" Foreign Direct Investment Campaign</li>
-          </ul>
+        <ul>
+          <li>
+            "Make It Happen in The Philippines" Foreign Direct Investment
+            Campaign
+          </li>
+        </ul>
         <li>DTI-Bureau of Small and Medium Enterprise Development</li>
-          <ul>
-            <li>2025 Presidential Awards for Micro, Small, and Medium Enterprises (MSMEs) and Outstanding Development Partners</li>
-            <li>2024 Micro, Small and Medium Enterprise Summit</li>
-            <li>2023 Micro, Small and Medium Enterprise Summit</li>
-          </ul>
+        <ul>
+          <li>
+            2025 Presidential Awards for Micro, Small, and Medium Enterprises
+            (MSMEs) and Outstanding Development Partners
+          </li>
+          <li>2024 Micro, Small and Medium Enterprise Summit</li>
+          <li>2023 Micro, Small and Medium Enterprise Summit</li>
+        </ul>
         <li>Nippon Paint Philippines</li>
       </ul>
     </li>
@@ -98,22 +140,35 @@ const pageDescription = "Resume of Matthew Oyan, a 5+ years experienced multimed
   <h3>Marketing Director (Part Time)</h3>
   <p>Magnus PC, San Mateo | September 2024 - Present</p>
   <ul>
-    <li>Overseeing the creation of content for social media and marketing efforts for MAGNUS PC, a local PC builder based in San Mateo, Philippines.</li>
+    <li>
+      Overseeing the creation of content for social media and marketing efforts
+      for MAGNUS PC, a local PC builder based in San Mateo, Philippines.
+    </li>
   </ul>
 
   <h3>Freelance Multimedia Generalist</h3>
   <p>Lighttree Graphics, Quezon City | June 2020 - Present</p>
   <ul>
-    <li>Created motion graphics and visual effects for collegiate student films.</li>
+    <li>
+      Created motion graphics and visual effects for collegiate student films.
+    </li>
   </ul>
 
   <h3>Intern</h3>
-  <p> ABS-CBN Corporation/YeY Channel, Quezon City | September 2 - 20, 2019</p>
+  <p>ABS-CBN Corporation/YeY Channel, Quezon City | September 2 - 20, 2019</p>
   <ul>
-    <li>A two-week internship at YeY Channel, the children's television division of the Philippines' largest media corporation, assisting across various stages of the production pipeline.</li>
+    <li>
+      A two-week internship at YeY Channel, the children's television division
+      of the Philippines' largest media corporation, assisting across various
+      stages of the production pipeline.
+    </li>
   </ul>
-  <br><hr style="border-top: 1px dashed var(--border-light)"><br>
-  <a href="https://docs.google.com/document/d/e/2PACX-1vT3IYTjH59uODKJIrvdPtbDG21zmaIdT_HC3deP17x0i4z5xCnL_JaE8xlouw0YRB_c1klmvVQZExMV/pub" target="_blank" rel="noopener noreferrer">
+  <br /><hr style="border-top: 1px dashed var(--border-light)" /><br />
+  <a
+    href="https://docs.google.com/document/d/e/2PACX-1vT3IYTjH59uODKJIrvdPtbDG21zmaIdT_HC3deP17x0i4z5xCnL_JaE8xlouw0YRB_c1klmvVQZExMV/pub"
+    target="_blank"
+    rel="noopener noreferrer"
+  >
     <button is-~="button">Link to Resume (Google Docs)</button>
   </a>
-</BaseLayout
+</BaseLayout>
