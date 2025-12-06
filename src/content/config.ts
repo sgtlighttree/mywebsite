@@ -14,15 +14,11 @@ const blogCollection = defineCollection({
 
 const portfolioCollection = defineCollection({
   type: 'content',
-  schema: z.object({
+  schema: ({ image }) => z.object({
     title: z.string(),
     pubDate: z.date(),
-    image: z.object({
-      png: z.string().optional(),
-      avif: z.string().optional(),
-      webp: z.string().optional(),
-      alt: z.string(),
-    }).optional(),
+    image: image().optional(),
+    imageAlt: z.string().optional(),
     tags: z.array(z.string()),
     draft: z.boolean().default(false),
   }),
