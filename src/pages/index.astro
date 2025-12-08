@@ -26,7 +26,7 @@ portfolioEntries.sort(
 >
   <div class="portfolio-grid">
     {
-      portfolioEntries.map((entry) => (
+      portfolioEntries.map((entry, index) => (
         <a href={`/portfolio/${entry.slug}`} class="portfolio-item">
           <div class="portfolio-thumbnail-container">
             {entry.data.image && (
@@ -37,6 +37,8 @@ portfolioEntries.sort(
                 sizes="(max-width: 768px) 300px, (max-width: 1200px) 400px, 600px"
                 alt={entry.data.imageAlt || entry.data.title}
                 class="portfolio-thumbnail"
+                loading={index === 0 ? "eager" : "lazy"}
+                fetchpriority={index === 0 ? "high" : "auto"}
               />
             )}
             <div class="portfolio-title-overlay">

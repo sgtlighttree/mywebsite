@@ -34,35 +34,25 @@ This is my personal portfolio site built with:
 - @fontsource-variable/* for hosted fonts
 - @lottiefiles/dotlottie-web (via Vite alias to dist entry)
 
-### Netlify Image CDN (local image transforms)
-Home grid (src/pages/index.astro) uses Netlify Image CDN to generate responsive images at runtime.
-- Use netlify dev locally; npm run preview will not render /.netlify/images URLs.
-- Images are sourced from frontmatter.image and converted to avif/webp/png via CDN.
+### Astro Image Optimization (astro:assets)
+We now use Astro's native image optimization for better performance and build-time processing.
+- **Source**: Images live in `src/assets/images/`.
+- **Usage**: Import images in `.astro` or `.mdx` files, or use relative paths in frontmatter.
+- **Components**: Use `<Picture />` for responsive formats (AVIF/WebP) and `<Image />` for standard optimization.
 
-Helpers from index.astro:
-```ts
-function createNetlifyImageUrl(imagePath: string, width: number = 400, format: string = 'avif') {
-  if (!imagePath) return '';
-  const cleanPath = imagePath.replace(/^(\.\.\/)+/, '/');
-  return `/.netlify/images/?url=${encodeURIComponent(cleanPath)}&w=${width}&q=85&f=${format}`;
-}
+**Helpers removed**: `createNetlifyImageUrl` and `getBestImageFormat` are no longer needed.
 
-function getBestImageFormat(image: any): string | null {
-  // Prefer PNG, then WebP, then AVIF (for best conversion quality)
-  return image?.png || image?.webp || image?.avif || null;
-}
-```
-Frontmatter example for portfolio entries:
+**Frontmatter example for portfolio entries:**
 ```yaml
-image:
-  png: "../../../images/example.png"   # or webp/avif; CDN will convert to requested format
-  alt: "Descriptive alt text"
+image: "../../assets/images/example.png" # Relative path to src/assets
+imageAlt: "Descriptive alt text"
 ```
 
 ## Project Structure
 
 ```
 src/
+├── assets/images/ # Source images (processed by Astro)
 ├── components/    # Reusable UI components (.astro, .jsx)
 ├── content/       # Content Collections
 │   ├── blog/      # Blog posts (.md)
@@ -77,8 +67,8 @@ src/
 │   └── ...        # Other pages (contact, resume, privacy-policy, 404)
 ├── styles/        # Global CSS
 
-public/            # Static assets, images, videos
-├── images/
+public/            # Static assets (favicons, robots.txt, non-optimized images)
+├── images/        # Specific assets bypassed optimization (e.g. animated WebP)
 ├── videos/
 └── wiki/          # Static wiki with live-reload command
 
@@ -126,7 +116,7 @@ A modern, serverless contact form with **hCaptcha** protection:
     - `aria-busy` state and "Sending..." label.
     - **Phone Input**: Custom country picker with copy-paste support (Ctrl/Cmd+V) while enforcing numeric input.
 - **Environment Variables**:
-    - `PUBLIC_HCAPTCHA_SITE_KEY`: Frontend site key.
+    - `PUBLIC_HCAPTCHA_SITE_KEY`: Frontend site key. **Must be in `.env` for local dev**.
     - `SITE_RECAPTCHA_SECRET`: Backend secret key (Netlify standard name).
     - `MAILEROO_*`: SMTP credentials.
 - **Function Hardening**:
@@ -160,8 +150,9 @@ Preact component with lightbox (src/components/PhotoGallery.jsx):
 Usage in MDX:
 ```jsx
 <PhotoGallery client:visible images={[
-  { src: "../../../images/image1.avif", alt: "Descriptive alt text" },
-  { src: "../../../images/image2.webp", alt: "Another description" }
+  { src: "path/to/imported/image", alt: "Descriptive alt text" },
+  // For MDX, import images at the top: import img1 from '../../assets/images/img1.jpg';
+  // Then pass: { src: img1.src, alt: "..." }
 ]} />
 ```
 
@@ -217,7 +208,7 @@ The site is fully optimized for search engines and social sharing with comprehen
 
 ### Social Sharing
 - Default OG image: `/images/MatthewOyan_Monogram3D_Blue1_render01-8bit.png`
-- Portfolio entries use their featured image via frontmatter: `image.avif` → `image.webp` → `image.png` (preference order)
+- Portfolio entries use their featured image via frontmatter: `image` (automatically optimized)
 - All images include alt text for accessibility
 - Twitter handle (@lighttree_gfx) automatically included in all shares
 
@@ -239,11 +230,8 @@ tags: [tag1, tag2]
 title: "Project Title"
 pubDate: 2025-10-27
 description: "Project description"
-image:
-  avif: "../../../images/project.avif"
-  webp: "../../../images/project.webp"
-  png: "../../../images/project.png"
-  alt: "Descriptive alt text for the project"
+image: "../../assets/images/project.png"
+imageAlt: "Descriptive alt text for the project"
 ---
 ```
 
@@ -325,9 +313,9 @@ tags: [design, process]
 Common issues and fixes:
 
 ### Images don’t render locally
-- Ensure you are running `netlify dev` (not `npm run preview`)
-- Verify frontmatter.image paths are correct (relative paths that resolve to /public via the helper)
-- Make sure at least one of png/webp/avif is present in frontmatter.image
+- Ensure images are in `src/assets/images/`.
+- Check relative paths in frontmatter (should be `../../assets/...`).
+- For public assets (e.g. footer animation), ensure they are in `public/images/` and referenced with `/images/...`.
 
 ### Submission rate-limited (HTTP 429)
 - The serverless function throttles repeat submissions (per warm container): wait ~30 seconds and try again.
@@ -377,11 +365,12 @@ Common issues and fixes:
 - **Archive Old Code**: Moved old layout files to src/layouts/archive/ with timestamp for reference ✓ (Sep 2025)
 - **URL Consolidation**: Consolidated writings navigation - `/writing/` index now serves `/blog/` and `/fiction/` subdirectories ✓ (Sep 2025)
 - **Smart Navigation**: Enhanced active highlighting ensures "Writings" tab stays highlighted across all content sections ✓ (Sep 2025)
+- **Astro Image Migration**: Migrated from Netlify Image CDN to `astro:assets`. Moved images to `src/assets`, updated schemas to use `image()` helper, and achieved 100/100 performance score. ✓ (Dec 2025)
 
 ## Performance & Optimization
 
 Current best practices:
-- **Images**: WebP/AVIF with PNG fallback; lazy loading via Astro; Netlify Image CDN for runtime optimization
+- **Images**: `astro:assets` for build-time optimization (AVIF/WebP); LCP eagerly loaded with high priority.
 - **JavaScript**: Minimal bundles via Preact islands; PhotoGallery uses `client:visible` for lazy loading
 - **SEO**: Canonical URLs, sitemap, robots.txt, comprehensive schema markup for crawlers
 - **Caching**: Netlify edge caching with proper headers; CSP policy configured
