@@ -742,6 +742,23 @@ button:hover {
   background-color: #2980b9;
 }
 
+.resume-download-btn {
+  flex: 1;
+
+  /* Ensure the anchor behaves as a flex container for its button */
+}
+
+.resume-download-btn button {
+  width: 100%;
+  margin: 0;
+  justify-content: center;
+  /* Center text if needed */
+}
+
+.resume-download-btn a {
+  color: var(--text-primary) !important;
+}
+
 /* High contrast mode support */
 @media (prefers-contrast: high) {
   .error-message {
@@ -1012,5 +1029,117 @@ html.dark .country-option {
 
   .country-option {
     border-bottom-width: 2px;
+  }
+}
+
+/* Hide print-only header on screen */
+.print-only-header {
+  display: none;
+}
+
+/*────────────────────────────────────────────────────────────────────────────
+   Print Styles
+────────────────────────────────────────────────────────────────────────────*/
+@media print {
+
+  /* Hide UI Chrome & Default Title */
+  header,
+  footer,
+  h1,
+  /* Hides default page title */
+  .resume-download-btn,
+  .about-intro img,
+  body::before {
+    /* Rainbow bar */
+    display: none !important;
+  }
+
+  /* Show Print Header */
+  .print-only-header {
+    display: block !important;
+    margin-bottom: 2rem;
+  }
+
+  /* Reset Layout */
+  html {
+    background-image: none !important;
+    background-color: #ffffff !important;
+  }
+
+  body {
+    background-color: #ffffff !important;
+    color: #000000 !important;
+    border: none !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    font-size: 11pt !important;
+    line-height: 1.4;
+    font-family: inherit;
+    /* Use site font or serif if preferred */
+  }
+
+  /* Typography Adjustments */
+  h1,
+  h2,
+  h3,
+  h4,
+  p,
+  li {
+    color: #000000 !important;
+  }
+
+  /* Custom Header Styling */
+  .print-name {
+    font-size: 24pt;
+    font-weight: 800;
+    line-height: 1.2;
+  }
+
+  .print-title {
+    font-size: 14pt;
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+    color: #444 !important;
+  }
+
+  .print-contact-details {
+    font-size: 10pt;
+    color: #666 !important;
+  }
+
+  /* Inject Contact Info (Hidden in HTML, Split for Obfuscation) */
+  .print-contact-details::before {
+    content: "Quezon City, Philippines \2022  matthew";
+  }
+
+  .print-contact-details::after {
+    content: ".oyan@gmail.com \2022  +63 947 229 0659";
+  }
+
+  /* Content Headings scaling */
+  h2 {
+    font-size: 16pt !important;
+    margin-top: 1.5em;
+    border-bottom: 1px solid #000;
+    padding-bottom: 0.2em;
+  }
+
+  h3 {
+    font-size: 13pt !important;
+    margin-top: 1em;
+    margin-bottom: 0.2em;
+  }
+
+  /* Ensure links handle gracefully */
+  a {
+    text-decoration: none !important;
+    color: #000000 !important;
+  }
+
+  /* Layout adjustments */
+  .about-intro {
+    display: block !important;
   }
 }

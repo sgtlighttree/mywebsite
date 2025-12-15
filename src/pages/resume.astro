@@ -57,6 +57,13 @@ const pageDescription =
     })}
   />
   <div class="about-intro">
+    <!-- Print-only Header -->
+    <div class="print-only-header">
+      <div class="print-name">Matthew Oyan</div>
+      <div class="print-title">Multimedia Creative / Motion Designer</div>
+      <div class="print-contact-details"></div>
+    </div>
+
     <p>
       Matthew Oyan is a multidisciplinary creative with 5+ years of experience
       delivering creative solutions for scripted and live productions. Skilled
@@ -163,12 +170,38 @@ const pageDescription =
       stages of the production pipeline.
     </li>
   </ul>
+
+  <h2>Education and Certificates</h2>
+  <h3>EF SET English Certificate - C2 Proficient</h3>
+  <p>
+    Acquired from the EF SET Test:
+    <a
+      href="https://cert.efset.org/LnxdVR"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      https://cert.efset.org/LnxdVR
+    </a>
+  </p>
+  <h3>Diploma in Media Arts</h3>
+  <p>
+    Acquired from the Eugenio Lopez Jr. Center for Media Arts, Quezon City |
+    June 2018 - June 2020
+  </p>
   <br /><hr style="border-top: 1px dashed var(--border-light)" /><br />
-  <a
-    href="https://docs.google.com/document/d/e/2PACX-1vT3IYTjH59uODKJIrvdPtbDG21zmaIdT_HC3deP17x0i4z5xCnL_JaE8xlouw0YRB_c1klmvVQZExMV/pub"
-    target="_blank"
-    rel="noopener noreferrer"
-  >
-    <button is-~="button">Link to Resume (Google Docs)</button>
-  </a>
+  <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+    <button onclick="window.print()" class="resume-download-btn"
+      >Print Resume</button
+    >
+    <button class="resume-download-btn">
+      <a
+        href="https://docs.google.com/document/d/e/2PACX-1vT3IYTjH59uODKJIrvdPtbDG21zmaIdT_HC3deP17x0i4z5xCnL_JaE8xlouw0YRB_c1klmvVQZExMV/pub"
+        target="_blank"
+        rel="noopener noreferrer"
+        style="text-decoration: none;"
+      >
+        Link to Resume (Google Docs)
+      </a>
+    </button>
+  </div>
 </BaseLayout>
