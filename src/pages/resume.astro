@@ -57,13 +57,21 @@ const pageDescription =
     })}
   />
   <div class="about-intro">
+    <!-- Print-only Header -->
+    <div class="print-only-header">
+      <div class="print-name">Matthew Oyan</div>
+      <div class="print-title">Multimedia Creative / Motion Designer</div>
+      <div class="print-contact-details"></div>
+    </div>
+
     <p>
-      Matthew Oyan is a multidisciplinary creative with 5+ years of experience
-      delivering creative solutions for scripted and live productions. Skilled
-      in motion design, color grading, graphic design, and branding across 2D/3D
-      styles, with proven ability to integrate cutting-edge generative AI tools
-      into traditional workflows. Combines creative vision with practical
-      execution to meet project deadlines and team objectives.
+      Matthew Oyan is Multidisciplinary creative with 5+ years of experience
+      delivering broadcast-quality video for government agencies and corporate
+      leaders. Expert in motion design, color grading, and branding across 2D/3D
+      styles, with a proven track record of integrating AI-augmented tools to
+      accelerate production without sacrificing artistic integrity. Known for
+      balancing creative vision with the technical discipline required to meet
+      strict broadcast deadlines and team objectives.
       <br /><br />
       He posseses a Diploma in Media Arts acquired from the Eugenio Lopez Jr. Center
       for Media Arts.
@@ -83,15 +91,43 @@ const pageDescription =
     Business Unusual Media Solutions Inc, BGC, Taguig | February 2021 - Present
   </p>
   <ul>
-    <li>
+    <!-- <li>
       Managed end-to-end multimedia production for live and scripted
       productions, including live event broadcast direction; LED screen content
       design; visual branding and graphics creation; video editing; motion
       graphics development; and color grading for a multitude of platforms.
+    </li> -->
+    <li>
+      <strong>Directed and executed</strong> end-to-end multimedia production for
+      live and scripted broadcasts, encompassing visual branding, motion graphics,
+      and color grading to ensure broadcast-quality delivery.
     </li>
     <li>
-      Worked with a diverse array of corporate and government clients,
-      including:
+      <strong>Supervised post-production efforts</strong> for television documentary
+      content for national government agencies, including the DENR-Biodiversity Management
+      Bureau (Our Fragile Earth, for two seasons in 2021 and 2025) and the National
+      Commission for Culture and the Arts (Usapang Wika (2022)), coordinating camera,
+      sound, motion graphics, and ensured broadcast compliance.
+    </li>
+    <li>
+      <strong>Led creative production</strong> for major campaigns, notably the "Make
+      It Happen In The Philippines" FDI campaign for DTI-Board of Investments and
+      the 2025 Presidential Awards for MSMEs held at Malacañang Palace.
+    </li>
+    <li>
+      <strong>Managed end-to-end event technical production</strong> including stage
+      visuals, live switching, and on-site troubleshooting for government and corporate
+      clients like the Philippine Charity and Sweepstakes Office (PCSO) in 2025,
+      Philippine Deposit Insurance Corporation (PDIC) in 2024, and Nippon Paint Philippines
+      (AYDA Awards) in 2021–2023; in both remote and physical settings.
+    </li>
+    <li>
+      <strong>Created informational and marketing videos</strong> on diverse topics
+      for financial institutions, including Land Bank of the Philippines/Overseas
+      Filipino Bank.
+    </li>
+    <li>
+      Clients and Projects Include:
       <ul>
         <li>
           DENR-Biodiversity Management Bureau
@@ -129,10 +165,17 @@ const pageDescription =
             2025 Presidential Awards for Micro, Small, and Medium Enterprises
             (MSMEs) and Outstanding Development Partners
           </li>
-          <li>2024 Micro, Small and Medium Enterprise Summit</li>
-          <li>2023 Micro, Small and Medium Enterprise Summit</li>
+          <li>2024 Micro, Small, and Medium Enterprise Summit</li>
+          <li>2023 Micro, Small, and Medium Enterprise Summit</li>
         </ul>
         <li>Nippon Paint Philippines</li>
+        <ul>
+          <li>Asia Young Designer Awards (AYDA) 2021-2023</li>
+        </ul>
+        <li>Philippine Charity and Sweepstakes Office (PCSO)</li>
+        <ul>
+          <li>PCSO 90th Anniversary 2025</li>
+        </ul>
       </ul>
     </li>
   </ul>
@@ -163,12 +206,36 @@ const pageDescription =
       stages of the production pipeline.
     </li>
   </ul>
+
+  <h2>Education and Certificates</h2>
+  <h3>EF SET English Certificate - C2 Proficient</h3>
+  <p>
+    Acquired from the EF SET Test:
+    <a
+      href="https://cert.efset.org/LnxdVR"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      https://cert.efset.org/LnxdVR
+    </a>
+  </p>
+  <h3>Diploma in Media Arts</h3>
+  <p>
+    Acquired from the Eugenio Lopez Jr. Center for Media Arts, Quezon City |
+    June 2018 - June 2020
+  </p>
   <br /><hr style="border-top: 1px dashed var(--border-light)" /><br />
-  <a
-    href="https://docs.google.com/document/d/e/2PACX-1vT3IYTjH59uODKJIrvdPtbDG21zmaIdT_HC3deP17x0i4z5xCnL_JaE8xlouw0YRB_c1klmvVQZExMV/pub"
-    target="_blank"
-    rel="noopener noreferrer"
-  >
-    <button is-~="button">Link to Resume (Google Docs)</button>
-  </a>
+  <div class="resume-actions">
+    <button onclick="window.print()" class="resume-download-btn"
+      >Print Resume</button
+    >
+    <a
+      href="https://docs.google.com/document/d/e/2PACX-1vT3IYTjH59uODKJIrvdPtbDG21zmaIdT_HC3deP17x0i4z5xCnL_JaE8xlouw0YRB_c1klmvVQZExMV/pub"
+      target="_blank"
+      rel="noopener noreferrer"
+      class="resume-download-btn"
+    >
+      Link to Resume (Google Docs)
+    </a>
+  </div>
 </BaseLayout>
