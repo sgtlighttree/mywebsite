@@ -12,7 +12,7 @@
   /* Interactive elements */
   --border-light: #808080;
   --border-dark: #404040;
-  --hover-bg: #2f2f2f;
+  --hover-bg: #2980b9;
   --hover-text: #ffffff;
 
   /* Navigation specific */
@@ -58,8 +58,8 @@ html.dark {
   /* Interactive elements */
   --border-light: #5a2a73;
   --border-dark: #7d4094;
-  --hover-bg: #e5c8f6;
-  --hover-text: #592556;
+  --hover-bg: #2980b9;
+  --hover-text: #ffffff;
 
   /* Navigation specific */
   --nav-bg: var(--bg-secondary);
@@ -725,25 +725,34 @@ button:disabled {
   cursor: not-allowed;
 }
 
-button:hover {
-  background-color: #2980b9;
+.resume-actions {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-top: 1rem;
 }
 
 .resume-download-btn {
   flex: 1;
-
-  /* Ensure the anchor behaves as a flex container for its button */
-}
-
-.resume-download-btn button {
-  width: 100%;
-  margin: 0;
+  display: flex;
+  align-items: center;
   justify-content: center;
-  /* Center text if needed */
+  text-decoration: none;
+  padding: 0.5rem;
+  margin-bottom: 1em;
+  background: var(--bg-primary);
+  border: 1px solid var(--border-light);
+  border-bottom: 3px solid var(--border-dark);
+  font: inherit;
+  color: var(--text-primary);
+  cursor: pointer;
+  text-align: center;
 }
 
-.resume-download-btn a {
-  color: var(--text-primary) !important;
+.resume-download-btn:hover,
+.resume-download-btn:focus {
+  background-color: var(--hover-bg);
+  color: var(--hover-text) !important;
 }
 
 /* High contrast mode support */
