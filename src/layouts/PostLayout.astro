@@ -7,6 +7,8 @@ const isBlogPost = Astro.url.pathname.startsWith("/blog/");
 const isFiction = Astro.url.pathname.startsWith("/fiction/");
 const isPortfolio = Astro.url.pathname.startsWith("/portfolio/");
 const showFooterCta = isPortfolio && !(isBlogPost || isFiction);
+const baseUrl = Astro.site ?? new URL(Astro.url.origin);
+const absoluteUrl = (path: string) => new URL(path, baseUrl).href;
 
 // Get OG image from frontmatter if available (portfolio entries)
 let ogImage: string | undefined;
@@ -29,7 +31,7 @@ if (frontmatter.image) {
 >
   {
     (isBlogPost || isFiction) && (
-      <>
+      <Fragment slot="head">
         <meta
           property="article:published_time"
           content={new Date(frontmatter.pubDate).toISOString()}
@@ -44,7 +46,7 @@ if (frontmatter.image) {
           property="article:author"
           content={frontmatter.author || "Matthew Oyan"}
         />
-      </>
+      </Fragment>
     )
   }
   <p><em>{frontmatter.description}</em></p>
@@ -115,7 +117,7 @@ if (frontmatter.image) {
           name: "Matthew Oyan",
         },
         url: Astro.url.href,
-        ...(ogImage ? { image: ogImage } : {}),
+        ...(ogImage ? { image: absoluteUrl(ogImage) } : {}),
       })}
     />
   )

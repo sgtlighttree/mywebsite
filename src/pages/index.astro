@@ -7,6 +7,8 @@ const pageTitle = "Selected Work";
 const metaTitle = "Matthew Oyan - Multimedia Artist Portfolio";
 const pageDescription =
   "Selected work and projects by Matthew Oyan, a multimedia artist working in various digital media and live events, based in the Philippines.";
+const baseUrl = Astro.site ?? new URL(Astro.url.origin);
+const absoluteUrl = (path) => new URL(path, baseUrl).href;
 
 // Fetch all portfolio entries
 const portfolioEntries = await getCollection("portfolio", ({ data }) => {
@@ -59,13 +61,13 @@ portfolioEntries.sort(
     name: metaTitle,
     description: pageDescription,
     url: Astro.url.href,
-    image: "/images/MatthewOyan_2025_headshot_optimized_65.webp",
+    image: absoluteUrl("/images/MatthewOyan_2025_headshot_optimized_65.webp"),
     publisher: {
       "@type": "Organization",
       name: "Matthew Oyan",
       logo: {
         "@type": "ImageObject",
-        url: "/favicon.svg",
+        url: absoluteUrl("/favicon.svg"),
       },
     },
   })}

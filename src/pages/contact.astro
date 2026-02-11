@@ -2,9 +2,15 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Social from "../components/Social.astro";
 const pageTitle = "Get In Touch";
+const pageDescription =
+  "Contact Matthew Oyan about multimedia, motion design, and live event projects.";
 ---
 
-<BaseLayout pageTitle={pageTitle} showFooterCta={false}>
+<BaseLayout
+  pageTitle={pageTitle}
+  pageDescription={pageDescription}
+  showFooterCta={false}
+>
   <style>
     /* Contact form-specific styles */
     @media screen and (min-width: 769px) {

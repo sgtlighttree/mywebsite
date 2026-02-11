@@ -7,6 +7,8 @@ const pageTitle = "Resume";
 const metaTitle = "Matthew Oyan - Resume";
 const pageDescription =
   "Resume of Matthew Oyan, a 5+ years experienced multimedia artist working in various digital media and live events, based in the Philippines.";
+const baseUrl = Astro.site ?? new URL(Astro.url.origin);
+const absoluteUrl = (path) => new URL(path, baseUrl).href;
 ---
 
 <BaseLayout
@@ -20,8 +22,8 @@ const pageDescription =
       "@context": "https://schema.org",
       "@type": "Person",
       name: "Matthew Oyan",
-      url: "https://matthewoyan.com",
-      image: "/images/MatthewOyan_2025_headshot_optimized_65.webp",
+      url: baseUrl.href,
+      image: absoluteUrl("/images/MatthewOyan_2025_headshot_optimized_65.webp"),
       jobTitle: "Multimedia Creative / Motion Designer",
       description:
         "Multidisciplinary creative with 5+ years of experience delivering creative solutions for scripted and live productions. Skilled in motion design, color grading, graphic design, and branding across 2D/3D styles.",

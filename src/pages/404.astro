@@ -4,6 +4,7 @@ import Social from '../components/Social.astro';
 const pageTitle = "Page Not Found";
 ---
 <BaseLayout pageTitle={pageTitle} showFooterCta={false}>
+  <meta slot="head" name="robots" content="noindex, nofollow" />
   <main>
     <a href="/">
       <button is-~="button"><h3>Return to the homepage</h3></button>

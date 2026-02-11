@@ -22,6 +22,8 @@ const siteName = "Matthew Oyan";
 const finalTabTitle = metaTitle ? metaTitle : `${siteName} - ${pageTitle}`;
 const defaultOgImage = "/images/MatthewOyan_Monogram3D_Blue1_render01-8bit.png";
 const finalOgImage = ogImage || defaultOgImage;
+const baseUrl = Astro.site ?? new URL(Astro.url.origin);
+const absoluteUrl = (path: string) => new URL(path, baseUrl).href;
 ---
 
 <html lang="en">
@@ -43,7 +45,7 @@ const finalOgImage = ogImage || defaultOgImage;
         <meta property="og:description" content={pageDescription} />
       )
     }
-    <meta property="og:image" content={finalOgImage} />
+    <meta property="og:image" content={absoluteUrl(finalOgImage)} />
     <meta property="og:image:alt" content={pageTitle} />
 
     <!-- Twitter -->
@@ -56,9 +58,10 @@ const finalOgImage = ogImage || defaultOgImage;
         <meta property="twitter:description" content={pageDescription} />
       )
     }
-    <meta property="twitter:image" content={finalOgImage} />
+    <meta property="twitter:image" content={absoluteUrl(finalOgImage)} />
     <meta property="twitter:image:alt" content={pageTitle} />
     <meta property="twitter:creator" content="@lighttree_gfx" />
+    <slot name="head" />
   </head>
   <body>
     <Header />

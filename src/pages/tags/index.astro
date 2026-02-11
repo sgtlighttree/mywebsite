@@ -21,9 +21,10 @@ const normalizedFiction = fictionEntries.map((entry) => ({
 const allPosts = [...normalizedBlog, ...normalizedFiction];
 const tags = [...new Set(allPosts.map((post) => post.tags).flat())];
 const pageTitle = "Tag Index";
+const pageDescription = "Browse all writing tags on the site.";
 ---
 
-<BaseLayout pageTitle={pageTitle}>
+<BaseLayout pageTitle={pageTitle} pageDescription={pageDescription}>
   <div class="tags">
     {
       tags.map((tag) => (

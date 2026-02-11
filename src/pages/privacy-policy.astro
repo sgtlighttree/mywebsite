@@ -1,9 +1,15 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 const pageTitle = "Privacy Policy";
+const pageDescription =
+  "Privacy policy for the contact form and data handling on this site.";
 ---
 
-<BaseLayout pageTitle={pageTitle} showFooterCta={false}>
+<BaseLayout
+  pageTitle={pageTitle}
+  pageDescription={pageDescription}
+  showFooterCta={false}
+>
   <style>
     .privacy-policy h1 {
       border-bottom: 3px solid var(--border-dark);
