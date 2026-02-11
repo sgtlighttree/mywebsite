@@ -8,7 +8,7 @@ const metaTitle = "Matthew Oyan - Resume";
 const pageDescription =
   "Resume of Matthew Oyan, a 5+ years experienced multimedia artist working in various digital media and live events, based in the Philippines.";
 const baseUrl = Astro.site ?? new URL(Astro.url.origin);
-const absoluteUrl = (path) => new URL(path, baseUrl).href;
+const absoluteUrl = (path: string) => new URL(path, baseUrl).href;
 ---
 
 <BaseLayout
